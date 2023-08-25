@@ -40,8 +40,6 @@ export const actions: Actions = {
 			} as FormResponse);
 		}
 
-		console.log(email, password);
-
 		const { error } = await supabase.auth.signInWithPassword({ email, password });
 
 		if (error) {

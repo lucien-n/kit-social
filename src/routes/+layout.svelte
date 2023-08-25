@@ -32,9 +32,6 @@
 			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
 			}
-
-			if (session) profileStore.set(await getProfile({ supabase, uid: session.user.id }));
-			else profileStore.set(null);
 		});
 
 		return () => data.subscription.unsubscribe();

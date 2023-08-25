@@ -23,7 +23,9 @@
 			</div>
 		</a>
 		<div class="flex h-full items-center justify-center">
-			<a href="/auth/signout" aria-label="signout"><Icon icon="mdi:logout" width={32} /></a>
+			<a href="/auth/signout" aria-label="signout" data-sveltekit-reload
+				><Icon icon="mdi:logout" width={32} /></a
+			>
 		</div>
 	</section>
 {/if}
