@@ -36,7 +36,7 @@
 	<div>
 		<Avatar initials={$profileStore?.name[0]} width="w-12" />
 	</div>
-	<form method="post" class=" flex h-full w-full flex-col" use:enhance={handleSubmit}>
+	<form method="post" class="relative flex h-full w-full flex-col" use:enhance={handleSubmit}>
 		<div class="pointer-events-none absolute p-1 text-xl opacity-70" class:hidden={hidePlaceholder}>
 			What's poppin {$profileStore?.name}?
 		</div>
