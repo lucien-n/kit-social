@@ -16,9 +16,18 @@ export const getPost = async ({ supabase, match }: GetArgs): Promise<SupaPost | 
 	}
 };
 
-export const getPosts = async ({ supabase, match }: GetArgs): Promise<SupaPost[] | null> => {
+export const getPosts = async ({
+	supabase,
+	match,
+	limit = 10,
+	offset = 0
+}: GetArgs): Promise<SupaPost[] | null> => {
 	try {
-		const { data, error } = await supabase.from('posts').select('*').match(match);
+		const { data, error } = await supabase
+			.from('posts')
+			.select('*')
+			.match(match)
+			.range(offset, offset + limit);
 
 		if (error) throw new Error(error.message);
 
