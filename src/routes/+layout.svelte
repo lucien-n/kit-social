@@ -40,8 +40,16 @@
 
 <!-- App Shell -->
 <AppShell>
-	<svelte:fragment slot="sidebarRight">
-		<AppRail width="w-72">
+	<svelte:fragment slot="sidebarLeft">
+		<AppRail width="w-60">
+			<svelte:fragment slot="lead">
+				<a href="/" class="flex items-center gap-2 p-3">
+					<span class="flex self-end">
+						<Icon icon="mdi-light:home" width={32} />
+					</span>
+					<h3 class="h3">Social</h3>
+				</a>
+			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
 					<ProfileCard />
@@ -64,6 +72,7 @@
 			</svelte:fragment>
 		</AppRail>
 	</svelte:fragment>
+	<svelte:fragment slot="sidebarRight" />
 	<!-- Page Route Content -->
 	<slot />
 </AppShell>
