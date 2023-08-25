@@ -3,10 +3,9 @@
 	import { getProfile } from '$supa/profiles';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import type { SupabaseClient } from '@supabase/supabase-js';
-	import { fade, fly } from 'svelte/transition';
-	import PostPlaceholder from './PostPlaceholder.svelte';
+	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
-	import { profileStore } from '$stores/profiles';
+	import { profilesStore } from '$stores/profiles';
 
 	export let supabase: SupabaseClient;
 	export let post: SupaPost;
@@ -14,13 +13,13 @@
 	let postAuthor: SupaProfile | null;
 
 	onMount(async () => {
-		if (profileStore.contains({ uid: post.author_uid })) {
-			postAuthor = profileStore.get({ uid: post.author_uid });
+		if (profilesStore.contains({ uid: post.author_uid })) {
+			postAuthor = profilesStore.get({ uid: post.author_uid });
 			return;
 		}
 
 		postAuthor = await getProfile({ supabase, match: { uid: post.author_uid } });
-		if (postAuthor) profileStore.add(postAuthor);
+		if (postAuthor) profilesStore.add(postAuthor);
 	});
 </script>
 

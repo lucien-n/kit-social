@@ -1,7 +1,6 @@
 import { writable, type Subscriber, type Writable, type Invalidator } from 'svelte/store';
 
 type SupaProfileMap = { [uid: string]: SupaProfile };
-export const profilesStore: Writable<SupaProfileMap> = writable({});
 
 type ProfilesStore = {
 	subscribe: (
@@ -70,3 +69,5 @@ function createProfilesStore(): ProfilesStore {
 		get
 	};
 }
+
+export const profilesStore: ProfilesStore = createProfilesStore();
