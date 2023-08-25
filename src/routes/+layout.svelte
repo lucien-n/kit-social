@@ -20,6 +20,7 @@
 	import ProfileCard from '$comp/ProfileCard.svelte';
 	import { profileStore } from '$stores/profile';
 	import { getProfile } from '$supa/profiles';
+	import Icon from '@iconify/svelte';
 
 	export let data;
 
@@ -42,24 +43,26 @@
 
 <!-- App Shell -->
 <AppShell>
-	<svelte:fragment slot="header">
-		<!-- App Bar -->
-		<AppBar padding="p-0" gap="gap-0" spacing="space-x-0">
-			<svelte:fragment slot="lead">
-				<a href="/">
-					<strong class="text-xl uppercase">Social</strong>
-				</a>
-			</svelte:fragment>
-		</AppBar>
-	</svelte:fragment>
 	<svelte:fragment slot="sidebarRight">
 		<AppRail width="w-72">
 			<svelte:fragment slot="trail">
 				{#if session}
 					<ProfileCard />
 				{:else}
-					<a href="/auth/signin" class="btn">Sign In</a>
-					<a href="/auth/signup" class="btn">Sign Up</a>
+					<div class="flex w-full flex-col gap-3 p-2">
+						<a href="/auth/signin" class="variant-ghost-surface btn"
+							><p>Sign In</p>
+							<span class="flex self-center">
+								<Icon icon="mdi:login" width={20} />
+							</span>
+						</a>
+						<a href="/auth/signup" class="variant-ghost-surface btn"
+							><p>Sign Up</p>
+							<span class="flex self-center">
+								<Icon icon="mdi:register" width={20} />
+							</span>
+						</a>
+					</div>
 				{/if}
 			</svelte:fragment>
 		</AppRail>

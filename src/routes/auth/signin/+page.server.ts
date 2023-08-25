@@ -40,6 +40,8 @@ export const actions: Actions = {
 			} as FormResponse);
 		}
 
+		console.log(email, password);
+
 		const { error } = await supabase.auth.signInWithPassword({ email, password });
 
 		if (error) {
@@ -59,6 +61,6 @@ export const actions: Actions = {
 			} as FormResponse);
 		}
 
-		throw redirect(303, '/dashboard');
+		throw redirect(303, '/');
 	}
 };
