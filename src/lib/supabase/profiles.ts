@@ -1,13 +1,13 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-type GetProgileArgs = {
+type GetProfileArgs = {
 	supabase: SupabaseClient;
 	match: object;
 };
 export const getProfile = async ({
 	supabase,
 	match
-}: GetProgileArgs): Promise<SupaProfile | null> => {
+}: GetProfileArgs): Promise<SupaProfile | null> => {
 	try {
 		const { data, error } = await supabase.from('profiles').select('*').match(match);
 
