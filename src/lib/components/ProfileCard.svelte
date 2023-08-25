@@ -7,7 +7,7 @@
 {#if $profileStore}
 	<section class="flex h-full justify-between gap-3 p-3">
 		<a
-			href="/p/{$profileStore.name}"
+			href="/u/{$profileStore.name}"
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
 			<div class="relative">

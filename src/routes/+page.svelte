@@ -10,18 +10,21 @@
 	let { supabase } = data;
 </script>
 
-<div class="container mx-auto flex w-full flex-col">
+<div class="container mx-auto flex w-2/3 flex-col gap-3">
 	{#if form?.error}
 		<p>{form.error}</p>
 	{/if}
 	<CreatePost {form} />
+	<hr />
 	{#await getPosts({ supabase, match: {} })}
 		<h1 class="h1 w-full text-center">Fetching posts</h1>
 	{:then posts}
 		{#if posts && posts.length > 0}
-			{#each posts as post}
-				<Post {post} />
-			{/each}
+			<section id="posts" class="flex flex-col gap-3">
+				{#each posts as post}
+					<Post {supabase} {post} />
+				{/each}
+			</section>
 		{:else}
 			<h1 class="h1 w-full text-center">No post found</h1>
 		{/if}
