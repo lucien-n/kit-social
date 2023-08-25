@@ -2,19 +2,14 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 type GetProgileArgs = {
 	supabase: SupabaseClient;
-	uid: string;
-	match?: object;
+	match: object;
 };
 export const getProfile = async ({
 	supabase,
-	uid,
 	match
 }: GetProgileArgs): Promise<SupaProfile | null> => {
 	try {
-		const { data, error } = await supabase
-			.from('profiles')
-			.select('*')
-			.match({ uid, ...match });
+		const { data, error } = await supabase.from('profiles').select('*').match(match);
 
 		if (error) throw new Error(error.message);
 

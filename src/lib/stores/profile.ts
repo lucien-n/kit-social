@@ -21,7 +21,10 @@ function createProfileStore(): ProfileStore {
 			if (!profile && !uid) return null;
 
 			const func = async () => {
-				const new_profile = await getProfile({ supabase, uid: uid || profile?.uid || '' });
+				const new_profile = await getProfile({
+					supabase,
+					match: { uid: uid || profile?.uid || '' }
+				});
 				if (new_profile) set(new_profile);
 			};
 			func();
