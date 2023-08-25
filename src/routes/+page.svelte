@@ -1,5 +1,3 @@
-<div class="row flex-center flex">
-	<div class="col-6 form-widget">
-		<h1>hi</h1>
-	</div>
+<div class="container mx-auto flex w-full">
+	<h1>hi</h1>
 </div>

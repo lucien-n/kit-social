@@ -18,6 +18,7 @@
 	// #==========[ END OF SKELETON SHANANIGANS ]==========#
 
 	import Icon from '@iconify/svelte';
+	import ProfileDropdown from '$comp/ProfileDropdown.svelte';
 
 	export let data;
 
@@ -39,7 +40,7 @@
 <AppShell>
 	<svelte:fragment slot="header">
 		<!-- App Bar -->
-		<AppBar padding="p-0">
+		<AppBar padding="p-0" gap="gap-0" spacing="space-x-0">
 			<svelte:fragment slot="lead">
 				<a href="/">
 					<strong class="text-xl uppercase">Social</strong>
@@ -47,12 +48,10 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
-					<button class="variant-glass-surface h-full">
-						<Icon icon="mdi-light:account" width={32} />
-					</button>
+					<ProfileDropdown />
 				{:else}
-					<a href="/auth/signin">Sign In</a>
-					<a href="/auth/signup">Sign Up</a>
+					<a href="/auth/signin" class="btn">Sign In</a>
+					<a href="/auth/signup" class="btn">Sign Up</a>
 				{/if}
 			</svelte:fragment>
 		</AppBar>
