@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+
+* {
+	border-radius: 0 !important;
+}
+
+.app-bar-slot-lead > *,
+.app-bar-slot-default > *,
+.app-bar-slot-trail > * {
+	padding: 1rem;
+}
