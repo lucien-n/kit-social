@@ -14,21 +14,18 @@ export interface Database {
           author_uid: string
           content: string
           created_at: string
-          title: string
           uid: string
         }
         Insert: {
           author_uid: string
           content: string
           created_at?: string
-          title: string
           uid?: string
         }
         Update: {
           author_uid?: string
           content?: string
           created_at?: string
-          title?: string
           uid?: string
         }
         Relationships: [

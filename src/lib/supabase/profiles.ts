@@ -1,13 +1,6 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { GetArgs } from './types';
 
-type GetProfileArgs = {
-	supabase: SupabaseClient;
-	match: object;
-};
-export const getProfile = async ({
-	supabase,
-	match
-}: GetProfileArgs): Promise<SupaProfile | null> => {
+export const getProfile = async ({ supabase, match }: GetArgs): Promise<SupaProfile | null> => {
 	try {
 		const { data, error } = await supabase.from('profiles').select('*').match(match);
 
