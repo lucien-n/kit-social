@@ -19,10 +19,12 @@
 	<div class="card w-full p-4 lg:w-1/2 xl:w-1/3">
 		<h3 class="h3 text-center">Sign Up</h3>
 		{#if form?.error}
-			<div class="px-2 py-1 variant-ghost-error">{form.error}</div>
+			<br />
+			<div class="variant-ghost-error px-2 py-1">{form.error}</div>
 		{/if}
 		{#if form?.message}
-			<div class="px-2 py-1 variant-ghost-primary">{form.message}</div>
+			<br />
+			<div class="variant-ghost-primary px-2 py-1">{form.message}</div>
 		{/if}
 		<br />
 		<form method="post" use:enhance={handleSubmit} class="flex flex-col gap-y-2">

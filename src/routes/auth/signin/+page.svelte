@@ -17,29 +17,15 @@
 
 <section class="flex h-full w-full items-center justify-center">
 	<div class="card w-full p-4 lg:w-1/2 xl:w-1/3">
-		<form
-			class="mb-2 flex w-full justify-center gap-3"
-			action="/?/signin-with-oauth"
-			method="post"
-			use:enhance={handleSubmit}
-		>
-			<button class="variant-ghost-primary btn" name="provider" value="github" type="submit"
-				>GitHub</button
-			>
-			<button class="variant-ghost-primary btn" name="provider" value="google" type="submit"
-				>Google</button
-			>
-		</form>
-
 		<h3 class="h3 text-center">Sign In</h3>
 		{#if form?.error}
+			<br />
 			<div class="variant-ghost-error px-2 py-1">{form.error}</div>
 		{/if}
 
 		<br />
 
-		<!-- else content -->
-		<form action="/?/signin-with-password" method="post" use:enhance={handleSubmit}>
+		<form method="post" use:enhance={handleSubmit}>
 			<section>
 				<label for="email" class="label">Email</label>
 				<input

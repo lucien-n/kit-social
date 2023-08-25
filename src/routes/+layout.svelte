@@ -1,7 +1,7 @@
 <script lang="ts">
 	// #==========[ START OF SKELETON SHANANIGANS ]==========#
 	import '../app.postcss';
-	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, AppRail } from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js';
@@ -17,8 +17,9 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	// #==========[ END OF SKELETON SHANANIGANS ]==========#
 
-	import Icon from '@iconify/svelte';
-	import ProfileDropdown from '$comp/ProfileDropdown.svelte';
+	import ProfileCard from '$comp/ProfileCard.svelte';
+	import { profileStore } from '$stores/profile';
+	import { getProfile } from '$supa/profiles';
 
 	export let data;
 
@@ -26,10 +27,13 @@
 	$: ({ supabase, session } = data);
 
 	onMount(() => {
-		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
+		const { data } = supabase.auth.onAuthStateChange(async (event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
 			}
+
+			if (session) profileStore.set(await getProfile({ supabase, uid: session.user.id }));
+			else profileStore.set(null);
 		});
 
 		return () => data.subscription.unsubscribe();
@@ -46,15 +50,19 @@
 					<strong class="text-xl uppercase">Social</strong>
 				</a>
 			</svelte:fragment>
+		</AppBar>
+	</svelte:fragment>
+	<svelte:fragment slot="sidebarRight">
+		<AppRail width="w-72">
 			<svelte:fragment slot="trail">
 				{#if session}
-					<ProfileDropdown />
+					<ProfileCard />
 				{:else}
 					<a href="/auth/signin" class="btn">Sign In</a>
 					<a href="/auth/signup" class="btn">Sign Up</a>
 				{/if}
 			</svelte:fragment>
-		</AppBar>
+		</AppRail>
 	</svelte:fragment>
 	<!-- Page Route Content -->
 	<slot />

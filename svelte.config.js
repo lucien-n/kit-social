@@ -14,8 +14,10 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
-			$comp: 'src/lib/components',
-			$types: 'src/lib/types'
+			"$comp": 'src/lib/components',
+			"$types": 'src/lib/types',
+			"$stores": 'src/lib/stores',
+			"$supa": 'src/lib/supabase'
 		}
 	}
 };
