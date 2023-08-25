@@ -5,4 +5,5 @@ export type GetArgs = {
 	match: object;
 	limit?: number;
 	offset?: number;
+	ascending?: boolean;
 };

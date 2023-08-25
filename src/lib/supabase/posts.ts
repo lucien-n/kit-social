@@ -20,14 +20,16 @@ export const getPosts = async ({
 	supabase,
 	match,
 	limit = 10,
-	offset = 0
+	offset = 0,
+	ascending = false
 }: GetArgs): Promise<SupaPost[] | null> => {
 	try {
 		const { data, error } = await supabase
 			.from('posts')
 			.select('*')
 			.match(match)
-			.range(offset, offset + limit);
+			.range(offset, offset + limit)
+			.order('created_at', { ascending });
 
 		if (error) throw new Error(error.message);
 
