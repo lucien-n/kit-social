@@ -6,6 +6,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import PostPlaceholder from './PostPlaceholder.svelte';
 	import { onMount } from 'svelte';
+	import { profileStore } from '$stores/profiles';
 
 	export let supabase: SupabaseClient;
 	export let post: SupaPost;
@@ -13,7 +14,13 @@
 	let postAuthor: SupaProfile | null;
 
 	onMount(async () => {
+		if (profileStore.contains({ uid: post.author_uid })) {
+			postAuthor = profileStore.get({ uid: post.author_uid });
+			return;
+		}
+
 		postAuthor = await getProfile({ supabase, match: { uid: post.author_uid } });
+		if (postAuthor) profileStore.add(postAuthor);
 	});
 </script>
 
