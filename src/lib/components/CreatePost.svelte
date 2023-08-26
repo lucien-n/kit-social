@@ -38,7 +38,7 @@
 	</div>
 	<form method="post" class="relative flex h-full w-full flex-col" use:enhance={handleSubmit}>
 		<div class="pointer-events-none absolute p-1 text-xl opacity-70" class:hidden={hidePlaceholder}>
-			What's poppin {$profileStore?.name}?
+			What's poppin {$profileStore?.name || ''}?
 		</div>
 		<div
 			bind:textContent={content}
