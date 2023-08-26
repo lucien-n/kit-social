@@ -40,24 +40,30 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string | null
-          created_at: string | null
+          created_at: string
           name: string
+          restricted: boolean
           uid: string
-          updated_at: string | null
+          updated_at: string
+          verified: boolean
         }
         Insert: {
           avatar_url?: string | null
-          created_at?: string | null
+          created_at?: string
           name: string
+          restricted?: boolean
           uid: string
-          updated_at?: string | null
+          updated_at?: string
+          verified?: boolean
         }
         Update: {
           avatar_url?: string | null
-          created_at?: string | null
+          created_at?: string
           name?: string
+          restricted?: boolean
           uid?: string
-          updated_at?: string | null
+          updated_at?: string
+          verified?: boolean
         }
         Relationships: [
           {
