@@ -1,4 +1,4 @@
-import { writable, type Subscriber, type Writable, type Invalidator } from 'svelte/store';
+import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
 type SupaProfileMap = { [uid: string]: SupaProfile };
 
@@ -31,15 +31,7 @@ function createProfilesStore(): ProfilesStore {
 
 	const add = (profile: SupaProfile) => {
 		update((profiles: SupaProfileMap) => {
-			const profilesLength = Object.keys(profiles).length;
-			if (profilesLength > 20) {
-				const newProfiles: SupaProfileMap = {};
-				for (let i = 0; i < 20; i++) {
-					const uid = Object.keys(profiles)[profilesLength - 20 + i];
-					if (uid == profile.uid) newProfiles[uid] = profile;
-					newProfiles[uid] = profiles[uid];
-				}
-			} else if (profile.uid && !contains({ uid: profile.uid })) {
+			if (profile.uid && !contains({ uid: profile.uid })) {
 				profiles[profile.uid] = profile;
 			}
 
