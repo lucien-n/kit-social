@@ -9,9 +9,9 @@ export const getProfile = async ({ supabase, match }: GetArgs): Promise<SupaProf
 		const profile = data?.[0];
 
 		if (profile) return profile;
-		else throw new Error('Profile not found');
 	} catch (e) {
 		console.warn(e);
-		throw e;
 	}
+
+	return null;
 };

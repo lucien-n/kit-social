@@ -9,11 +9,11 @@ export const getPost = async ({ supabase, match }: GetArgs): Promise<SupaPost | 
 		const post = data?.[0];
 
 		if (post) return post;
-		else throw new Error('Profile not found');
 	} catch (e) {
 		console.warn(e);
-		throw e;
 	}
+
+	return null;
 };
 
 export const getPosts = async ({
@@ -36,9 +36,9 @@ export const getPosts = async ({
 		const posts = data;
 
 		if (posts) return posts;
-		else throw new Error('Profile not found');
 	} catch (e) {
 		console.warn(e);
-		throw e;
 	}
+
+	return null;
 };
