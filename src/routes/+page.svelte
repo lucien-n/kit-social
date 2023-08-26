@@ -21,7 +21,7 @@
 	{/if}
 	<CreatePost {form} />
 	<hr />
-	{#await getPosts({ supabase, match: {} })}
+	{#await getPosts({ supabase, match: { restricted: false } })}
 		{#each { length: 10 } as _}
 			<PostPlaceholder />
 		{/each}
