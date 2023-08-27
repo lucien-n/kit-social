@@ -9,8 +9,16 @@
 
 	let is_online = false;
 
+	const MAX_REFETCH = 20;
+	let current_refetch_count = 0;
+
 	onMount(async () => {
 		is_online = await isOnline(profile.uid);
+		const interval = setInterval(async () => {
+			is_online = await isOnline(profile.uid);
+			current_refetch_count++;
+			if (current_refetch_count >= MAX_REFETCH) clearInterval(interval);
+		}, 2 * 60 * 1000);
 	});
 </script>
 
