@@ -116,6 +116,13 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      is_following: {
+        Args: {
+          follower_uid: string
+          followed_uid: string
+        }
+        Returns: boolean
+      }
       is_online: {
         Args: {
           user_uid: string
