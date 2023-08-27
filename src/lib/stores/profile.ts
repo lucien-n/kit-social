@@ -1,4 +1,3 @@
-import { getProfile } from '$supa/profiles';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
@@ -21,10 +20,12 @@ function createProfileStore(): ProfileStore {
 			if (!profile && !uid) return null;
 
 			const func = async () => {
-				const new_profile = await getProfile({
-					supabase,
-					match: { uid: uid || profile?.uid || '' }
-				});
+				const { data, error } = await supabase.from('profiles').select('*');
+
+				if (error) return;
+
+				const new_profile = data?.[0];
+
 				if (new_profile) set(new_profile);
 			};
 			func();
