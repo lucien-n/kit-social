@@ -51,7 +51,7 @@
 					{/if}
 					·
 					<a href="/u/{postAuthor?.name}/p/{post.uid}" class="hover:underline">
-						{formatDate(new Date(post.created_at || 0).getTime())}
+						{formatDate(new Date(post.created_at))}
 					</a>
 				</p>
 			</div>
