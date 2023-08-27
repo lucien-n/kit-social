@@ -10,12 +10,7 @@
 		<section
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
-			<div class="relative">
-				<Avatar initials={profile.name[0]} width="w-12" />
-				<span
-					class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]"
-				/>
-			</div>
+			<Avatar initials={profile.name[0]} width="w-12" />
 			<div>
 				<p class="ml-1 text-lg font-semibold">
 					{profile.name}
