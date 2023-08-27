@@ -7,11 +7,11 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	if (!checkUid(uid))
 		return new Response(JSON.stringify({ message: 'Please provide a valid uid' }), { status: 422 });
 
-	const { data, error } = await supabase.functions.invoke('is_online', { body: { user_uid: uid } });
+	const { data, error } = await supabase.rpc('is_online', { body: { user_uid: uid } });
 
 	if (error) new Response(null, { status: 500 });
 
-    console.log(data)
+	console.log(data);
 
 	return new Response();
 };

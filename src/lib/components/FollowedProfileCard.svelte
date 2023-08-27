@@ -2,12 +2,19 @@
 	import { formatDate } from '$lib/utils';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import { Avatar } from '@skeletonlabs/skeleton';
+	import { onMount } from 'svelte';
 
 	export let profile: PublicProfile;
 
-	let is_active = profile.last_seen
-		? new Date().getTime() - new Date(profile.last_seen).getTime() < 5 * 60 * 1000
-		: false;
+	let is_online = false;
+
+	onMount(async () => {
+		const res = await fetch(`/api/users/${profile.uid}/is-online`);
+		if (!res.ok) return;
+
+		const data = await res.json();
+		console.log(data);
+	});
 </script>
 
 {#if profile.uid}
@@ -17,7 +24,7 @@
 		>
 			<div class="relative">
 				<Avatar initials={profile.name[0]} width="w-12" />
-				{#if is_active}
+				{#if is_online}
 					<span
 						class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]"
 					/>
@@ -28,7 +35,7 @@
 					{profile.name}
 				</p>
 				<p class="italic opacity-70">
-					{is_active ? 'Online' : `Last seen: ${formatDate(profile.last_seen)}`}
+					{is_online ? 'Online' : `Last seen: ${formatDate(profile.last_seen)}`}
 				</p>
 			</div>
 		</article>
