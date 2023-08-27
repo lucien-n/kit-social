@@ -19,8 +19,6 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 		.select('uid, name, avatar_url, restricted, created_at')
 		.match(uid != '' ? { uid } : { name });
 
-	console.log(error);
-
 	if (error) return new Response(null, { status: 500 });
 
 	const user_data = data?.[0];
