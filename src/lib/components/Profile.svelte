@@ -7,15 +7,24 @@
 
 	let followed: boolean;
 
-	export const follow = async () => {
+	export const toggleFollow = async () => {
 		if ($profileStore?.uid == profile.uid) return;
-		const res = await fetch(`/api/users/${profile.uid}/follow`);
-		console.log(res);
+		if (followed) {
+			const res = await fetch(`/api/users/${profile.uid}/unfollow`);
+			if (res.ok) followed = false;
+		} else {
+			const res = await fetch(`/api/users/${profile.uid}/follow`);
+			if (res.ok) followed = true;
+		}
 	};
 
-	export const isFollowed = async () => {
-		const res = 
-	}
+	profileStore.subscribe(async (currentProfile) => {
+		if (!currentProfile) return;
+		const res = await fetch(`/api/users/${currentProfile.uid}/is-following/${profile.uid}`);
+		const data = await res.json();
+		console.log(data);
+		followed = data == true;
+	});
 </script>
 
 <div
@@ -32,7 +41,9 @@
 					<h2 class="h2">{profile.name}</h2>
 				</div>
 			</div>
-			<button class="variant-ghost-primary btn" on:click={follow}>Follow</button>
+			<button class="variant-ghost-primary btn" on:click={toggleFollow}
+				>{followed ? 'Unfollow' : 'Follow'}</button
+			>
 		</section>
 		<section class="p-3" />
 	</article>

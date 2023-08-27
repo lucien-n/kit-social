@@ -16,12 +16,14 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 	const user_uid = session.user.id;
 
 	if (uid == user_uid)
-		return new Response(JSON.stringify({ message: 'You cannot follow yourself' }), { status: 401 });
+		return new Response(JSON.stringify({ message: 'You cannot unfollow yourself' }), {
+			status: 401
+		});
 
 	const { error } = await supabase
 		.from('follows')
-		.insert({ follower_uid: user_uid, followed_uid: uid });
-
+		.delete()
+		.match({ followed_uid: uid, follower_uid: user_uid });
 	if (error) return new Response(null, { status: 500 });
 
 	return new Response();
