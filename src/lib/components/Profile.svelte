@@ -5,11 +5,17 @@
 
 	export let profile: PublicProfile;
 
+	let followed: boolean;
+
 	export const follow = async () => {
 		if ($profileStore?.uid == profile.uid) return;
 		const res = await fetch(`/api/users/${profile.uid}/follow`);
 		console.log(res);
 	};
+
+	export const isFollowed = async () => {
+		const res = 
+	}
 </script>
 
 <div
