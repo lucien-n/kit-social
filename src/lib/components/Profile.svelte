@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { profileStore } from '$stores/profile';
+	import type { PublicProfile } from '$types/public_profile.type';
 
-	export let profile: SupaProfile;
+	export let profile: PublicProfile;
 
 	export const follow = async () => {
 		if ($profileStore?.uid == profile.uid) return;
