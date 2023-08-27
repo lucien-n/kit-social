@@ -8,7 +8,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 
 	const { data, error } = await supabase
 		.from('posts')
-		.select('uid, author_uid, content, updated_at, created_at');
+		.select('uid, author_uid, content, created_at');
 
 	if (error) return new Response(JSON.stringify({ message: error.message }), { status: 500 });
 
