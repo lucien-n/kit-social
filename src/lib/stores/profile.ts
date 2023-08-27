@@ -20,7 +20,7 @@ function createProfileStore(): ProfileStore {
 			if (!profile && !uid) return null;
 
 			const func = async () => {
-				const { data, error } = await supabase.from('profiles').select('*');
+				const { data, error } = await supabase.from('profiles').select('*').match({ uid });
 
 				if (error) return;
 
