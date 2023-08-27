@@ -18,7 +18,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 		return new Response(JSON.stringify({ message: 'You cannot follow yourself' }), { status: 401 });
 
 	const { error } = await supabase.from('follows').insert({ follower_uid: user_uid, followed_uid });
-	if (error) return new Response(JSON.stringify({ message: 'Server Error' }), { status: 500 });
+	if (error) return new Response(null, { status: 500 });
 
 	return new Response();
 };
