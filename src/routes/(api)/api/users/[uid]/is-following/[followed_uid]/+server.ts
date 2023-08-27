@@ -18,7 +18,5 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 
 	if (error) new Response(null, { status: 500 });
 
-	console.log(data, error);
-
 	return new Response(JSON.stringify(data), { status: 200 });
 };
