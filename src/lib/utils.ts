@@ -1,5 +1,5 @@
-export function formatDate(milliseconds: number): string {
-	const date = new Date(milliseconds);
+export function formatDate(date_value: any): string {
+	const date = new Date(date_value);
 
 	const month = date.toLocaleString('default', { month: 'short' });
 	const day = date.getDate();

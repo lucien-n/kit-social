@@ -16,7 +16,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 
 	const { data, error } = await supabase
 		.from('profiles')
-		.select('uid, name, avatar_url, restricted, created_at')
+		.select('uid, name, avatar_url, restricted, last_seen, created_at')
 		.match(uid != '' ? { uid } : { name });
 
 	if (error) return new Response(null, { status: 500 });

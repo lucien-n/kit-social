@@ -21,6 +21,7 @@
 	import Icon from '@iconify/svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
+	import { profilesStore } from '$stores/profiles';
 
 	export let data;
 
@@ -57,6 +58,12 @@
 		const profiles: PublicProfile[] = [];
 
 		for (let uid of uids) {
+			if (profilesStore.contains({ uid })) {
+				profiles.push(profilesStore.get({ uid }) || ({} as PublicProfile));
+				console.log(profiles);
+				return;
+			}
+
 			const res = await fetch(`/api/users/${uid}`);
 			if (!res.ok) return;
 
@@ -64,6 +71,7 @@
 			const profile = data as PublicProfile;
 
 			profiles.push(profile);
+			profilesStore.add(profile);
 		}
 
 		return profiles;

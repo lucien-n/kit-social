@@ -4,4 +4,5 @@ export type PublicProfile = {
 	avatar_url: string;
 	restricted: boolean;
 	created_at: string;
+	last_seen?: string;
 };

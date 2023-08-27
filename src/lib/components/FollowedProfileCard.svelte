@@ -1,8 +1,13 @@
 <script lang="ts">
+	import { formatDate } from '$lib/utils';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let profile: PublicProfile;
+
+	let is_active = profile.last_seen
+		? new Date().getTime() - new Date(profile.last_seen).getTime() < 5 * 60 * 1000
+		: false;
 </script>
 
 {#if profile.uid}
@@ -10,10 +15,20 @@
 		<section
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
-			<Avatar initials={profile.name[0]} width="w-12" />
+			<div class="relative">
+				<Avatar initials={profile.name[0]} width="w-12" />
+				{#if is_active}
+					<span
+						class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]"
+					/>
+				{/if}
+			</div>
 			<div>
 				<p class="ml-1 text-lg font-semibold">
 					{profile.name}
+				</p>
+				<p class="italic opacity-70">
+					{is_active ? 'Online' : `Last seen: ${formatDate(profile.last_seen)}`}
 				</p>
 			</div>
 		</section>
