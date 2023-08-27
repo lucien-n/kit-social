@@ -10,7 +10,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	const { data, error } = await supabase
 		.from('follows')
 		.select('followed_uid')
-		.match({ uid })
+		.match({ follower_uid: uid })
 		.limit(10);
 
 	if (error) return new Response(null, { status: 500 });

@@ -18,5 +18,5 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	if (!user_data)
 		return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
 
-	return new Response();
+	return new Response(JSON.stringify(user_data), { status: 200 });
 };
