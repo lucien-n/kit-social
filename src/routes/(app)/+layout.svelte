@@ -1,6 +1,6 @@
 <script lang="ts">
 	// #==========[ START OF SKELETON SHANANIGANS ]==========#
-	import '../app.postcss';
+	import '../../app.postcss';
 	import { AppShell, AppBar, AppRail } from '@skeletonlabs/skeleton';
 
 	// Highlight JS
