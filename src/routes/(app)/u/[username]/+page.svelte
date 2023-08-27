@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Profile from '$comp/Profile.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
+	import Icon from '@iconify/svelte';
 
 	export let data: { error: string; username: string };
 
@@ -23,7 +24,9 @@
 		<h1 class="h1">{error}</h1>
 	{:else}
 		{#await getProfile()}
-			<h1 class="h1">Fetching profile</h1>
+			<span class="animate-spin">
+				<Icon icon="mdi:loading" width={100} />
+			</span>
 		{:then profile}
 			{#if profile}
 				<Profile {profile} />

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 
 	export let data: { error: string; post_uid: string };
@@ -20,7 +21,9 @@
 <article class="flex h-full w-full flex-col items-center justify-center">
 	{#if !error}
 		{#await getPost()}
-			<h1 class="h1">fetching post data</h1>
+			<span class="animate-spin">
+				<Icon icon="mdi:loading" width={100} />
+			</span>
 		{:then post}
 			<h1 class="h1">{post.content}</h1>
 		{/await}
