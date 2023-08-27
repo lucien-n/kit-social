@@ -5,10 +5,7 @@
 	import type { PublicPost } from '$types/public_post.type.js';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 
-	export let data: { supabase: SupabaseClient };
 	export let form;
-
-	let { supabase } = data;
 
 	function wait(milliseconds: number) {
 		return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -40,7 +37,7 @@
 		{#if posts && posts.length > 0}
 			<section id="posts" class="flex flex-col gap-3">
 				{#each posts as post}
-					<Post {supabase} {post} />
+					<Post {post} />
 				{/each}
 			</section>
 		{:else}

@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils';
-	import { getProfile } from '$supa/profiles';
+	import { getProfile } from '$api/profiles';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { profilesStore } from '$stores/profiles';
 	import type { PublicPost } from '$types/public_post.type';
+	import type { PublicProfile } from '$types/public_profile.type';
 
-	export let supabase: SupabaseClient;
 	export let post: SupaPost | PublicPost;
 
-	let postAuthor: SupaProfile | null;
+	let postAuthor: PublicProfile | null;
 
 	onMount(async () => {
 		if (profilesStore.contains({ uid: post.author_uid })) {
@@ -19,7 +19,7 @@
 			return;
 		}
 
-		postAuthor = await getProfile({ supabase, match: { uid: post.author_uid } });
+		postAuthor = await getProfile({ uid: post.author_uid });
 		if (postAuthor) profilesStore.add(postAuthor);
 	});
 </script>

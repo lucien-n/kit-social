@@ -17,7 +17,7 @@ const config = {
 			"$comp": 'src/lib/components',
 			"$types": 'src/lib/types',
 			"$stores": 'src/lib/stores',
-			"$supa": 'src/lib/supabase'
+			"$api": 'src/lib/api'
 		}
 	}
 };

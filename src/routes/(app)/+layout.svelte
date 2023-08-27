@@ -18,8 +18,6 @@
 	// #==========[ END OF SKELETON SHANANIGANS ]==========#
 
 	import ProfileCard from '$comp/ProfileCard.svelte';
-	import { profileStore } from '$stores/profile';
-	import { getProfile } from '$supa/profiles';
 	import Icon from '@iconify/svelte';
 
 	export let data;
