@@ -1,9 +1,9 @@
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ params, fetch }) => {
+export const load: PageLoad = async ({ params }) => {
 	type Response = {
 		error?: string;
-		post?: any;
+		post_uid?: string;
 	};
 	const post_uid = params.post_uid;
 
@@ -12,9 +12,7 @@ export const load: PageLoad = async ({ params, fetch }) => {
 			error: 'Not Found'
 		} as Response;
 
-	const post_data = fetch(`/api/posts/${post_uid}`);
-
 	return {
-		post: post_data
+		post_uid
 	} as Response;
 };

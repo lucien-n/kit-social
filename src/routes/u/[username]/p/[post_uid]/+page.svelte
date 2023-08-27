@@ -1,17 +1,28 @@
 <script lang="ts">
-	export let data: { error: string; post: any };
+	import { onMount } from 'svelte';
 
-	let { error, post } = data;
+	export let data: { error: string; post_uid: any };
 
-	console.log(error, post);
+	let { error, post_uid } = data;
+
+	const getPost = async () => {
+		const res = await fetch(`/api/posts/${post_uid}`);
+		const data = await res.json();
+
+		return data;
+	};
+
+	onMount(() => {
+		getPost();
+	});
 </script>
 
 <article class="flex h-full w-full flex-col items-center justify-center">
 	{#if !error}
-		{#await post}
+		{#await getPost()}
 			<h1 class="h1">fetching post data</h1>
-		{:then post_data}
-			<h1 class="h1">{post_data.content}</h1>
+		{:then post}
+			<h1 class="h1">{post.content}</h1>
 		{/await}
 	{:else}
 		<h1 class="h1">Post not found</h1>
