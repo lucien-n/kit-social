@@ -13,3 +13,12 @@ export const getProfile = async (uid: string): Promise<PublicProfile | null> => 
 
 	return profile;
 };
+
+export const isOnline = async (uid: string): Promise<boolean> => {
+	const res = await fetch(`/api/users/${uid}/is-online`);
+	if (!res.ok) return false;
+
+	const data = await res.json();
+
+	return data || false;
+};

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { isOnline } from '$api/profiles';
 	import { formatDate } from '$lib/utils';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import { Avatar } from '@skeletonlabs/skeleton';
@@ -9,12 +10,7 @@
 	let is_online = false;
 
 	onMount(async () => {
-		const res = await fetch(`/api/users/${profile.uid}/is-online`);
-		if (!res.ok) return;
-
-		const data = await res.json();
-
-		is_online = data || false;
+		is_online = await isOnline(profile.uid);
 	});
 </script>
 
