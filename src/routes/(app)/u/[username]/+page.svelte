@@ -9,7 +9,7 @@
 
 	const getProfile = async () => {
 		// TODO: fetch by uid
-		const res = await fetch(`/api/users/${username}`);
+		const res = await fetch(`/api/users/${username}/profile`);
 		if (!res.ok) throw 'Internal Error';
 
 		const data = await res.json();
