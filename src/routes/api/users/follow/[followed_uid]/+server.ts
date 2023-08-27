@@ -4,7 +4,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 	const followed_uid = params.followed_uid;
 
 	if (followed_uid?.length != 36)
-		return new Response(JSON.stringify({ message: 'Please provide a correct uid' }), {
+		return new Response(JSON.stringify({ message: 'Please provide a valid uid' }), {
 			status: 422
 		});
 

@@ -4,8 +4,8 @@
 	export let profile: SupaProfile;
 
 	export const follow = async () => {
-		// if ($profileStore?.uid == profile.uid) return;
-		const res = await fetch(`/api/user/follow/${profile.uid}`);
+		if ($profileStore?.uid == profile.uid) return;
+		const res = await fetch(`/api/users/follow/${profile.uid}`);
 		console.log(res);
 	};
 </script>
