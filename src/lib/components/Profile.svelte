@@ -22,7 +22,6 @@
 		if (!currentProfile) return;
 		const res = await fetch(`/api/users/${currentProfile.uid}/is-following/${profile.uid}`);
 		const data = await res.json();
-		console.log(data);
 		followed = data == true;
 	});
 </script>

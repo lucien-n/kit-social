@@ -11,7 +11,10 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	if (!checkUid(followed_uid))
 		return new Response(JSON.stringify({ message: 'Please provide a valid uid' }), { status: 422 });
 
-	const { data, error } = await supabase.rpc('is_following', { follower: uid, followed });
+	const { data, error } = await supabase.rpc('is_following', {
+		follower: uid,
+		followed: followed_uid
+	});
 
 	if (error) new Response(null, { status: 500 });
 
