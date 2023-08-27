@@ -14,5 +14,5 @@ export function formatDate(date_value: any): string {
 }
 
 export const checkUid = (uid: string | undefined) => {
-	return uid && uid.length == 36
-}
+	return uid && uid.length == 36;
+};

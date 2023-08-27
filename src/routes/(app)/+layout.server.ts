@@ -1,9 +1,9 @@
 export const load = async ({ locals: { getSession, supabase } }) => {
-	const session = await getSession()
+	const session = await getSession();
 
 	if (session) {
-		const uid = session.user.id
-		await supabase.from("profiles").update({last_seen: new Date().toUTCString()}).eq("uid", uid)
+		const uid = session.user.id;
+		await supabase.from('profiles').update({ last_seen: new Date().toUTCString() }).eq('uid', uid);
 	}
 
 	return {
