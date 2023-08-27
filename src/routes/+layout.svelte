@@ -41,7 +41,7 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="sidebarLeft">
-		<AppRail width="w-60">
+		<AppRail width="w-68">
 			<svelte:fragment slot="lead">
 				<a href="/" class="flex items-center gap-2 p-3">
 					<span class="flex self-end">
