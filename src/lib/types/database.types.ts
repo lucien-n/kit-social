@@ -118,8 +118,8 @@ export interface Database {
     Functions: {
       is_following: {
         Args: {
-          follower_uid: string
-          followed_uid: string
+          followed: string
+          follower: string
         }
         Returns: boolean
       }
