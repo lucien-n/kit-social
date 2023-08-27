@@ -6,9 +6,10 @@
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { profilesStore } from '$stores/profiles';
+	import type { PublicPost } from '$types/public_post.type';
 
 	export let supabase: SupabaseClient;
-	export let post: SupaPost;
+	export let post: SupaPost | PublicPost;
 
 	let postAuthor: SupaProfile | null;
 

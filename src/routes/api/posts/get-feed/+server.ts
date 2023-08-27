@@ -10,5 +10,5 @@ export const GET: RequestHandler = async ({ locals: { supabase } }) => {
 
 	if (!data) return new Response(JSON.stringify({ message: 'No posts found' }), { status: 200 });
 
-	return new Response(JSON.stringify({ posts: data }), { status: 200 });
+	return new Response(JSON.stringify([...data]), { status: 200 });
 };

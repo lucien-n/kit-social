@@ -2,7 +2,7 @@
 	import CreatePost from '$comp/CreatePost.svelte';
 	import Post from '$comp/Post.svelte';
 	import PostPlaceholder from '$comp/PostPlaceholder.svelte';
-	import { getPosts } from '$supa/posts';
+	import type { PublicPost } from '$types/public_post.type.js';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 
 	export let data: { supabase: SupabaseClient };
@@ -13,6 +13,17 @@
 	function wait(milliseconds: number) {
 		return new Promise((resolve) => setTimeout(resolve, milliseconds));
 	}
+
+	const getPosts = async () => {
+		const res = await fetch('/api/posts/get-feed');
+		if (!res.ok) throw 'Internal Error';
+
+		const data = await res.json();
+
+		const posts = data as PublicPost[];
+
+		return posts;
+	};
 </script>
 
 <div class="container mx-auto flex w-2/3 flex-col gap-3">
@@ -21,7 +32,7 @@
 	{/if}
 	<CreatePost {form} />
 	<hr />
-	{#await getPosts({ supabase, match: {} })}
+	{#await getPosts()}
 		{#each { length: 10 } as _}
 			<PostPlaceholder />
 		{/each}
@@ -35,5 +46,7 @@
 		{:else}
 			<h1 class="h1 w-full text-center">No post found</h1>
 		{/if}
+	{:catch}
+		<h1 class="h1">An error occured</h1>
 	{/await}
 </div>
