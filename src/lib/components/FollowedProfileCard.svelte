@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { profileStore } from '$stores/profile';
 	import type { PublicProfile } from '$types/public_profile.type';
-	import Icon from '@iconify/svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let profile: PublicProfile;
