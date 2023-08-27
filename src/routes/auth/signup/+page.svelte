@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import Input from '$comp/form/Input.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
 	export let form;
@@ -28,41 +29,23 @@
 		{/if}
 		<br />
 		<form method="post" use:enhance={handleSubmit} class="flex flex-col gap-y-2">
-			<section>
-				<label for="username" class="label">Username</label>
-				<input
-					id="username"
-					name="username"
-					value={form?.values?.username ?? ''}
-					class="input"
-					type="text"
-					placeholder="Username"
-					required
-				/>
-			</section>
-			<section>
-				<label for="email" class="label">Email</label>
-				<input
-					id="email"
-					name="email"
-					value={form?.values?.email ?? ''}
-					class="input"
-					type="email"
-					placeholder="Email"
-					required
-				/>
-			</section>
-			<section>
-				<label for="password" class="label">Password</label>
-				<input
-					id="password"
-					name="password"
-					class="input"
-					type="password"
-					placeholder="Password"
-					required
-				/>
-			</section>
+			<Input
+				value={form?.values?.username}
+				type="text"
+				id="username"
+				name="username"
+				label="Username"
+				required
+			/>
+			<Input
+				value={form?.values?.email}
+				type="email"
+				id="email"
+				name="email"
+				label="Email"
+				required
+			/>
+			<Input type="password" id="password" name="password" label="Password" required />
 			<br />
 			<button disabled={loading} class="variant-ghost-surface btn mx-auto flex w-1/2"
 				>Sign Up</button

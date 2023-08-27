@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import Input from '$comp/form/Input.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
 	export let form;
@@ -26,29 +27,8 @@
 		<br />
 
 		<form method="post" use:enhance={handleSubmit}>
-			<section>
-				<label for="email" class="label">Email</label>
-				<input
-					id="email"
-					name="email"
-					value={form?.values?.email ?? ''}
-					class="input"
-					type="email"
-					placeholder="Email"
-					required
-				/>
-			</section>
-			<section>
-				<label for="password" class="label">Password</label>
-				<input
-					id="password"
-					name="password"
-					class="input"
-					type="password"
-					placeholder="Password"
-					required
-				/>
-			</section>
+			<Input value={form?.values?.email} type="email" id="email" name="email" label="Email" />
+			<Input type="password" id="password" name="password" label="Password" />
 			<br />
 			<button disabled={loading} class="variant-ghost-surface btn mx-auto flex w-1/2"
 				>Sign in</button

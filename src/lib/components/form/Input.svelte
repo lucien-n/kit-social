@@ -1,7 +1,9 @@
 <script lang="ts">
-	export let labeled: boolean = true;
-	export let label: string = '';
+	import Icon from '@iconify/svelte';
 
+	export let value: string | undefined = "";
+
+	export let label: string = '';
 	export let cclass: string = '';
 
 	export let type: 'password' | 'text' | 'email' = 'text';
@@ -10,13 +12,32 @@
 	export let placeholder: string = name.slice(0, 1).toUpperCase() + name.slice(1, name.length);
 
 	export let required: boolean = false;
+
+	let showPassword = false;
+	const toggleShowPassword = () => {
+		showPassword = !showPassword;
+		type = showPassword ? 'text' : 'password';
+	};
 </script>
 
-{#if labeled}
+{#if label != '' || label.length > 0}
 	<section>
 		<label for={id} class="label">{label}</label>
-		<input {id} {name} {type} {placeholder} {required} class="input {cclass}" />
+		{#if type == 'password' || showPassword}
+			<div class="input-group flex">
+				<input {value} {id} {name} {type} {placeholder} {required} class="input {cclass}" />
+				<button type="button" on:click={toggleShowPassword}>
+					{#if showPassword}
+						<Icon icon="mdi:eye-closed" width={20} />
+					{:else}
+						<Icon icon="mdi:eye" width={20} />
+					{/if}
+				</button>
+			</div>
+		{:else}
+			<input {value} {id} {name} {type} {placeholder} {required} class="input {cclass}" />
+		{/if}
 	</section>
 {:else}
-	<input {id} {name} {type} {placeholder} {required} class="input {cclass}" />
+	<input {value} {id} {name} {type} {placeholder} {required} class="input {cclass}" />
 {/if}
