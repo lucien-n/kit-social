@@ -1,3 +1,4 @@
+import type { PublicPost } from '$types/public_post.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
@@ -16,5 +17,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	if (!post_data)
 		return new Response(JSON.stringify({ message: 'Post not found' }), { status: 404 });
 
-	return new Response(JSON.stringify(post_data), { status: 200 });
+	const post = post_data as PublicPost;
+
+	return new Response(JSON.stringify(post), { status: 200 });
 };
