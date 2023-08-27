@@ -19,6 +19,8 @@
 
 	import ProfileCard from '$comp/ProfileCard.svelte';
 	import Icon from '@iconify/svelte';
+	import type { PublicProfile } from '$types/public_profile.type';
+	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
 
 	export let data;
 
@@ -34,6 +36,38 @@
 
 		return () => data.subscription.unsubscribe();
 	});
+
+	const getFollowedUsersUids = async () => {
+		if (!session?.user) throw 'Not signed in';
+		const res = await fetch(`/api/users/followed/${session?.user.id}`);
+		if (!res.ok) throw 'Error';
+
+		const data = await res.json();
+
+		const uids = data as string[];
+
+		console.log(uids);
+
+		return uids;
+	};
+
+	const getFollowedProfiles = async () => {
+		const uids = await getFollowedUsersUids();
+
+		const profiles: PublicProfile[] = [];
+
+		for (let uid of uids) {
+			const res = await fetch(`/api/users/${uid}`);
+			if (!res.ok) return;
+
+			const data = await res.json();
+			const profile = data as PublicProfile;
+
+			profiles.push(profile);
+		}
+
+		return profiles;
+	};
 </script>
 
 <!-- App Shell -->
@@ -47,6 +81,19 @@
 					</span>
 					<h3 class="h3">Social</h3>
 				</a>
+			</svelte:fragment>
+			<svelte:fragment slot="default">
+				{#await getFollowedProfiles()}
+					<p>Fetching followed users</p>
+				{:then profiles}
+					{#if profiles}
+						{#each profiles as profile}
+							<FollowedProfileCard {profile} />
+						{/each}
+					{/if}
+				{:catch e}
+					<p>{e}</p>
+				{/await}
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
