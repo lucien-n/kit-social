@@ -13,7 +13,8 @@
 		if (!res.ok) return;
 
 		const data = await res.json();
-		console.log(data);
+
+		is_online = data || false;
 	});
 </script>
 
