@@ -50,7 +50,7 @@
 						<span class="placeholder w-10 animate-pulse rounded" />
 					{/if}
 					·
-					<a href="/p/{post.uid}" class="hover:underline">
+					<a href="/u/{postAuthor?.name}/p/{post.uid}" class="hover:underline">
 						{formatDate(new Date(post.created_at || 0).getTime())}
 					</a>
 				</p>
