@@ -6,7 +6,7 @@
 
 	export const follow = async () => {
 		if ($profileStore?.uid == profile.uid) return;
-		const res = await fetch(`/api/users/follow/${profile.uid}`);
+		const res = await fetch(`/api/users/${profile.uid}/follow`);
 		console.log(res);
 	};
 </script>

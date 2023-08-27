@@ -8,6 +8,7 @@
 	let { error, username } = data;
 
 	const getProfile = async () => {
+		// TODO: fetch by uid
 		const res = await fetch(`/api/users/${username}`);
 		if (!res.ok) throw 'Internal Error';
 

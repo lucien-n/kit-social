@@ -1,9 +1,10 @@
+import { checkUid } from '$lib/utils';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, locals: { supabase, getSession } }) => {
-	const followed_uid = params.followed_uid;
+	const uid = params.uid as string;
 
-	if (followed_uid?.length != 36)
+	if (!checkUid(uid))
 		return new Response(JSON.stringify({ message: 'Please provide a valid uid' }), {
 			status: 422
 		});
@@ -14,10 +15,12 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 
 	const user_uid = session.user.id;
 
-	if (followed_uid == user_uid)
+	if (uid == user_uid)
 		return new Response(JSON.stringify({ message: 'You cannot follow yourself' }), { status: 401 });
 
-	const { error } = await supabase.from('follows').insert({ follower_uid: user_uid, followed_uid });
+	const { error } = await supabase
+		.from('follows')
+		.insert({ follower_uid: user_uid, followed_uid: uid });
 	if (error) return new Response(null, { status: 500 });
 
 	return new Response();

@@ -23,6 +23,7 @@
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
 	import { profilesStore } from '$stores/profiles';
 	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
+	import { getProfile } from '$api/profiles';
 
 	export let data;
 
@@ -41,7 +42,7 @@
 
 	const getFollowedUsersUids = async () => {
 		if (!session?.user) throw 'Not signed in';
-		const res = await fetch(`/api/users/followed/${session?.user.id}`);
+		const res = await fetch(`/api/users/${session?.user.id}/followed`);
 		if (!res.ok) throw 'Error';
 
 		const data = await res.json();
@@ -65,11 +66,9 @@
 				return;
 			}
 
-			const res = await fetch(`/api/users/${uid}`);
-			if (!res.ok) return;
+			const profile = await getProfile(uid);
 
-			const data = await res.json();
-			const profile = data as PublicProfile;
+			if (!profile) return;
 
 			profiles.push(profile);
 			profilesStore.add(profile);

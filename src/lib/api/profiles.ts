@@ -1,17 +1,10 @@
+import { checkUid } from '$lib/utils';
 import type { PublicProfile } from '$types/public_profile.type';
 
-type GetProfileArgs = {
-	uid?: string;
-	username?: string;
-};
-export const getProfile = async ({
-	uid,
-	username
-}: GetProfileArgs): Promise<PublicProfile | null> => {
-	if ((!uid || uid == '') && (!username || username == '')) return null;
-	if ((!username || username == '') && uid?.length != 36) return null;
+export const getProfile = async (uid: string): Promise<PublicProfile | null> => {
+	if (!checkUid(uid)) return null;
 
-	const res = await fetch(`/api/users/${uid || username}`);
+	const res = await fetch(`/api/users/${uid}/profile`);
 	if (!res.ok) return null;
 
 	const data = await res.json();
