@@ -12,7 +12,7 @@
 
 {#if profile.uid}
 	<a href="/u/{profile.name}" class="flex h-fit justify-between gap-3 p-3">
-		<section
+		<article
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
 			<div class="relative">
@@ -31,6 +31,6 @@
 					{is_active ? 'Online' : `Last seen: ${formatDate(profile.last_seen)}`}
 				</p>
 			</div>
-		</section>
+		</article>
 	</a>
 {/if}

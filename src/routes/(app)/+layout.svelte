@@ -22,6 +22,7 @@
 	import type { PublicProfile } from '$types/public_profile.type';
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
 	import { profilesStore } from '$stores/profiles';
+	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
 
 	export let data;
 
@@ -91,17 +92,21 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
-				{#await getFollowedProfiles()}
-					<p>Fetching followed users</p>
-				{:then profiles}
-					{#if profiles}
-						{#each profiles as profile}
-							<FollowedProfileCard {profile} />
+				<section>
+					{#await getFollowedProfiles()}
+						{#each { length: 5 } as _}
+							<ProfileCardPlaceholder />
 						{/each}
-					{/if}
-				{:catch e}
-					<p>{e}</p>
-				{/await}
+					{:then profiles}
+						{#if profiles}
+							{#each profiles as profile}
+								<FollowedProfileCard {profile} />
+							{/each}
+						{/if}
+					{:catch e}
+						<p>{e}</p>
+					{/await}
+				</section>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
