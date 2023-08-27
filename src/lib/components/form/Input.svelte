@@ -1,17 +1,17 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 
-	export let value: string | undefined = "";
+	export let value: string | undefined = '';
 
-	export let label: string = '';
-	export let cclass: string = '';
+	export let label = '';
+	export let cclass = '';
 
 	export let type: 'password' | 'text' | 'email' = 'text';
 	export let name: string;
 	export let id: string = name;
 	export let placeholder: string = name.slice(0, 1).toUpperCase() + name.slice(1, name.length);
 
-	export let required: boolean = false;
+	export let required = false;
 
 	let showPassword = false;
 	const toggleShowPassword = () => {

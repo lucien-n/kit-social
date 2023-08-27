@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
-
 	const w = Math.floor(Math.random() * 5);
 </script>
 

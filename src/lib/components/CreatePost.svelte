@@ -11,7 +11,7 @@
 	let loading = false;
 
 	let content: string = form?.content || '';
-	let hidePlaceholder: boolean = false;
+	let hidePlaceholder = false;
 
 	const handleSubmit: SubmitFunction = ({ formData }) => {
 		loading = true;
@@ -27,7 +27,7 @@
 		};
 	};
 
-	const handleInput: FormEventHandler<HTMLDivElement> = (event) => {
+	const handleInput: FormEventHandler<HTMLDivElement> = () => {
 		hidePlaceholder = content != '';
 	};
 </script>

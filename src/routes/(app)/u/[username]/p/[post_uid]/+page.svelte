@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let data: { error: string; post_uid: any };
+	export let data: { error: string; post_uid: string };
 
 	let { error, post_uid } = data;
 

@@ -3,13 +3,8 @@
 	import Post from '$comp/Post.svelte';
 	import PostPlaceholder from '$comp/PostPlaceholder.svelte';
 	import type { PublicPost } from '$types/public_post.type.js';
-	import type { SupabaseClient } from '@supabase/supabase-js';
 
 	export let form;
-
-	function wait(milliseconds: number) {
-		return new Promise((resolve) => setTimeout(resolve, milliseconds));
-	}
 
 	const getPosts = async () => {
 		const res = await fetch('/api/posts/get-feed');

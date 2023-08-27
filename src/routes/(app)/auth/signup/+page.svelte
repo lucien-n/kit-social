@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
-	import { page } from '$app/stores';
 	import Input from '$comp/form/Input.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 

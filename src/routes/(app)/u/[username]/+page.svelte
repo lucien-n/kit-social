@@ -19,15 +19,19 @@
 </script>
 
 <section class="flex h-full w-full items-center justify-center">
-	{#await getProfile()}
-		<h1 class="h1">Fetching profile</h1>
-	{:then profile}
-		{#if profile}
-			<Profile {profile} />
-		{:else}
-			<h1 class="h1">Profile not found</h1>
-		{/if}
-	{:catch e}
-		<h1 class="h1">{e}</h1>
-	{/await}
+	{#if error}
+		<h1 class="h1">{error}</h1>
+	{:else}
+		{#await getProfile()}
+			<h1 class="h1">Fetching profile</h1>
+		{:then profile}
+			{#if profile}
+				<Profile {profile} />
+			{:else}
+				<h1 class="h1">Profile not found</h1>
+			{/if}
+		{:catch e}
+			<h1 class="h1">{e}</h1>
+		{/await}
+	{/if}
 </section>
