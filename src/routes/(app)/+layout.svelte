@@ -21,6 +21,7 @@
 	import Icon from '@iconify/svelte';
 	import FollowedList from '$comp/FollowedList.svelte';
 	import type { RealtimeChannel } from '@supabase/supabase-js';
+	import { onlineUsersStore } from '$stores/online';
 
 	export let data;
 
@@ -46,19 +47,21 @@
 
 		presence_channel.on('presence', { event: 'sync' }, () => {
 			const new_state = presence_channel.presenceState();
-			console.log('state:', new_state);
 		});
 
-		presence_channel.on('presence', { event: 'join' }, ({ key: uid }) => {});
+		presence_channel.on('presence', { event: 'join' }, ({ key: uid }) => {
+			$onlineUsersStore.add(uid);
+			console.log('a user joined', $onlineUsersStore);
+		});
 
-		presence_channel.on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
-			console.log('left:', key, leftPresences);
+		presence_channel.on('presence', { event: 'leave' }, ({ key: uid }) => {
+			$onlineUsersStore.delete(uid);
+			console.log('a user left', $onlineUsersStore);
 		});
 
 		presence_channel.subscribe(async (status) => {
 			if (status === 'SUBSCRIBED') {
-				const presenceTrackStatus = await presence_channel.track({});
-				console.log(presenceTrackStatus);
+				await presence_channel.track({});
 			}
 		});
 	});

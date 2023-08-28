@@ -1,16 +1,15 @@
 <script lang="ts">
-	import { isOnline } from '$api/profiles';
 	import { formatDate } from '$lib/utils';
 	import type { PublicProfile } from '$types/public_profile.type';
-	import { onMount } from 'svelte';
 	import Avatar from '$comp/Avatar.svelte';
+	import { onlineUsersStore } from '$stores/online';
 
 	export let profile: PublicProfile;
 
 	let is_online = false;
 
-	onMount(async () => {
-		is_online = await isOnline(profile.uid);
+	onlineUsersStore.subscribe((online_users) => {
+		is_online = online_users.has(profile.uid);
 	});
 </script>
 

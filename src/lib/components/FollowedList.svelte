@@ -5,6 +5,7 @@
 	import type { PublicProfile } from '$types/public_profile.type';
 	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
+	import { onlineUsersStore } from '$stores/online';
 
 	const getFollowedProfiles = async () => {
 		if (!$profileStore?.uid) return;
@@ -31,7 +32,7 @@
 </script>
 
 <section>
-	{#key $profileStore?.uid}
+	{#key $profileStore?.uid && $onlineUsersStore}
 		{#await getFollowedProfiles()}
 			{#each { length: 5 } as _}
 				<ProfileCardPlaceholder />
