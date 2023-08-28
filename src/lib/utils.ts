@@ -16,3 +16,24 @@ export function formatDate(date_value: any): string {
 export const checkUid = (uid: string | undefined) => {
 	return uid && uid.length == 36;
 };
+
+export const readFileAsArrayBuffer = async (file: File): Promise<Buffer> => {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+
+		reader.onload = (event) => {
+			if (event.target && event.target.result) {
+				const arrayBuffer = event.target.result as ArrayBuffer;
+				resolve(Buffer.from(arrayBuffer));
+			} else {
+				reject(new Error('Failed to read file.'));
+			}
+		};
+
+		reader.onerror = () => {
+			reject(new Error('File reading error.'));
+		};
+
+		reader.readAsArrayBuffer(file);
+	});
+};
