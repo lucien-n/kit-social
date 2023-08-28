@@ -4,6 +4,8 @@
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import Avatar from '$comp/Avatar.svelte';
 	import UploadAvatar from './UploadAvatar.svelte';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
 	export let profile: PublicProfile;
 	export let supabase: SupabaseClient;
@@ -11,6 +13,7 @@
 	let followed: boolean;
 
 	let profileForm: HTMLFormElement;
+	let loading = false;
 
 	export const toggleFollow = async () => {
 		if ($profileStore?.uid == profile.uid) return;
@@ -29,11 +32,19 @@
 		const data = await res.json();
 		followed = data == true;
 	});
+
+	const handleSubmit: SubmitFunction = () => {
+		loading = true;
+		return async () => {
+			loading = false;
+		};
+	};
 </script>
 
 <form
 	method="post"
 	action="?/update"
+	use:enhance={handleSubmit}
 	bind:this={profileForm}
 	id="{profile.name.toLowerCase().trim().replace(' ', '-')}-profile"
 	class="flex h-full w-full flex-col items-center justify-center"

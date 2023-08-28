@@ -1,3 +1,4 @@
+import { checkUid } from '$lib/utils';
 import type { Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
@@ -9,7 +10,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		const uid = session?.user.id;
-		if (!uid) return;
+		if (!checkUid(uid)) return;
 
 		const { error } = await supabase
 			.from('profiles')
