@@ -2,8 +2,8 @@
 	import { isOnline } from '$api/profiles';
 	import { formatDate } from '$lib/utils';
 	import type { PublicProfile } from '$types/public_profile.type';
-	import { Avatar } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
+	import Avatar from '$comp/Avatar.svelte';
 
 	export let profile: PublicProfile;
 
@@ -20,7 +20,7 @@
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
 			<div class="relative">
-				<Avatar initials={profile.name[0]} width="w-12" />
+				<Avatar {profile} />
 				{#if is_online}
 					<span
 						class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]"
