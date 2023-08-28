@@ -6,6 +6,7 @@ export const actions: Actions = {
 		const formData = await request.formData();
 
 		const avatar_url = formData.get('avatarUrl') as string;
+		if (!avatar_url || avatar_url.length < 36) return;
 
 		const session = await getSession();
 
