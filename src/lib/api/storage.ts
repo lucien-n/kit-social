@@ -2,6 +2,8 @@ import type { Database } from '$types/database.types';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import imageCompression from 'browser-image-compression';
 import { v4 as uuid } from 'uuid';
+import Jimp from 'jimp';
+import { readFileAsArrayBuffer } from '$lib/utils';
 
 export const downloadImage = async (
 	supabase: SupabaseClient<Database>,
@@ -35,8 +37,10 @@ export const uploadImage = async (
 
 		const file = files[0];
 
+		const cropped_image = await cropImage(file);
+
 		// since we can't transform an image without a pro-plan, let's compress it to hell
-		const compressed_file = await imageCompression(file, {
+		const compressed_image = await imageCompression(cropped_image, {
 			maxSizeMB: 1,
 			maxWidthOrHeight: 128,
 			useWebWorker: true
@@ -45,7 +49,7 @@ export const uploadImage = async (
 		const fileExt = file.name.split('.').pop();
 		const filePath = `${uuid()}.${fileExt}`;
 
-		const { error } = await supabase.storage.from(storage_id).upload(filePath, compressed_file);
+		const { error } = await supabase.storage.from(storage_id).upload(filePath, compressed_image);
 
 		if (error) throw error;
 
@@ -53,4 +57,26 @@ export const uploadImage = async (
 	} catch (e) {
 		if (e instanceof Error) console.warn('Error while uploading image: ', e.message);
 	}
+};
+
+const cropImage = async (file: File) => {
+	const buffer = await readFileAsArrayBuffer(file);
+	const image = await Jimp.read(buffer);
+
+	const original_width = image.getWidth();
+	const original_height = image.getHeight();
+
+	const crop_size = Math.min(original_width, original_height);
+	const x_offset = 0;
+	const y_offset = 0;
+
+	image.crop(x_offset, y_offset, crop_size, crop_size);
+
+	const image_buffer = await image.getBufferAsync(Jimp.MIME_JPEG);
+
+	const cropped_file = new File([image_buffer], 'image.jpg', {
+		type: 'image/jpeg'
+	});
+
+	return cropped_file;
 };

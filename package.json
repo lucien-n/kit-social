@@ -20,6 +20,7 @@
 		"@sveltejs/kit": "^1.20.4",
 		"@tailwindcss/forms": "0.5.5",
 		"@tailwindcss/typography": "0.5.9",
+		"@types/jimp": "^0.2.28",
 		"@types/node": "20.5.6",
 		"@types/uuid": "^9.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
@@ -47,6 +48,7 @@
 		"@supabase/supabase-js": "^2.33.1",
 		"browser-image-compression": "^2.0.2",
 		"highlight.js": "11.8.0",
+		"jimp": "^0.22.10",
 		"supabase": "^1.88.0",
 		"uuid": "^9.0.0"
 	}
