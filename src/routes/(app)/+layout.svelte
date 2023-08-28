@@ -19,11 +19,8 @@
 
 	import ProfileCard from '$comp/ProfileCard.svelte';
 	import Icon from '@iconify/svelte';
-	import type { PublicProfile } from '$types/public_profile.type';
-	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
-	import { profilesStore } from '$stores/profiles';
 	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
-	import { getProfile } from '$api/profiles';
+	import FollowedList from '$comp/FollowedList.svelte';
 
 	export let data;
 
@@ -39,40 +36,6 @@
 
 		return () => data.subscription.unsubscribe();
 	});
-
-	const getFollowedUsersUids = async () => {
-		if (!session?.user) throw 'Not signed in';
-		const res = await fetch(`/api/users/${session?.user.id}/followed`);
-		if (!res.ok) throw 'Error';
-
-		const data = await res.json();
-
-		const uids = data as string[];
-
-		return uids;
-	};
-
-	const getFollowedProfiles = async () => {
-		const uids = await getFollowedUsersUids();
-
-		const profiles: PublicProfile[] = [];
-
-		for (let uid of uids) {
-			if (profilesStore.contains({ uid })) {
-				profiles.push(profilesStore.get({ uid }) || ({} as PublicProfile));
-				return;
-			}
-
-			const profile = await getProfile(uid);
-
-			if (!profile) return;
-
-			profiles.push(profile);
-			profilesStore.add(profile);
-		}
-
-		return profiles;
-	};
 </script>
 
 <!-- App Shell -->
@@ -88,29 +51,11 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
-				<section>
-					{#await getFollowedProfiles()}
-						{#each { length: 5 } as _}
-							<ProfileCardPlaceholder />
-						{/each}
-					{:then profiles}
-						{#if profiles}
-							{#each profiles as profile}
-								<FollowedProfileCard {profile} />
-							{/each}
-						{/if}
-					{:catch e}
-						<p>{e}</p>
-					{/await}
-				</section>
+				<FollowedList />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
-					{#await supabase}
-						<ProfileCardPlaceholder />
-					{:then supabase}
-						<ProfileCard />
-					{/await}
+					<ProfileCard />
 				{:else}
 					<div class="flex w-full flex-col gap-3 p-2">
 						<a href="/auth/signin" class="variant-ghost-surface btn"

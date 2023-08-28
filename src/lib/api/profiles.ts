@@ -31,3 +31,14 @@ export const getAvatar = async (uid: string): Promise<string> => {
 
 	return avatar_url || '';
 };
+
+export const getFollowedUsersUids = async (uid: string | undefined) => {
+	const res = await fetch(`/api/users/${uid}/followed`);
+	if (!res.ok) throw 'Error';
+
+	const data = await res.json();
+
+	const uids = data as string[];
+
+	return uids;
+};
