@@ -8,8 +8,9 @@
 	export let data: { supabase: SupabaseClient; error: string; username: string };
 
 	let { supabase, error, username } = data;
+	$: ({ supabase, username } = data);
 
-	const getProfile = async () => {
+	const getProfile = async (username: string) => {
 		const res = await fetch(`/api/users/${username}/profile`);
 		if (!res.ok) throw 'Internal Error';
 
@@ -25,7 +26,7 @@
 	{#if error}
 		<h1 class="h1">{error}</h1>
 	{:else}
-		{#await getProfile()}
+		{#await getProfile(username)}
 			<span class="animate-spin">
 				<Icon icon="mdi:loading" width={100} />
 			</span>
