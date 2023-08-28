@@ -45,6 +45,7 @@
 		"@supabase/auth-helpers-sveltekit": "^0.10.2",
 		"@supabase/supabase-js": "^2.33.1",
 		"highlight.js": "11.8.0",
-		"supabase": "^1.88.0"
+		"supabase": "^1.88.0",
+		"uuid": "^9.0.0"
 	}
 }
