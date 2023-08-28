@@ -19,7 +19,6 @@
 
 	import ProfileCard from '$comp/ProfileCard.svelte';
 	import Icon from '@iconify/svelte';
-	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
 	import FollowedList from '$comp/FollowedList.svelte';
 
 	export let data;
