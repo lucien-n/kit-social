@@ -27,7 +27,7 @@ export const getAvatar = async (uid: string): Promise<string> => {
 	const res = await fetch(`/api/users/${uid}/avatar`);
 	if (!res.ok || res.status === 204) return '';
 
-	const avatar_public_url = await res.json();
+	const avatar_url = await res.json();
 
-	return avatar_public_url || '';
+	return avatar_url || '';
 };
