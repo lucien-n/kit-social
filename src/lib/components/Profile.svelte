@@ -55,6 +55,7 @@
 		>
 			<div class="flex items-center gap-4">
 				<div class="relative">
+					<Avatar {profile} width="w-24" />
 					{#if $profileStore?.uid == profile.uid}
 						<UploadAvatar
 							{supabase}
@@ -63,7 +64,6 @@
 							}}
 						/>
 					{/if}
-					<Avatar {profile} width="w-24" />
 				</div>
 				<div>
 					<h2 class="h2">{profile.name}</h2>
