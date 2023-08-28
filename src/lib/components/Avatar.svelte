@@ -14,7 +14,11 @@
 		/>
 	{:then avatar_url}
 		{#if avatar_url}
-			<img src={avatar_url} alt={avatar_url ? 'Avatar' : 'No image'} class="avatar image {width}" />
+			<img
+				src={avatar_url}
+				alt={avatar_url ? 'Avatar' : 'No image'}
+				class="avatar image {width} rounded-full"
+			/>
 		{:else}
 			<Avatar {width} initials={profile.name.slice(0, 1)} />
 		{/if}

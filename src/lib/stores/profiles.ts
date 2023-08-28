@@ -27,8 +27,6 @@ function createProfilesStore(): ProfilesStore {
 				result = Object.values(profiles).filter((profile) => profile.name == username).length > 0;
 		});
 
-		console.log(result ? 'Profiles contains' : 'Profiles does not contain', uid || username);
-
 		return result;
 	};
 
@@ -37,8 +35,6 @@ function createProfilesStore(): ProfilesStore {
 			if (profile.uid && !contains({ uid: profile.uid })) {
 				profiles[profile.uid] = profile;
 			}
-
-			console.log(`Added ${profile.name} to profiles`);
 
 			return profiles;
 		});
@@ -53,8 +49,6 @@ function createProfilesStore(): ProfilesStore {
 			if (username)
 				profile = Object.values(profiles).filter((profile) => profile.name == username)[0];
 		});
-
-		console.log(`Got ${uid || username} from profiles`);
 
 		return profile;
 	};
