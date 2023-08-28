@@ -37,7 +37,7 @@
 		{#if posts && posts.length > 0}
 			<section id="posts" class="flex flex-col gap-3">
 				{#each posts as post}
-					<Post {supabase} {post} />
+					<Post {post} />
 				{/each}
 			</section>
 		{:else}

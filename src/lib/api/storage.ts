@@ -33,6 +33,9 @@ export const uploadImage = async (
 		if (!files || files.length === 0) throw new Error('You must select an image to upload.');
 
 		const file = files[0];
+
+		const compressed_file = compressImage(file);
+
 		const fileExt = file.name.split('.').pop();
 		const filePath = `${uuid()}.${fileExt}`;
 
@@ -45,3 +48,5 @@ export const uploadImage = async (
 		if (e instanceof Error) console.warn('Error while uploading image: ', e.message);
 	}
 };
+
+export const compress;

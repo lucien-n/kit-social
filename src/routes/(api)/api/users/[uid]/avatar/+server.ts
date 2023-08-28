@@ -17,5 +17,9 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 			status: 204
 		});
 
-	return new Response(JSON.stringify(avatar_url), { status: 200 });
+	const {
+		data: { publicUrl }
+	} = supabase.storage.from('avatars').getPublicUrl(avatar_url);
+
+	return new Response(JSON.stringify(publicUrl), { status: 200 });
 };

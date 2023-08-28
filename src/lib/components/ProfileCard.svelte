@@ -3,9 +3,6 @@
 	import Icon from '@iconify/svelte';
 	import Avatar from '$comp/Avatar.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
-	import type { SupabaseClient } from '@supabase/supabase-js';
-
-	export let supabase: SupabaseClient;
 
 	let public_profile: PublicProfile;
 
@@ -19,7 +16,7 @@
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
 			<div class="relative">
-				<Avatar {supabase} bind:profile={public_profile} />
+				<Avatar bind:profile={public_profile} />
 				<span
 					class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]"
 				/>

@@ -3,8 +3,6 @@
 	import type { PublicProfile } from '$types/public_profile.type';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import Avatar from '$comp/Avatar.svelte';
-	import type { SubmitFunction } from '@sveltejs/kit';
-	import { enhance } from '$app/forms';
 	import UploadAvatar from './UploadAvatar.svelte';
 
 	export let profile: PublicProfile;
@@ -54,7 +52,7 @@
 							}}
 						/>
 					{/if}
-					<Avatar {supabase} {profile} width="w-24" />
+					<Avatar {profile} width="w-24" />
 				</div>
 				<div>
 					<h2 class="h2">{profile.name}</h2>

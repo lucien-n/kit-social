@@ -109,7 +109,7 @@
 					{#await supabase}
 						<ProfileCardPlaceholder />
 					{:then supabase}
-						<ProfileCard {supabase} />
+						<ProfileCard />
 					{/await}
 				{:else}
 					<div class="flex w-full flex-col gap-3 p-2">
