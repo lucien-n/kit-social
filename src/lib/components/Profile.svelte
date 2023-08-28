@@ -6,32 +6,13 @@
 	import UploadAvatar from './UploadAvatar.svelte';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import FollowButton from './FollowButton.svelte';
 
 	export let profile: PublicProfile;
 	export let supabase: SupabaseClient;
 
-	let followed: boolean;
-
 	let profileForm: HTMLFormElement;
 	let loading = false;
-
-	export const toggleFollow = async () => {
-		if ($profileStore?.uid == profile.uid) return;
-		if (followed) {
-			const res = await fetch(`/api/users/${profile.uid}/unfollow`);
-			if (res.ok) followed = false;
-		} else {
-			const res = await fetch(`/api/users/${profile.uid}/follow`);
-			if (res.ok) followed = true;
-		}
-	};
-
-	profileStore.subscribe(async (currentProfile) => {
-		if (!currentProfile) return;
-		const res = await fetch(`/api/users/${currentProfile.uid}/is-following/${profile.uid}`);
-		const data = await res.json();
-		followed = data == true;
-	});
 
 	const handleSubmit: SubmitFunction = () => {
 		loading = true;
@@ -69,9 +50,7 @@
 					<h2 class="h2">{profile.name}</h2>
 				</div>
 			</div>
-			<button class="variant-ghost-primary btn" on:click={toggleFollow}
-				>{followed ? 'Unfollow' : 'Follow'}</button
-			>
+			<FollowButton {profile} />
 		</section>
 		<section class="p-3" />
 	</article>
