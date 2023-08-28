@@ -27,8 +27,6 @@
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
 
-	let channel: RealtimeChannel;
-
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange(async (event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
@@ -36,26 +34,33 @@
 			}
 		});
 
-		channel = supabase
-			.channel('main')
-			.on(
-				'postgres_changes',
-				{
-					event: 'UPDATE',
-					schema: 'public',
-					table: 'profiles'
-				},
-				(payload) => {
-					console.log('Change detected: ', payload);
-				}
-			)
-			.subscribe((status) => {
-				if (status === 'SUBSCRIBED') {
-					console.log('subscribed');
-				}
-			});
-
 		return () => data.subscription.unsubscribe();
+	});
+
+	let presence_channel: RealtimeChannel;
+
+	onMount(async () => {
+		presence_channel = supabase.channel('online-users', {
+			config: { presence: { key: session?.user.id } }
+		});
+
+		presence_channel.on('presence', { event: 'sync' }, () => {
+			const new_state = presence_channel.presenceState();
+			console.log('state:', new_state);
+		});
+
+		presence_channel.on('presence', { event: 'join' }, ({ key: uid }) => {});
+
+		presence_channel.on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
+			console.log('left:', key, leftPresences);
+		});
+
+		presence_channel.subscribe(async (status) => {
+			if (status === 'SUBSCRIBED') {
+				const presenceTrackStatus = await presence_channel.track({});
+				console.log(presenceTrackStatus);
+			}
+		});
 	});
 </script>
 
