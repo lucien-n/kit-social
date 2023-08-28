@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils';
 	import { getProfile } from '$api/profiles';
-	import { Avatar } from '@skeletonlabs/skeleton';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { profilesStore } from '$stores/profiles';
 	import type { PublicPost } from '$types/public_post.type';
 	import type { PublicProfile } from '$types/public_profile.type';
+	import Avatar from '$comp/Avatar.svelte';
+	import type { SupabaseClient } from '@supabase/supabase-js';
 
+	export let supabase: SupabaseClient;
 	export let post: PublicPost;
 
 	let postAuthor: PublicProfile | null;
@@ -27,7 +29,7 @@
 	<section class="flex gap-2">
 		<div>
 			{#if postAuthor}
-				<Avatar initials={postAuthor.name[0]} width="w-12" />
+				<Avatar {supabase} profile={postAuthor} width="w-14" />
 			{:else}
 				<div class="placeholder h-12 w-12 animate-pulse rounded-full" />
 			{/if}

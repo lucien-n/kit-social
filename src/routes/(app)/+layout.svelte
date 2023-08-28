@@ -49,8 +49,6 @@
 
 		const uids = data as string[];
 
-		console.log(uids);
-
 		return uids;
 	};
 
@@ -62,7 +60,6 @@
 		for (let uid of uids) {
 			if (profilesStore.contains({ uid })) {
 				profiles.push(profilesStore.get({ uid }) || ({} as PublicProfile));
-				console.log(profiles);
 				return;
 			}
 
@@ -109,7 +106,11 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
-					<ProfileCard />
+					{#await supabase}
+						<ProfileCardPlaceholder />
+					{:then supabase}
+						<ProfileCard {supabase} />
+					{/await}
 				{:else}
 					<div class="flex w-full flex-col gap-3 p-2">
 						<a href="/auth/signin" class="variant-ghost-surface btn"

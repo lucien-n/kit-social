@@ -1,14 +1,15 @@
 <script lang="ts">
 	import Profile from '$comp/Profile.svelte';
+	import { profileStore } from '$stores/profile';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
+	import type { SupabaseClient } from '@supabase/supabase-js';
 
-	export let data: { error: string; username: string };
+	export let data: { supabase: SupabaseClient; error: string; username: string };
 
-	let { error, username } = data;
+	let { supabase, error, username } = data;
 
 	const getProfile = async () => {
-		// TODO: fetch by uid
 		const res = await fetch(`/api/users/${username}/profile`);
 		if (!res.ok) throw 'Internal Error';
 
@@ -30,7 +31,7 @@
 			</span>
 		{:then profile}
 			{#if profile}
-				<Profile {profile} />
+				<Profile {profile} {supabase} />
 			{:else}
 				<h1 class="h1">Profile not found</h1>
 			{/if}

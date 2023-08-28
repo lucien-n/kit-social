@@ -1,7 +1,15 @@
 <script lang="ts">
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
-	import { Avatar } from '@skeletonlabs/skeleton';
+	import Avatar from '$comp/Avatar.svelte';
+	import type { PublicProfile } from '$types/public_profile.type';
+	import type { SupabaseClient } from '@supabase/supabase-js';
+
+	export let supabase: SupabaseClient;
+
+	let public_profile: PublicProfile;
+
+	profileStore.subscribe((profile) => (public_profile = { ...profile } as PublicProfile));
 </script>
 
 {#if $profileStore}
@@ -11,7 +19,7 @@
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
 			<div class="relative">
-				<Avatar initials={$profileStore.name[0]} width="w-12" />
+				<Avatar {supabase} bind:profile={public_profile} />
 				<span
 					class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]"
 				/>

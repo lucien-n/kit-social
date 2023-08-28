@@ -1,11 +1,18 @@
 <script lang="ts">
 	import { profileStore } from '$stores/profile';
 	import type { PublicProfile } from '$types/public_profile.type';
-	import { Avatar } from '@skeletonlabs/skeleton';
+	import type { SupabaseClient } from '@supabase/supabase-js';
+	import Avatar from '$comp/Avatar.svelte';
+	import type { SubmitFunction } from '@sveltejs/kit';
+	import { enhance } from '$app/forms';
+	import UploadAvatar from './UploadAvatar.svelte';
 
 	export let profile: PublicProfile;
+	export let supabase: SupabaseClient;
 
 	let followed: boolean;
+
+	let profileForm: HTMLFormElement;
 
 	export const toggleFollow = async () => {
 		if ($profileStore?.uid == profile.uid) return;
@@ -26,7 +33,10 @@
 	});
 </script>
 
-<div
+<form
+	method="post"
+	action="?/update"
+	bind:this={profileForm}
 	id="{profile.name.toLowerCase().trim().replace(' ', '-')}-profile"
 	class="flex h-full w-full flex-col items-center justify-center"
 >
@@ -35,7 +45,17 @@
 			class="flex h-1/4 items-center justify-between bg-surface-900 p-5 rounded-tl-container-token rounded-tr-container-token"
 		>
 			<div class="flex items-center gap-4">
-				<Avatar initials={profile.name[0]} width="w-24" />
+				<div class="relative">
+					{#if $profileStore?.uid == profile.uid}
+						<UploadAvatar
+							{supabase}
+							on:upload={() => {
+								profileForm.requestSubmit();
+							}}
+						/>
+					{/if}
+					<Avatar {supabase} {profile} width="w-24" />
+				</div>
 				<div>
 					<h2 class="h2">{profile.name}</h2>
 				</div>
@@ -46,4 +66,4 @@
 		</section>
 		<section class="p-3" />
 	</article>
-</div>
+</form>

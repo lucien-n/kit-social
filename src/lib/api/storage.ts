@@ -6,7 +6,7 @@ export const downloadImage = async (
 	supabase: SupabaseClient<Database>,
 	storage_id: 'avatars' | string,
 	path: string
-) => {
+): Promise<string | undefined> => {
 	try {
 		const { data, error } = await supabase.storage.from(storage_id).download(path);
 
@@ -27,7 +27,7 @@ export const downloadImage = async (
 export const uploadImage = async (
 	supabase: SupabaseClient<Database>,
 	storage_id: 'avatars' | string,
-	files: File[]
+	files: FileList
 ) => {
 	try {
 		if (!files || files.length === 0) throw new Error('You must select an image to upload.');
