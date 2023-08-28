@@ -1,5 +1,6 @@
 import type { Database } from '$types/database.types';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import imageCompression from 'browser-image-compression';
 import { v4 as uuid } from 'uuid';
 
 export const downloadImage = async (
@@ -34,12 +35,17 @@ export const uploadImage = async (
 
 		const file = files[0];
 
-		const compressed_file = compressImage(file);
+		// since we can't transform an image without a pro-plan, let's compress it to hell
+		const compressed_file = await imageCompression(file, {
+			maxSizeMB: 1,
+			maxWidthOrHeight: 128,
+			useWebWorker: true
+		});
 
 		const fileExt = file.name.split('.').pop();
 		const filePath = `${uuid()}.${fileExt}`;
 
-		const { error } = await supabase.storage.from(storage_id).upload(filePath, file);
+		const { error } = await supabase.storage.from(storage_id).upload(filePath, compressed_file);
 
 		if (error) throw error;
 
@@ -48,5 +54,3 @@ export const uploadImage = async (
 		if (e instanceof Error) console.warn('Error while uploading image: ', e.message);
 	}
 };
-
-export const compress;
