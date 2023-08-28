@@ -20,11 +20,14 @@
 	import ProfileCard from '$comp/ProfileCard.svelte';
 	import Icon from '@iconify/svelte';
 	import FollowedList from '$comp/FollowedList.svelte';
+	import type { RealtimeChannel } from '@supabase/supabase-js';
 
 	export let data;
 
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
+
+	let channel: RealtimeChannel;
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange(async (event, _session) => {
@@ -32,6 +35,25 @@
 				invalidate('supabase:auth');
 			}
 		});
+
+		channel = supabase
+			.channel('main')
+			.on(
+				'postgres_changes',
+				{
+					event: 'UPDATE',
+					schema: 'public',
+					table: 'profiles'
+				},
+				(payload) => {
+					console.log('Change detected: ', payload);
+				}
+			)
+			.subscribe((status) => {
+				if (status === 'SUBSCRIBED') {
+					console.log('subscribed');
+				}
+			});
 
 		return () => data.subscription.unsubscribe();
 	});

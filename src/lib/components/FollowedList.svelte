@@ -7,7 +7,8 @@
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
 
 	const getFollowedProfiles = async () => {
-		const uids = await getFollowedUsersUids($profileStore?.uid);
+		if (!$profileStore?.uid) return;
+		const uids = await getFollowedUsersUids($profileStore.uid);
 
 		const profiles: PublicProfile[] = [];
 
@@ -30,17 +31,19 @@
 </script>
 
 <section>
-	{#await getFollowedProfiles()}
-		{#each { length: 5 } as _}
-			<ProfileCardPlaceholder />
-		{/each}
-	{:then profiles}
-		{#if profiles}
-			{#each profiles as profile}
-				<FollowedProfileCard {profile} />
+	{#key $profileStore?.uid}
+		{#await getFollowedProfiles()}
+			{#each { length: 5 } as _}
+				<ProfileCardPlaceholder />
 			{/each}
-		{/if}
-	{:catch e}
-		<p>{e}</p>
-	{/await}
+		{:then profiles}
+			{#if profiles}
+				{#each profiles as profile}
+					<FollowedProfileCard {profile} />
+				{/each}
+			{/if}
+		{:catch e}
+			<p>{e}</p>
+		{/await}
+	{/key}
 </section>
