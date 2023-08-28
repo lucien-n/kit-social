@@ -1,5 +1,6 @@
 import type { Database } from '$types/database.types';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { v4 as uuid } from 'uuid';
 
 export const downloadImage = async (
 	supabase: SupabaseClient<Database>,
@@ -33,7 +34,13 @@ export const uploadImage = async (
 
 		const file = files[0];
 		const fileExt = file.name.split('.').pop();
-		const filePath = `${Math.random()}.${fileExt}`;
+		const filePath = `${uuid()}.${fileExt}`;
+
+		const { error } = await supabase.storage.from(storage_id).upload(filePath, file);
+
+		if (error) throw error;
+
+		return filePath;
 	} catch (e) {
 		if (e instanceof Error) console.warn('Error while uploading image: ', e.message);
 	}
