@@ -18,7 +18,7 @@
 			return;
 		}
 
-		postAuthor = await getProfile(post.author_uid);
+		postAuthor = await getProfile({ uid: post.author_uid });
 		if (postAuthor) profilesStore.add(postAuthor);
 	});
 </script>

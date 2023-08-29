@@ -9,8 +9,13 @@ export const getProfile = async ({
 	uid?: string;
 	username?: string;
 }): Promise<PublicProfile | null> => {
-	if (!checkUid(uid)) return null;
-	if (profilesStore.contains({ username })) return profilesStore.get({ username });
+	if (!username && !checkUid(uid)) return null;
+
+	if (uid) {
+		if (profilesStore.contains({ uid })) return profilesStore.get({ uid });
+	} else {
+		if (profilesStore.contains({ username })) return profilesStore.get({ username });
+	}
 
 	const res = await fetch(`/api/users/${uid}/profile`);
 	if (!res.ok) return null;
