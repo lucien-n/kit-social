@@ -1,7 +1,8 @@
 import { checkUid } from '$lib/utils';
+import type { PublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
+export const GET: RequestHandler = async ({ params, locals: { getSession, supabase } }) => {
 	const uid_or_username = params.uid as string;
 
 	let uid = '';
@@ -21,5 +22,22 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	if (!user_data)
 		return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
 
-	return new Response(JSON.stringify(user_data), { status: 200 });
+	const profile: PublicProfile = { ...user_data } as PublicProfile;
+
+	const session = await getSession();
+
+	if (session) {
+		const { data: is_followed } = await supabase.rpc('is_following', {
+			followed: user_data.uid,
+			follower: session.user.id
+		});
+
+		profile.is_followed = is_followed || false;
+
+		const { data: is_private } = await supabase.rpc('is_private', { user_uid: user_data.uid });
+
+		profile.is_private = is_private || false;
+	}
+
+	return new Response(JSON.stringify(profile), { status: 200 });
 };

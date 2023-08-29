@@ -23,56 +23,75 @@
 			loading = false;
 		};
 	};
+
+	// TODO: VERY TEMPORARY SOLUTION
+	let refresh = 0;
+	const update = () => {
+		refresh++;
+	};
 </script>
 
-<section class="flex h-full w-full items-center justify-center">
-	{#if error}
-		<h1 class="h1">{error}</h1>
-	{:else}
-		{#await getProfile({ username })}
-			<span class="animate-spin">
-				<Icon icon="mdi:loading" width={100} />
-			</span>
-		{:then profile}
-			{#if profile}
-				<form
-					method="post"
-					action="?/update"
-					use:enhance={handleSubmit}
-					bind:this={profileForm}
-					id="{profile.name.toLowerCase().trim().replace(' ', '-')}-profile"
-					class="flex h-full w-full flex-col items-center justify-center"
-				>
-					<article class="card h-4/5 w-full rounded-tl-container-token rounded-tr-container-token">
-						<section
-							class="flex h-1/4 items-center justify-between bg-surface-900 p-5 rounded-tl-container-token rounded-tr-container-token"
+{#key refresh}
+	<section class="flex h-full w-full items-center justify-center">
+		{#if error}
+			<h1 class="h1">{error}</h1>
+		{:else}
+			{#await getProfile({ username })}
+				<span class="animate-spin">
+					<Icon icon="mdi:loading" width={100} />
+				</span>
+			{:then profile}
+				{#if profile}
+					<form
+						method="post"
+						action="?/update"
+						use:enhance={handleSubmit}
+						bind:this={profileForm}
+						id="{profile.name.toLowerCase().trim().replace(' ', '-')}-profile"
+						class="flex h-4/5 w-full flex-col items-center justify-center overflow-y-hidden"
+					>
+						<article
+							class="card h-full w-full rounded-tl-container-token rounded-tr-container-token"
 						>
-							<div class="flex items-center gap-4">
-								<div class="relative">
-									<Avatar {profile} width="w-24" />
-									{#if $profileStore?.uid == profile.uid}
-										<UploadAvatar
-											{supabase}
-											on:upload={() => {
-												profileForm.requestSubmit();
-											}}
-										/>
-									{/if}
+							<section
+								class="flex h-1/4 items-center justify-between bg-surface-900 p-5 rounded-tl-container-token rounded-tr-container-token"
+							>
+								<div class="flex items-center gap-4">
+									<div class="relative">
+										<Avatar {profile} width="w-24" />
+										{#if $profileStore?.uid == profile.uid}
+											<UploadAvatar
+												{supabase}
+												on:upload={() => {
+													profileForm.requestSubmit();
+												}}
+											/>
+										{/if}
+									</div>
+									<div>
+										<h2 class="h2">{profile.name}</h2>
+									</div>
 								</div>
-								<div>
-									<h2 class="h2">{profile.name}</h2>
-								</div>
-							</div>
-							<FollowButton {profile} />
-						</section>
-						<section class="p-3" />
-					</article>
-				</form>
-			{:else}
-				<h1 class="h1">Profile not found</h1>
-			{/if}
-		{:catch e}
-			<h1 class="h1">{e}</h1>
-		{/await}
-	{/if}
-</section>
+								<FollowButton {profile} on:update={update} />
+							</section>
+							<section class="flex h-3/4 p-3">
+								{#if !profile.is_followed && profile.is_private}
+									<hgroup class="mx-auto self-center text-center">
+										<h2 class="h2">This profile is private</h2>
+										<p class="text-lg">Follow them to access their profile</p>
+									</hgroup>
+								{:else}
+									<h2 class="h2">{profile.name}'s info</h2>
+								{/if}
+							</section>
+						</article>
+					</form>
+				{:else}
+					<h1 class="h1">Profile not found</h1>
+				{/if}
+			{:catch e}
+				<h1 class="h1">{e}</h1>
+			{/await}
+		{/if}
+	</section>
+{/key}

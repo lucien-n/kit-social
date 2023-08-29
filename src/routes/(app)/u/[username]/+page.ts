@@ -9,6 +9,7 @@ export const load: PageLoad = async ({ params }) => {
 
 	if (!username || username.length < 3)
 		return { error: 'Username must be at least 3 characters long' } as Response;
+	
 
 	return { username } as Response;
 };

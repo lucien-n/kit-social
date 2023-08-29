@@ -147,14 +147,20 @@ export interface Database {
       }
       profiles_settings: {
         Row: {
+          hide_followed: boolean
+          hide_likes: boolean
           is_private: boolean
           uid: string
         }
         Insert: {
+          hide_followed?: boolean
+          hide_likes?: boolean
           is_private?: boolean
           uid: string
         }
         Update: {
+          hide_followed?: boolean
+          hide_likes?: boolean
           is_private?: boolean
           uid?: string
         }
@@ -193,6 +199,12 @@ export interface Database {
         Returns: boolean
       }
       is_online: {
+        Args: {
+          user_uid: string
+        }
+        Returns: boolean
+      }
+      is_private: {
         Args: {
           user_uid: string
         }
