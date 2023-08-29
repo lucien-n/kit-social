@@ -17,7 +17,7 @@ export const getProfile = async ({
 		if (profilesStore.contains({ username })) return profilesStore.get({ username });
 	}
 
-	const res = await fetch(`/api/users/${uid}/profile`);
+	const res = await fetch(`/api/users/${uid || username}/profile`);
 	if (!res.ok) return null;
 
 	const data = await res.json();
