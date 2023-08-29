@@ -43,7 +43,7 @@
 					id="{profile.name.toLowerCase().trim().replace(' ', '-')}-profile"
 					class="flex h-full w-full flex-col items-center justify-center"
 				>
-					<article class="card h-4/5 w-4/5 rounded-tl-container-token rounded-tr-container-token">
+					<article class="card h-4/5 w-full rounded-tl-container-token rounded-tr-container-token">
 						<section
 							class="flex h-1/4 items-center justify-between bg-surface-900 p-5 rounded-tl-container-token rounded-tr-container-token"
 						>
