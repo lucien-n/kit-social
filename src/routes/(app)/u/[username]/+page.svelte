@@ -22,6 +22,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Social - {username}</title>
+</svelte:head>
+
 <section class="flex h-full w-full items-center justify-center">
 	{#if error}
 		<h1 class="h1">{error}</h1>

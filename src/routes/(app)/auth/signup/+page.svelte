@@ -15,6 +15,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Social - SignUp</title>
+</svelte:head>
+
 <section class="flex h-full w-full items-center justify-center">
 	<div class="card w-full p-4 lg:w-1/2 xl:w-1/3">
 		<h3 class="h3 text-center">Sign Up</h3>

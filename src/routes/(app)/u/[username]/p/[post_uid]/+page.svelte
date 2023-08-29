@@ -18,6 +18,10 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Social - Post</title>
+</svelte:head>
+
 <article class="flex h-full w-full flex-col items-center justify-center">
 	{#if !error}
 		{#await getPost()}
