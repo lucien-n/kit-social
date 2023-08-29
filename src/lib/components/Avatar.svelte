@@ -16,9 +16,10 @@
 		{#if avatar_url}
 			<img
 				src={avatar_url}
-				alt={avatar_url ? 'Avatar' : 'No image'}
-				class="avatar image {width} rounded-full"
-				loading="lazy"
+				alt=""
+				class="{width} placeholder h-fit rounded-full"
+				class:animate-pulse={!avatar_url}
+				loading="eager"
 				width="96"
 				height="96"
 			/>
