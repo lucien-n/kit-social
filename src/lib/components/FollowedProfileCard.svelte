@@ -2,15 +2,10 @@
 	import { formatDate } from '$lib/utils';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Avatar from '$comp/Avatar.svelte';
-	import { onlineUsersStore } from '$stores/online';
 
 	export let profile: PublicProfile;
 
 	let is_online = false;
-
-	onlineUsersStore.subscribe((online_users) => {
-		is_online = online_users.has(profile.uid);
-	});
 </script>
 
 {#if profile.uid}

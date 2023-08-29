@@ -1,4 +1,5 @@
-export function formatDate(date_value: any): string {
+export function formatDate(date_value: Date | string | number | undefined): string {
+	if (!date_value) return 'No Date';
 	const date = new Date(date_value);
 
 	const month = date.toLocaleString('default', { month: 'short' });
