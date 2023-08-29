@@ -9,8 +9,6 @@
 
 	let { posts } = data;
 	$: ({ posts } = data);
-
-	console.log(posts);
 </script>
 
 <svelte:head>

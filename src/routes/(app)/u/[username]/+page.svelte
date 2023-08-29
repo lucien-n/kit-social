@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { getProfile } from '$api/profiles';
 	import Profile from '$comp/Profile.svelte';
-	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 
@@ -8,24 +8,13 @@
 
 	let { supabase, error, username } = data;
 	$: ({ supabase, username } = data);
-
-	const getProfile = async (username: string) => {
-		const res = await fetch(`/api/users/${username}/profile`);
-		if (!res.ok) throw 'Internal Error';
-
-		const data = await res.json();
-
-		const profile = data as PublicProfile;
-
-		return profile;
-	};
 </script>
 
 <section class="flex h-full w-full items-center justify-center">
 	{#if error}
 		<h1 class="h1">{error}</h1>
 	{:else}
-		{#await getProfile(username)}
+		{#await getProfile({ username })}
 			<span class="animate-spin">
 				<Icon icon="mdi:loading" width={100} />
 			</span>

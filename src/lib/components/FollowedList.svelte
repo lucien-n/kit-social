@@ -18,7 +18,7 @@
 				return;
 			}
 
-			const profile = await getProfile(uid);
+			const profile = await getProfile({ uid });
 
 			if (!profile) return;
 

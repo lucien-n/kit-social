@@ -12,10 +12,6 @@
 
 		return data;
 	};
-
-	onMount(() => {
-		getPost();
-	});
 </script>
 
 <svelte:head>
