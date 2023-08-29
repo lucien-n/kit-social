@@ -1,8 +1,6 @@
 import type { PublicPost } from '$types/public_post.type';
 import type { PageLoad } from './$types';
 
-export const ssr = false;
-
 export const load: PageLoad = async ({ fetch }) => {
 	const getPosts = async () => {
 		const res = await fetch('/api/posts/get-feed');
