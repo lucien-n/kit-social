@@ -23,11 +23,26 @@
 	import ProfileCard from '$comp/ProfileCard.svelte';
 	import Icon from '@iconify/svelte';
 	import FollowedList from '$comp/FollowedList.svelte';
+	import SignInUp from '$comp/SignInUp.svelte';
+	import type { PublicProfile } from '$types/public_profile.type';
+	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 
-	export let data;
+	export let data: {
+		supabase: SupabaseClient;
+		session: Session | null;
+		streamed: { followed_users: Promise<PublicProfile[] | null> };
+	};
 
-	let { supabase, session } = data;
-	$: ({ supabase, session } = data);
+	let {
+		supabase,
+		session,
+		streamed: { followed_users }
+	} = data;
+	$: ({
+		supabase,
+		session,
+		streamed: { followed_users }
+	} = data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange(async (event, _session) => {
@@ -55,26 +70,13 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
-				<FollowedList {session} />
+				<FollowedList {followed_users} />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
 					<ProfileCard />
 				{:else}
-					<div class="flex w-full flex-col gap-3 p-2">
-						<a href="/auth/signin" class="variant-ghost-surface btn"
-							><p>Sign In</p>
-							<span class="flex self-center">
-								<Icon icon="mdi:login" width={20} />
-							</span>
-						</a>
-						<a href="/auth/signup" class="variant-ghost-surface btn"
-							><p>Sign Up</p>
-							<span class="flex self-center">
-								<Icon icon="mdi:register" width={20} />
-							</span>
-						</a>
-					</div>
+					<SignInUp />
 				{/if}
 			</svelte:fragment>
 		</AppRail>
