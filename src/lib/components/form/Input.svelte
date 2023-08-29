@@ -26,7 +26,7 @@
 		{#if type == 'password' || showPassword}
 			<div class="input-group flex">
 				<input {value} {id} {name} {type} {placeholder} {required} class="input {cclass}" />
-				<button type="button" on:click={toggleShowPassword}>
+				<button type="button" on:click={toggleShowPassword} name="toggle-show-password">
 					{#if showPassword}
 						<Icon icon="mdi:eye-closed" width={20} />
 					{:else}

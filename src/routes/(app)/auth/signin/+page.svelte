@@ -29,7 +29,7 @@
 			<Input value={form?.values?.email} type="email" id="email" name="email" label="Email" />
 			<Input type="password" id="password" name="password" label="Password" />
 			<br />
-			<button disabled={loading} class="variant-ghost-surface btn mx-auto flex w-1/2"
+			<button disabled={loading} class="variant-ghost-surface btn mx-auto flex w-1/2" name="sign-in"
 				>Sign in</button
 			>
 		</form>

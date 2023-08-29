@@ -36,7 +36,12 @@
 	};
 </script>
 
-<button class="variant-ghost-primary btn flex gap-1" disabled={loading} on:click={toggleFollow}>
+<button
+	class="variant-ghost-primary btn flex gap-1"
+	disabled={loading}
+	on:click={toggleFollow}
+	name={followed ? 'Unfollow' : 'Follow'}
+>
 	{#if loading}
 		<span class="animate-spin">
 			<Icon icon="mdi:loading" />

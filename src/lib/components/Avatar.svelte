@@ -18,6 +18,9 @@
 				src={avatar_url}
 				alt={avatar_url ? 'Avatar' : 'No image'}
 				class="avatar image {width} rounded-full"
+				loading="lazy"
+				width="96"
+				height="96"
 			/>
 		{:else}
 			<Avatar {width} initials={profile.name.slice(0, 1)} />

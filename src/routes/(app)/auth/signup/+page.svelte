@@ -46,7 +46,7 @@
 			/>
 			<Input type="password" id="password" name="password" label="Password" required />
 			<br />
-			<button disabled={loading} class="variant-ghost-surface btn mx-auto flex w-1/2"
+			<button disabled={loading} class="variant-ghost-surface btn mx-auto flex w-1/2" name="sign-up"
 				>Sign Up</button
 			>
 		</form>

@@ -51,6 +51,7 @@
 			type="submit"
 			disabled={loading}
 			class="variant-ghost-secondary btn flex items-center gap-1 self-end"
+			name="create-post"
 		>
 			{#if loading}
 				<span class="animate-spin">
