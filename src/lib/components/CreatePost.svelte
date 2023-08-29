@@ -34,9 +34,7 @@
 </script>
 
 <section class="card mx-auto flex w-full gap-2 p-3">
-	<div>
-		<Avatar profile={$profileStore} width="w-12" />
-	</div>
+	<Avatar profile={$profileStore} width="w-12" />
 	<form method="post" class="relative flex h-full w-full flex-col" use:enhance={handleSubmit}>
 		<div class="pointer-events-none absolute p-1 text-xl opacity-70" class:hidden={hidePlaceholder}>
 			What's poppin {$profileStore?.name || ''}?
