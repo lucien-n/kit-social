@@ -2,9 +2,10 @@
 	import { applyAction, enhance } from '$app/forms';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
-	import { Avatar } from '@skeletonlabs/skeleton';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { FormEventHandler } from 'svelte/elements';
+	import Avatar from '$comp/Avatar.svelte';
+	import type { PublicProfile } from '$types/public_profile.type';
 
 	export let form;
 
@@ -34,7 +35,7 @@
 
 <section class="card mx-auto flex w-full gap-2 p-3">
 	<div>
-		<Avatar initials={$profileStore?.name[0]} width="w-12" />
+		<Avatar profile={$profileStore} width="w-12" />
 	</div>
 	<form method="post" class="relative flex h-full w-full flex-col" use:enhance={handleSubmit}>
 		<div class="pointer-events-none absolute p-1 text-xl opacity-70" class:hidden={hidePlaceholder}>
