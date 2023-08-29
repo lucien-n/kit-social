@@ -36,17 +36,19 @@
 	};
 </script>
 
-<button
-	class="variant-ghost-primary btn flex gap-1"
-	disabled={loading}
-	on:click={toggleFollow}
-	name={followed ? 'Unfollow' : 'Follow'}
->
-	{#if loading}
-		<span class="animate-spin">
-			<Icon icon="mdi:loading" />
-		</span>
-	{/if}
+{#if $profileStore?.uid != profile.uid}
+	<button
+		class="variant-ghost-primary btn flex gap-1"
+		disabled={loading}
+		on:click={toggleFollow}
+		name={followed ? 'Unfollow' : 'Follow'}
+	>
+		{#if loading}
+			<span class="animate-spin">
+				<Icon icon="mdi:loading" />
+			</span>
+		{/if}
 
-	{followed ? 'Unfollow' : 'Follow'}</button
->
+		{followed ? 'Unfollow' : 'Follow'}</button
+	>
+{/if}
