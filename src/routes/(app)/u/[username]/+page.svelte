@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Profile from '$comp/Profile.svelte';
-	import { profileStore } from '$stores/profile';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
 	import type { SupabaseClient } from '@supabase/supabase-js';
@@ -21,10 +20,6 @@
 		return profile;
 	};
 </script>
-
-<svelte:head>
-	<title>Social - {username}</title>
-</svelte:head>
 
 <section class="flex h-full w-full items-center justify-center">
 	{#if error}

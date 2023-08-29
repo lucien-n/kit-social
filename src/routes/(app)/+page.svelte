@@ -3,25 +3,14 @@
 	import Post from '$comp/Post.svelte';
 	import PostPlaceholder from '$comp/PostPlaceholder.svelte';
 	import type { PublicPost } from '$types/public_post.type.js';
-	import type { RealtimeChannel, Session, SupabaseClient } from '@supabase/supabase-js';
-	import { onMount } from 'svelte';
 
-	export let data: { supabase: SupabaseClient; session: Session };
+	export let data: { posts: PublicPost[] };
 	export let form;
 
-	let { supabase, session } = data;
-	$: ({ supabase, session } = data);
+	let { posts } = data;
+	$: ({ posts } = data);
 
-	const getPosts = async () => {
-		const res = await fetch('/api/posts/get-feed');
-		if (!res.ok) throw 'Internal Error';
-
-		const data = await res.json();
-
-		const posts = data as PublicPost[];
-
-		return posts;
-	};
+	console.log(posts);
 </script>
 
 <svelte:head>
@@ -34,7 +23,7 @@
 	{/if}
 	<CreatePost {form} />
 	<hr />
-	{#await getPosts()}
+	{#await posts}
 		{#each { length: 10 } as _}
 			<PostPlaceholder />
 		{/each}
