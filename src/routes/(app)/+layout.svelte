@@ -50,7 +50,7 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
-				<FollowedList />
+				<FollowedList {session} />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}

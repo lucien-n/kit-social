@@ -5,10 +5,13 @@
 	import type { PublicProfile } from '$types/public_profile.type';
 	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
+	import type { Session } from '@supabase/supabase-js';
+
+	export let session: Session | null;
 
 	const getFollowedProfiles = async () => {
-		if (!$profileStore?.uid) return;
-		const uids = await getFollowedUsersUids($profileStore.uid);
+		if (!session?.user.id) return;
+		const uids = await getFollowedUsersUids(session.user.id);
 
 		const profiles: PublicProfile[] = [];
 
@@ -31,7 +34,7 @@
 </script>
 
 <section>
-	{#key $profileStore?.uid}
+	{#key session}
 		{#await getFollowedProfiles()}
 			{#each { length: 5 } as _}
 				<ProfileCardPlaceholder />
