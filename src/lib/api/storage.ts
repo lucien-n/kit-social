@@ -37,7 +37,7 @@ export const uploadImage = async (
 
 		// since we can't transform an image without a pro-plan, let's compress it to hell
 		const compressed_image = await imageCompression(file, {
-			maxSizeMB: 1,
+			maxSizeMB: 0.05,
 			maxWidthOrHeight: 96,
 			useWebWorker: true
 		});
