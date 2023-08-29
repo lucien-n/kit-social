@@ -1,16 +1,18 @@
+import { checkUid } from '$lib/utils';
 import type { PublicPost } from '$types/public_post.type';
 import type { PublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch }) => {
-	const post_uid = params.post_uid;
+	const post_uid = params.post_uid as string;
 
-	if (post_uid?.length != 36)
+	if (!checkUid(post_uid))
 		return new Response(JSON.stringify({ message: 'Please provide a valid uid' }), { status: 422 });
 
 	const { data, error } = await supabase
 		.from('posts')
-		.select('uid, author_uid, content, created_at');
+		.select('uid, author_uid, content, created_at')
+		.match({ uid: post_uid });
 
 	if (error) return new Response(JSON.stringify({ message: error.message }), { status: 500 });
 
