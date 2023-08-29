@@ -31,9 +31,9 @@
 			<a href="/auth/signout" class="btn border-0 p-1" aria-label="signout" data-sveltekit-reload
 				><Icon icon="mdi:logout" width={24} /></a
 			>
-			<button class="btn border-0 p-1" name="settings">
+			<a href="/settings/account" class="btn border-0 p-1" aria-label="settings">
 				<Icon icon="mdi:settings" width={24} />
-			</button>
+			</a>
 		</div>
 	</section>
 {/if}

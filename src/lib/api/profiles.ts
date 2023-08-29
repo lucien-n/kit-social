@@ -57,3 +57,16 @@ export const getFollowedUsersUids = async (uid: string | undefined) => {
 
 	return uids;
 };
+
+export const getSettings = async (uid: string | undefined): Promise<SupaProfileSettings | null> => {
+	if (!checkUid(uid)) return null;
+
+	const res = await fetch(`/api/users/${uid}/settings`);
+	if (!res.ok) throw 'Error';
+
+	const data = await res.json();
+
+	const settings = data as SupaProfileSettings;
+
+	return settings;
+};

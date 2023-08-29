@@ -15,7 +15,7 @@
 	<title>Social - Home</title>
 </svelte:head>
 
-<div class="container mx-auto flex w-2/3 flex-col gap-3">
+<div class="flex w-full flex-col gap-3">
 	{#if form?.error}
 		<p>{form.error}</p>
 	{/if}

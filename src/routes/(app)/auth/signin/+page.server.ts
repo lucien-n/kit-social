@@ -17,10 +17,10 @@ export const actions: Actions = {
 				email: string;
 			};
 		};
-		const formData = await request.formData();
+		const form_data = await request.formData();
 
-		const email = formData.get('email')?.toString();
-		const password = formData.get('password')?.toString();
+		const email = form_data.get('email')?.toString();
+		const password = form_data.get('password')?.toString();
 
 		if (!email) {
 			return fail(400, {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	// #==========[ START OF SKELETON SHANANIGANS ]==========#
 	import '../../app.postcss';
-	import { AppShell, AppRail } from '@skeletonlabs/skeleton';
+	import { AppShell, AppRail, Modal, initializeStores } from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js';
@@ -15,6 +15,9 @@
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+	initializeStores();
+
 	// #==========[ END OF SKELETON SHANANIGANS ]==========#
 
 	import ProfileCard from '$comp/ProfileCard.svelte';
@@ -36,6 +39,8 @@
 		return () => data.subscription.unsubscribe();
 	});
 </script>
+
+<Modal />
 
 <!-- App Shell -->
 <AppShell>
@@ -76,5 +81,7 @@
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarRight" />
 	<!-- Page Route Content -->
-	<slot />
+	<div class="mx-auto h-full w-full lg:w-4/5 xl:w-3/5">
+		<slot />
+	</div>
 </AppShell>
