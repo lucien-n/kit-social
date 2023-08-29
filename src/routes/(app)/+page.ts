@@ -1,17 +1,14 @@
 import type { PublicPost } from '$types/public_post.type';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ fetch }) => {
-	const getPosts = async () => {
-		const res = await fetch('/api/posts/get-feed');
-		if (!res.ok) throw 'Internal Error';
+export const load: PageLoad = ({ fetch }) => {
+	const posts_data = fetch('/api/posts/get-feed')
+		.then((res) => res.json())
+		.then((data) => data as PublicPost[]);
 
-		const data = await res.json();
-
-		const posts = data as PublicPost[];
-
-		return posts;
+	return {
+		streamed: {
+			posts: new Promise((resolve) => posts_data.then((data) => resolve(data)))
+		}
 	};
-
-	return { posts: await getPosts() };
 };

@@ -4,11 +4,17 @@
 	import PostPlaceholder from '$comp/PostPlaceholder.svelte';
 	import type { PublicPost } from '$types/public_post.type.js';
 
-	export let data: { posts: PublicPost[] };
+	export let data: { streamed: { posts: PublicPost[] } };
 	export let form;
 
-	let { posts } = data;
-	$: ({ posts } = data);
+	let {
+		streamed: { posts }
+	} = data;
+	$: ({
+		streamed: { posts }
+	} = data);
+
+	console.log(posts);
 </script>
 
 <svelte:head>
