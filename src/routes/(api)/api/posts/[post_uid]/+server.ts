@@ -1,7 +1,8 @@
 import type { PublicPost } from '$types/public_post.type';
+import type { PublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
+export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch }) => {
 	const post_uid = params.post_uid;
 
 	if (post_uid?.length != 36)
@@ -17,7 +18,22 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	if (!post_data)
 		return new Response(JSON.stringify({ message: 'Post not found' }), { status: 404 });
 
-	const post = post_data as PublicPost;
+	const author_uid = post_data.author_uid;
+
+	const res = await fetch(`/api/users/${author_uid}/profile`);
+	if (!res.ok)
+		return new Response(JSON.stringify({ message: 'Author not found' }), { status: 404 });
+
+	const author_data = await res.json();
+
+	const author = author_data as PublicProfile;
+
+	const post = {
+		uid: post_data.uid,
+		content: post_data.content,
+		created_at: post_data.created_at,
+		author
+	} as PublicPost;
 
 	return new Response(JSON.stringify(post), { status: 200 });
 };

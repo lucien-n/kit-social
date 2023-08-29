@@ -1,6 +1,8 @@
+import type { PublicProfile } from './public_profile.type';
+
 export type PublicPost = {
 	uid: string;
-	author_uid: string;
 	content: string;
 	created_at: string;
+	author: PublicProfile;
 };
