@@ -37,18 +37,21 @@
 	export let data: {
 		supabase: SupabaseClient;
 		session: Session | null;
-		streamed: { followed_users: Promise<PublicProfile[] | null> };
+		streamed: {
+			followed_users: Promise<PublicProfile[] | null>;
+			notifications_amount: Promise<number | null>;
+		};
 	};
 
 	let {
 		supabase,
 		session,
-		streamed: { followed_users }
+		streamed: { followed_users, notifications_amount }
 	} = data;
 	$: ({
 		supabase,
 		session,
-		streamed: { followed_users }
+		streamed: { followed_users, notifications_amount }
 	} = data);
 
 	onMount(() => {
@@ -82,7 +85,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
-					<ProfileCard />
+					<ProfileCard {notifications_amount} />
 				{:else}
 					<SignInUp />
 				{/if}

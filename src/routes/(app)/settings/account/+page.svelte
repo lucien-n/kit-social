@@ -68,22 +68,26 @@
 				{/if}
 			{/key}
 		</div>
-		<button
-			type="submit"
-			class="variant-ghost-primary btn mx-auto mt-auto flex w-fit gap-1 text-xl"
-			disabled={loading}
-		>
-			{#if loading}
-				<span class="animate-spin">
-					<Icon icon="mdi:loading" />
-				</span>
-			{:else}
-				<span>
-					<Icon icon="mdi:check" />
-				</span>
-			{/if}
-			Save
-		</button>
+		<div class="mx-auto mt-auto flex w-fit gap-2 text-xl">
+			<a
+				href="/auth/signout"
+				class="variant-ghost-error btn flex gap-2"
+				aria-label="signout"
+				data-sveltekit-reload><Icon icon="mdi:logout" width={24} /> Sign Out</a
+			>
+			<button type="submit" class="variant-ghost-primary btn flex gap-2" disabled={loading}>
+				{#if loading}
+					<span class="animate-spin">
+						<Icon icon="mdi:loading" />
+					</span>
+				{:else}
+					<span>
+						<Icon icon="mdi:check" />
+					</span>
+				{/if}
+				Save
+			</button>
+		</div>
 		<slot />
 	</article>
 </form>

@@ -4,6 +4,8 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
 
+	export let notifications_amount: Promise<number | null>;
+
 	let public_profile: PublicProfile;
 
 	profileStore.subscribe((profile) => (public_profile = { ...profile } as PublicProfile));
@@ -28,9 +30,16 @@
 			</div>
 		</a>
 		<div class="flex h-full items-center justify-center gap-2">
-			<a href="/auth/signout" class="btn border-0 p-1" aria-label="signout" data-sveltekit-reload
-				><Icon icon="mdi:logout" width={24} /></a
-			>
+			<a href="/notifications" class="btn border-0 p-1" aria-label="notifications">
+				<span class="relative">
+					<Icon icon="mdi:bell" width={24} />
+					{#await notifications_amount then amount}
+						<div class="badge absolute -right-0 -top-0 scale-90 bg-red-600">
+							<p>{amount || 0}</p>
+						</div>
+					{/await}
+				</span>
+			</a>
 			<a href="/settings/account" class="btn border-0 p-1" aria-label="settings">
 				<Icon icon="mdi:settings" width={24} />
 			</a>
