@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { profileStore } from '$stores/profile';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
@@ -40,9 +41,11 @@
 			if (res.ok) followed = true;
 		}
 
+		goto('?', { replaceState: true, invalidateAll: true });
+
 		if (followed) dispatch('follow');
 		else dispatch('unfollow');
-		dispatch('update')
+		dispatch('update');
 
 		loading = false;
 	};
