@@ -3,12 +3,14 @@
 	import { profileStore } from '$stores/profile';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
-	import { getModalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
 
 	export let profile: PublicProfile;
 
 	const modalStore = getModalStore();
+	const toastStore = getToastStore();
+
 	const dispatch = createEventDispatcher();
 
 	let followed: boolean = profile.is_followed || false;
@@ -33,13 +35,41 @@
 			}
 		}
 
+		let message = '';
+
 		if (followed) {
 			const res = await fetch(`/api/users/${profile.uid}/unfollow`);
-			if (res.ok) followed = false;
+			if (res.ok) {
+				followed = false;
+				if (res.body) {
+					try {
+						const data = await res.json();
+						message = data.message;
+					} catch (e) {
+						message = 'Error';
+					}
+				}
+			}
 		} else {
 			const res = await fetch(`/api/users/${profile.uid}/follow`);
-			if (res.ok) followed = true;
+			if (res.ok) {
+				followed = true;
+				if (res.body) {
+					try {
+						const data = await res.json();
+						message = data.message;
+					} catch (e) {
+						message = 'Error';
+					}
+				}
+			}
 		}
+
+		if (message)
+			toastStore.trigger({
+				autohide: true,
+				message
+			});
 
 		goto('?', { replaceState: true, invalidateAll: true });
 
@@ -51,6 +81,7 @@
 	};
 
 	const getButtonText = () => {
+		if (profile.is_pending) return 'Pending';
 		return followed
 			? 'Unfollow'
 			: profile.is_private && !profile.is_followed
@@ -62,7 +93,7 @@
 {#if $profileStore?.uid != profile.uid}
 	<button
 		class="variant-ghost-primary btn flex gap-1"
-		disabled={loading}
+		disabled={loading || profile.is_pending}
 		on:click={toggleFollow}
 		name={getButtonText()}
 	>

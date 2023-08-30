@@ -1,7 +1,14 @@
 <script lang="ts">
 	// #==========[ START OF SKELETON SHANANIGANS ]==========#
 	import '../../app.postcss';
-	import { AppShell, AppRail, Modal, initializeStores } from '@skeletonlabs/skeleton';
+	import {
+		AppShell,
+		AppRail,
+		Modal,
+		initializeStores,
+		LightSwitch,
+		Toast
+	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js';
@@ -56,6 +63,7 @@
 </script>
 
 <Modal />
+<Toast />
 
 <!-- App Shell -->
 <AppShell>

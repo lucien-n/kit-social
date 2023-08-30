@@ -178,6 +178,13 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
+      accept_pending_follow: {
+        Args: {
+          follower: string
+          followed: string
+        }
+        Returns: undefined
+      }
       delete_avatar: {
         Args: {
           avatar_url: string
@@ -190,6 +197,13 @@ export interface Database {
           object: string
         }
         Returns: Record<string, unknown>
+      }
+      is_follow_pending: {
+        Args: {
+          follower: string
+          followed: string
+        }
+        Returns: boolean
       }
       is_following: {
         Args: {

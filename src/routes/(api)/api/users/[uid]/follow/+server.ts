@@ -18,11 +18,22 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 	if (uid == user_uid)
 		return new Response(JSON.stringify({ message: 'You cannot follow yourself' }), { status: 401 });
 
-	const { error } = await supabase
-		.from('follows')
-		.insert({ follower_uid: user_uid, followed_uid: uid });
+	const { data: is_private } = await supabase.rpc('is_private', { user_uid: uid });
 
-	if (error) return new Response(null, { status: 500 });
+	if (is_private) {
+		const { error } = await supabase
+			.from('pending_follows')
+			.insert({ follower_uid: user_uid, followed_uid: uid });
 
-	return new Response();
+		if (error) return new Response(null, { status: 500 });
+
+		return new Response(JSON.stringify({ message: 'Follow pending' }), { status: 200 });
+	} else {
+		const { error } = await supabase
+			.from('follows')
+			.insert({ follower_uid: user_uid, followed_uid: uid });
+		if (error) return new Response(null, { status: 500 });
+
+		return new Response(JSON.stringify({ message: 'Followed' }), { status: 200 });
+	}
 };

@@ -7,4 +7,5 @@ export type PublicProfile = {
 	last_seen?: string;
 	is_private?: boolean;
 	is_followed?: boolean;
+	is_pending?: boolean;
 };
