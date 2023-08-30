@@ -2,7 +2,7 @@ import { checkUid } from '$lib/utils';
 import type { PublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, locals: { getSession, supabase } }) => {
+export const GET: RequestHandler = async ({ params, locals: { getSession, supabase }, fetch }) => {
 	const uid_or_username = params.uid as string;
 
 	let uid = '';
@@ -37,6 +37,12 @@ export const GET: RequestHandler = async ({ params, locals: { getSession, supaba
 		const { data: is_private } = await supabase.rpc('is_private', { user_uid: user_data.uid });
 
 		profile.is_private = is_private || false;
+	}
+
+	const res = await fetch(`/api/users/${uid}/avatar`);
+	if (res.ok && res.body) {
+		const signedUrl = await res.json();
+		profile.avatar_url = signedUrl;
 	}
 
 	return new Response(JSON.stringify(profile), { status: 200 });

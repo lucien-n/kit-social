@@ -5,11 +5,18 @@
 
 	export let width = 'w-14';
 	export let profile: PublicProfile | SupaProfile | null;
+
+	const avatar = async () => {
+		if (!profile) return;
+		// TODO: Find a better solution than checking startsWith('http')
+		if (profile.avatar_url && profile.avatar_url.startsWith('http')) return profile.avatar_url;
+		else return await getAvatar(profile.uid);
+	};
 </script>
 
 <div class={width}>
 	{#if profile}
-		{#await getAvatar(profile.uid)}
+		{#await avatar()}
 			<div
 				class="flex {width} placeholder aspect-square h-fit animate-pulse items-center justify-center rounded-full bg-black bg-opacity-30"
 			/>
