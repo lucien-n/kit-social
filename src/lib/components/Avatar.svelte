@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getAvatar } from '$api/profiles';
 	import type { PublicProfile } from '$types/public_profile.type';
+	import Icon from '@iconify/svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let width = 'w-14';
@@ -36,8 +37,13 @@
 			{/if}
 		{/await}
 	{:else}
-		<div
-			class="flex {width} placeholder aspect-square h-fit animate-pulse items-center justify-center rounded-full bg-black bg-opacity-30"
-		/>
+		<div class="relative">
+			<div
+				class="flex {width} placeholder aspect-square h-fit animate-pulse items-center justify-center rounded-full bg-black bg-opacity-30"
+			/>
+			<span class="absolute left-0 top-0 {width} p-2">
+				<Icon icon="mdi:account" width="full" />
+			</span>
+		</div>
 	{/if}
 </div>
