@@ -41,14 +41,10 @@
 			const res = await fetch(`/api/users/${profile.uid}/unfollow`);
 			if (res.ok) {
 				followed = false;
-				if (res.body) {
-					try {
-						const data = await res.json();
-						message = data.message;
-					} catch (e) {
-						message = 'Error';
-					}
-				}
+				try {
+					const data = await res.json();
+					message = data.message;
+				} catch (_) {}
 			}
 		} else {
 			const res = await fetch(`/api/users/${profile.uid}/follow`);

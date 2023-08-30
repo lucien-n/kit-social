@@ -26,5 +26,5 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 		.match({ followed_uid: uid, follower_uid: user_uid });
 	if (error) return new Response(null, { status: 500 });
 
-	return new Response();
+	return new Response(JSON.stringify({ message: 'Unfollowed' }), { status: 200 });
 };
