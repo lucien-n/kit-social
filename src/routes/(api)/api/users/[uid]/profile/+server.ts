@@ -39,7 +39,7 @@ export const GET: RequestHandler = async ({ params, locals: { getSession, supaba
 		profile.is_private = is_private || false;
 	}
 
-	const res = await fetch(`/api/users/${uid}/avatar`);
+	const res = await fetch(`/api/users/${user_data.uid}/avatar`);
 	if (res.ok && res.body) {
 		const signedUrl = await res.json();
 		profile.avatar_url = signedUrl;
