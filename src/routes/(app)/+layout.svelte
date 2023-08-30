@@ -63,6 +63,10 @@
 
 		return () => data.subscription.unsubscribe();
 	});
+
+	onMount(async () => {
+		console.log(notifications_amount);
+	});
 </script>
 
 <Modal />

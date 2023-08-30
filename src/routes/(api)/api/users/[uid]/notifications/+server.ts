@@ -18,24 +18,22 @@ export const GET: RequestHandler = async ({
 
 	if (uid != session.user.id) return new Response(null, { status: 401 });
 
-	const get_amount = searchParams.get('amount');
+	const get_amount = searchParams.has('amount');
 
 	if (get_amount) {
-		const { data, error } = await supabase
+		const { count, error } = await supabase
 			.from('notifications')
 			.select('*', { count: 'exact', head: true })
-			.match({ uid });
+			.match({ user_uid: uid });
 
 		if (error) return new Response(null, { status: 500 });
 
-		console.log(data);
-
-		return new Response(JSON.stringify(data), { status: 200 });
+		return new Response(JSON.stringify(count), { status: 200 });
 	} else {
 		const { data, error } = await supabase
 			.from('notifications')
 			.select('uid, type, content')
-			.match({ uid })
+			.match({ user_uid: uid })
 			.limit(10);
 
 		if (error) return new Response(null, { status: 500 });

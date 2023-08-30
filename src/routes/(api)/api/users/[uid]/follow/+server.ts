@@ -27,6 +27,12 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 
 		if (error) return new Response(null, { status: 500 });
 
+		await supabase.rpc('notify', {
+			content: '{name} wants to follow you',
+			type: 'follow_request',
+			uid
+		});
+
 		return new Response(JSON.stringify({ message: 'Follow pending' }), { status: 200 });
 	} else {
 		const { error } = await supabase

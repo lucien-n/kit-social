@@ -21,9 +21,10 @@ export const load: Load = async ({ fetch, data, depends }) => {
 
 	profileStore.refresh(supabase, session?.user.id);
 
-	let followed_users: Promise<PublicProfile[] | null> = new Promise((resolve) => resolve([]));
+	let followed_users: Promise<PublicProfile[] | null> = new Promise((resolve) => resolve);
+	let notifications_amount: Promise<number | null> = new Promise((resolve) => resolve);
 
-	if (session)
+	if (session) {
 		followed_users = fetch(`/api/users/${session.user.id}/followed`)
 			.then((res) => {
 				if (res.ok) return res.json();
@@ -56,11 +57,20 @@ export const load: Load = async ({ fetch, data, depends }) => {
 				return null;
 			});
 
+		notifications_amount = fetch(`/api/users/${session.user.id}/notifications?amount`)
+			.then((res) => {
+				if (!res.ok || !res.body) throw 'Error';
+				return res.json();
+			})
+			.then((amount: number) => amount as number);
+	}
+
 	return {
 		supabase,
 		session,
 		streamed: {
-			followed_users
+			followed_users,
+			notifications_amount
 		}
 	};
 };

@@ -255,6 +255,14 @@ export interface Database {
         }
         Returns: boolean
       }
+      notify: {
+        Args: {
+          content: string
+          type: string
+          uid: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

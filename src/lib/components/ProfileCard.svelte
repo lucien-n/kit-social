@@ -35,7 +35,9 @@
 					<Icon icon="mdi:bell" width={24} />
 					{#await notifications_amount then amount}
 						{#if amount && amount > 0}
-							<div class="badge absolute -right-[.6rem] -top-[.7rem] scale-90 bg-red-600">
+							<div
+								class="badge absolute -right-[.6rem] -top-[.7rem] aspect-square h-6 w-6 scale-90 bg-red-600"
+							>
 								<p>{amount || 0}</p>
 							</div>
 						{/if}
