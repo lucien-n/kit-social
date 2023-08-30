@@ -39,19 +39,18 @@
 		session: Session | null;
 		streamed: {
 			followed_users: Promise<PublicProfile[] | null>;
-			notifications_amount: Promise<number | null>;
 		};
 	};
 
 	let {
 		supabase,
 		session,
-		streamed: { followed_users, notifications_amount }
+		streamed: { followed_users }
 	} = data;
 	$: ({
 		supabase,
 		session,
-		streamed: { followed_users, notifications_amount }
+		streamed: { followed_users }
 	} = data);
 
 	onMount(() => {
@@ -62,10 +61,6 @@
 		});
 
 		return () => data.subscription.unsubscribe();
-	});
-
-	onMount(async () => {
-		console.log(notifications_amount);
 	});
 </script>
 
@@ -89,7 +84,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
-					<ProfileCard {notifications_amount} />
+					<ProfileCard />
 				{:else}
 					<SignInUp />
 				{/if}

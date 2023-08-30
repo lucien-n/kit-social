@@ -43,37 +43,6 @@ export interface Database {
           }
         ]
       }
-      notifications: {
-        Row: {
-          content: string
-          created_at: string
-          type: string
-          uid: string
-          user_uid: string
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          type?: string
-          uid?: string
-          user_uid: string
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          type?: string
-          uid?: string
-          user_uid?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "notifications_user_uid_fkey"
-            columns: ["user_uid"]
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       pending_follows: {
         Row: {
           created_at: string
@@ -254,14 +223,6 @@ export interface Database {
           user_uid: string
         }
         Returns: boolean
-      }
-      notify: {
-        Args: {
-          content: string
-          type: string
-          uid: string
-        }
-        Returns: undefined
       }
     }
     Enums: {

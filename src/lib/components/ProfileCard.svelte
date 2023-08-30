@@ -4,8 +4,6 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
 
-	export let notifications_amount: Promise<number | null>;
-
 	let public_profile: PublicProfile;
 
 	profileStore.subscribe((profile) => (public_profile = { ...profile } as PublicProfile));
@@ -30,20 +28,6 @@
 			</div>
 		</a>
 		<div class="flex h-full items-center justify-center gap-2">
-			<a href="/notifications" class="btn border-0 p-1" aria-label="notifications">
-				<span class="relative">
-					<Icon icon="mdi:bell" width={24} />
-					{#await notifications_amount then amount}
-						{#if amount && amount > 0}
-							<div
-								class="badge absolute -right-[.6rem] -top-[.7rem] aspect-square h-6 w-6 scale-90 bg-red-600"
-							>
-								<p>{amount || 0}</p>
-							</div>
-						{/if}
-					{/await}
-				</span>
-			</a>
 			<a href="/settings/account" class="btn border-0 p-1" aria-label="settings">
 				<Icon icon="mdi:settings" width={24} />
 			</a>
