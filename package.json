@@ -45,6 +45,8 @@
 		"@floating-ui/dom": "1.5.1",
 		"@supabase/auth-helpers-sveltekit": "^0.10.2",
 		"@supabase/supabase-js": "^2.33.1",
+		"@upstash/ratelimit": "^0.4.4",
+		"@upstash/redis": "^1.22.0",
 		"browser-image-compression": "^2.0.2",
 		"highlight.js": "11.8.0",
 		"supabase": "^1.88.0",
