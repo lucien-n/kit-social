@@ -7,9 +7,13 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 
 	const session = await getSession();
 
-	if (!session?.user) return new Response(null, { status: 401 });
+	if (!session?.user)
+		return new Response(JSON.stringify({ error: 'You must be logged in' }), { status: 401 });
 
-	if (session.user.id === uid) return new Response(null, { status: 401 });
+	if (session.user.id === uid)
+		return new Response(JSON.stringify({ error: "You cannot access this user's settings" }), {
+			status: 401
+		});
 
 	const { data, error } = await supabase
 		.from('profiles_settings')
@@ -20,5 +24,5 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 
 	const settings = data?.[0] as SupaProfileSettings;
 
-	return new Response(JSON.stringify(settings), { status: 200 });
+	return new Response(JSON.stringify({ data: settings }), { status: 200 });
 };

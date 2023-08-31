@@ -11,8 +11,11 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 		.match({ follower_uid: uid })
 		.limit(10);
 
-	if (error) return new Response(null, { status: 500 });
-	if (!data) return new Response(null, { status: 200 });
+	if (error)
+		return new Response(JSON.stringify({ error: 'Error while fetching followed users' }), {
+			status: 500
+		});
+	if (!data) return new Response(JSON.stringify({ data: {} }), { status: 204 });
 
 	const uids: string[] = [];
 

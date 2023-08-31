@@ -27,11 +27,11 @@ export const GET: RequestHandler = async ({
 		.select('uid, name, avatar_url, restricted, last_seen, created_at')
 		.match(uid ? { uid } : { name: username });
 
-	if (error) return new Response(null, { status: 500 });
+	if (error)
+		return new Response(JSON.stringify({ error: 'Error while fetching profile' }), { status: 500 });
 
 	const user_data = data?.[0];
-	if (!user_data)
-		return new Response(JSON.stringify({ message: 'User not found' }), { status: 404 });
+	if (!user_data) return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
 
 	const profile: PublicProfile = { ...user_data } as PublicProfile;
 
@@ -60,9 +60,11 @@ export const GET: RequestHandler = async ({
 
 	const res = await fetch(`/api/users/${user_data.uid}/avatar`);
 	if (res.ok && res.body) {
-		const signedUrl = await res.json();
-		profile.avatar_url = signedUrl;
+		const {
+			data: { avatar_url }
+		} = await res.json();
+		profile.avatar_url = avatar_url;
 	}
 
-	return new Response(JSON.stringify(profile), { status: 200 });
+	return new Response(JSON.stringify({ data: profile }), { status: 200 });
 };

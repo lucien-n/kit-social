@@ -21,7 +21,7 @@ export const checkUid = (uid: string | undefined): { uid: string; response?: Res
 	if (!uid || uid.length != 36)
 		return {
 			uid: '',
-			response: new Response(JSON.stringify({ message: 'Please provide a valid uid' }), {
+			response: new Response(JSON.stringify({ error: 'Please provide a valid uid' }), {
 				status: 422
 			})
 		};
@@ -37,7 +37,7 @@ export const checkSession = async (
 	if (!session) {
 		return {
 			session: {} as Session,
-			response: new Response(null, { status: 401 })
+			response: new Response(JSON.stringify({ error: 'You must be logged in' }), { status: 401 })
 		};
 	}
 

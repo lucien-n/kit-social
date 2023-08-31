@@ -21,5 +21,5 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 
 	const signedUrl = url_data?.signedUrl;
 
-	return new Response(JSON.stringify({ avatar_url: signedUrl }), { status: 200 });
+	return new Response(JSON.stringify({ data: { avatar_url: signedUrl } }), { status: 200 });
 };

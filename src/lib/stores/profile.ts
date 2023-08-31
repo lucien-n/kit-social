@@ -1,3 +1,4 @@
+import { getProfile } from '$api/users';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
@@ -20,13 +21,20 @@ function createProfileStore(): ProfileStore {
 			if (!profile && !uid) return null;
 
 			const func = async () => {
-				const { data, error } = await supabase.from('profiles').select('*').match({ uid });
+				if (!uid) return;
+				try {
+					const new_profile = await getProfile(uid);
+					set(new_profile);
+				} catch (e) {
+					console.warn(e);
+				}
+				// const { data, error } = await supabase.from('profiles').select('*').match({ uid });
 
-				if (error) return;
+				// if (error) return;
 
-				const new_profile = data?.[0];
+				// const new_profile = data?.[0];
 
-				if (new_profile) set(new_profile);
+				// if (new_profile) set(new_profile);
 			};
 			func();
 

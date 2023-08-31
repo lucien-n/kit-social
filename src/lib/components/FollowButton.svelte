@@ -37,28 +37,16 @@
 
 		let message = '';
 
-		if (followed) {
-			const res = await fetch(`/api/users/${profile.uid}/unfollow`);
-			if (res.ok) {
-				followed = false;
-				try {
-					const data = await res.json();
-					message = data.message;
-				} catch (_) {}
-			}
-		} else {
-			const res = await fetch(`/api/users/${profile.uid}/follow`);
-			if (res.ok) {
-				followed = true;
-				if (res.body) {
-					try {
-						const data = await res.json();
-						message = data.message;
-					} catch (e) {
-						message = 'Error';
-					}
-				}
-			}
+		const res = await fetch(`/api/users/${profile.uid}/follow`, {
+			method: followed ? 'DELETE' : 'GET'
+		});
+
+		if (res.ok) {
+			followed = false;
+			try {
+				const data = await res.json();
+				message = data.message;
+			} catch (_) {}
 		}
 
 		if (message)
