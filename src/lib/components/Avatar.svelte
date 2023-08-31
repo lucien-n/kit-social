@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getAvatar } from '$api/profiles';
 	import type KClient from '$kclient/kclient';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
@@ -13,7 +12,7 @@
 		if (!profile) return;
 		// TODO: Find a better solution than checking startsWith('http')
 		if (profile.avatar_url && profile.avatar_url.startsWith('http')) return profile.avatar_url;
-		else return await kclient.getAvatar(profile.uid);
+		else return await kclient.users.getAvatar(profile.uid);
 	};
 </script>
 

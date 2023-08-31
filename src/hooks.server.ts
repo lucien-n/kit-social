@@ -1,6 +1,5 @@
 import { PRIVATE_SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
 import { PUBLIC_SUPABASE_URL } from '$env/static/public';
-import KClient from '$kclient/kclient';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import type { Handle } from '@sveltejs/kit';
 
@@ -17,8 +16,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 		} = await event.locals.supabase.auth.getSession();
 		return session;
 	};
-
-	// event.locals.kclient = new KClient(event.fetch, event.locals.supabase);
 
 	return resolve(event, {
 		filterSerializedResponseHeaders(name) {

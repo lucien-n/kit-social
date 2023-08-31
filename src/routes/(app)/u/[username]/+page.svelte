@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getProfile } from '$api/profiles';
 	import { enhance } from '$app/forms';
 	import Avatar from '$comp/Avatar.svelte';
 	import FollowButton from '$comp/FollowButton.svelte';
@@ -7,7 +6,6 @@
 	import type KClient from '$kclient/kclient';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
-	import type { SupabaseClient } from '@supabase/supabase-js';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
 	export let data: { kclient: KClient; error: string; username: string };
@@ -37,7 +35,7 @@
 		{#if error}
 			<h1 class="h1">{error}</h1>
 		{:else}
-			{#await getProfile({ username })}
+			{#await kclient.users.getProfile({ username })}
 				<span class="animate-spin">
 					<Icon icon="mdi:loading" width={100} />
 				</span>
@@ -62,7 +60,7 @@
 										<Avatar {kclient} {profile} width="w-24" />
 										{#if $profileStore?.uid == profile.uid}
 											<UploadAvatar
-												{kclient}
+												supabase={kclient.supabase}
 												on:upload={() => {
 													profileForm.requestSubmit();
 												}}

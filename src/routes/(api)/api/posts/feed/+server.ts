@@ -30,5 +30,5 @@ export const GET: RequestHandler = async ({ fetch, getClientAddress, locals: { s
 		posts.push(post);
 	}
 
-	return new Response(JSON.stringify(posts), { status: 200 });
+	return new Response(JSON.stringify({ data: posts }), { status: 200 });
 };

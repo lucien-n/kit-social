@@ -13,14 +13,14 @@ export const ratelimit = {
 		feed: new Ratelimit({
 			redis,
 			prefix: 'rl:posts:feed',
-			limiter: Ratelimit.slidingWindow(5, '10s')
+			limiter: Ratelimit.slidingWindow(10, '10s')
 		})
 	},
 	users: {
 		profile: new Ratelimit({
 			redis,
 			prefix: 'rl:users:profile',
-			limiter: Ratelimit.slidingWindow(8, '10s')
+			limiter: Ratelimit.slidingWindow(10, '10s')
 		})
 	}
 };

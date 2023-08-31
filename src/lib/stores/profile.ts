@@ -23,7 +23,7 @@ function createProfileStore(): ProfileStore {
 			const func = async () => {
 				if (!uid) return;
 				try {
-					const new_profile = await kclient.getProfile(uid);
+					const new_profile = await kclient.users.getProfile({ uid });
 					if (!new_profile) return;
 					set(new_profile);
 				} catch (e) {

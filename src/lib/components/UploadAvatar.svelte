@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type KClient from '$kclient/kclient';
+	import { uploadAvatar } from '$lib/storage';
 	import Icon from '@iconify/svelte';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import { createEventDispatcher } from 'svelte';
 
-	export let kclient: KClient;
+	export let supabase: SupabaseClient;
 
 	let uploading = false;
 	let files: FileList;
@@ -15,7 +15,7 @@
 	const upload = async () => {
 		try {
 			uploading = true;
-			url = await kclient.uploadAvatar(files);
+			url = await uploadAvatar(supabase, files);
 			setTimeout(() => {
 				dispatch('upload');
 			}, 1000);

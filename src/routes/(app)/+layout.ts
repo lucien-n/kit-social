@@ -1,6 +1,5 @@
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import KClient from '$kclient/kclient';
-import { checkUid } from '$lib/utils';
 import { profileStore } from '$stores/profile';
 import type { PublicProfile } from '$types/public_profile.type';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
@@ -27,37 +26,18 @@ export const load: Load = async ({ fetch, data, depends }) => {
 	let followed_users: Promise<PublicProfile[] | null> = new Promise((resolve) => resolve);
 
 	if (session) {
-		followed_users = fetch(`/api/users/${session.user.id}/followed`)
-			.then((res) => {
-				if (res.ok) return res.json();
-				else throw 'Error while requesting followed users';
-			})
-			.then(async ({ data }) => {
-				const uids: string[] = [];
+		followed_users = kclient.users.getFollowedUsersUids(session.user.id).then(async (uids) => {
+			if (uids.length < 1) return [] as PublicProfile[];
 
-				data.forEach((potential_uid: string) => {
-					if (checkUid(potential_uid)) uids.push(potential_uid);
-				});
+			const profiles: PublicProfile[] = [];
 
-				const profiles: PublicProfile[] = [];
+			for (const uid of uids) {
+				const profile = await kclient.users.getProfile({ uid });
+				if (profile) profiles.push(profile);
+			}
 
-				for (const uid of uids) {
-					const res = await fetch(`/api/users/${uid}/profile`);
-					if (!res.ok) continue;
-
-					const data = await res.json();
-
-					const profile = data as PublicProfile;
-
-					profiles.push(profile);
-				}
-
-				return profiles;
-			})
-			.catch((reason) => {
-				console.warn('Error while retrieving followed users: ', reason);
-				return null;
-			});
+			return profiles;
+		});
 	}
 
 	return {
