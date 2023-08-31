@@ -1,7 +1,13 @@
+import { handleRatelimit } from '$lib/server/helper';
+import { ratelimit } from '$lib/server/redis';
 import type { PublicPost } from '$types/public_post.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ locals: { supabase }, fetch }) => {
+export const GET: RequestHandler = async ({ fetch, getClientAddress, locals: { supabase } }) => {
+	const addr = getClientAddress();
+	const response = await handleRatelimit(addr, ratelimit.posts.feed);
+	if (response) return response;
+
 	const { data, error } = await supabase.from('posts').select('uid').range(0, 10);
 
 	if (error) return new Response(null, { status: 500 });
