@@ -4,7 +4,12 @@ import { checkUid } from '$lib/utils';
 import type { PublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, getClientAddress, locals: { getSession, supabase }, fetch }) => {
+export const GET: RequestHandler = async ({
+	params,
+	getClientAddress,
+	locals: { getSession, supabase },
+	fetch
+}) => {
 	const uid_or_username = params.uid as string;
 
 	let uid = '';

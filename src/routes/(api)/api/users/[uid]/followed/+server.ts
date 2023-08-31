@@ -1,11 +1,9 @@
-import { checkUid } from '$lib/utils';
+import { checkUid } from '$lib/server/helper';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
-	const uid = params.uid;
-
-	if (!checkUid(uid))
-		return new Response(JSON.stringify({ message: 'Please provide a valid uid' }), { status: 422 });
+	const { uid, response: uid_resp } = checkUid(params.uid);
+	if (uid_resp) return uid_resp;
 
 	const { data, error } = await supabase
 		.from('follows')

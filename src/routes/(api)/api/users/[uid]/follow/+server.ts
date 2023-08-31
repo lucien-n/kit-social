@@ -1,17 +1,12 @@
-import { checkUid } from '$lib/utils';
+import { checkSession, checkUid } from '$lib/server/helper';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, locals: { supabase, getSession } }) => {
-	const uid = params.uid as string;
+	const { uid, response: uid_resp } = checkUid(params.uid);
+	if (uid_resp) return uid_resp;
 
-	if (!checkUid(uid))
-		return new Response(JSON.stringify({ message: 'Please provide a valid uid' }), {
-			status: 422
-		});
-
-	const session = await getSession();
-	if (!session)
-		return new Response(JSON.stringify({ message: 'You must be logged in' }), { status: 401 });
+	const { session, response: session_resp } = await checkSession(getSession);
+	if (session_resp) return session_resp;
 
 	const user_uid = session.user.id;
 
@@ -36,4 +31,45 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 
 		return new Response(JSON.stringify({ message: 'Followed' }), { status: 200 });
 	}
+};
+
+export const DELETE: RequestHandler = async ({ params, locals: { supabase, getSession } }) => {
+	const { uid: followed_uid, response: uid_resp } = checkUid(params.uid);
+	if (uid_resp) return uid_resp;
+
+	const { session, response: session_resp } = await checkSession(getSession);
+	if (session_resp) return session_resp;
+
+	const follower_uid = session.user.id;
+
+	const { data: is_pending, error } = await supabase.rpc('is_follow_pending', {
+		followed: followed_uid,
+		follower: follower_uid
+	});
+
+	if (error) new Response(null, { status: 500 });
+
+	if (is_pending) {
+		const { error } = await supabase
+			.from('pending_follows')
+			.delete()
+			.match({ followed_uid, follower_uid });
+		if (error) new Response(null, { status: 500 });
+	} else {
+		const { data: is_following, error } = await supabase.rpc('is_following', {
+			followed: followed_uid,
+			follower: follower_uid
+		});
+		if (error) new Response(null, { status: 500 });
+
+		if (is_following) {
+			const { error } = await supabase
+				.from('follows')
+				.delete()
+				.match({ followed_uid, follower_uid });
+			if (error) new Response(null, { status: 500 });
+		}
+	}
+
+	return new Response(null, { status: 204 });
 };
