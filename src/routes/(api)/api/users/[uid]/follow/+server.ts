@@ -22,14 +22,14 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 
 		if (error) return new Response(null, { status: 500 });
 
-		return new Response(JSON.stringify({ message: 'Follow pending' }), { status: 200 });
+		return new Response(JSON.stringify({ pending: true, message: 'Follow pending' }), { status: 200 });
 	} else {
 		const { error } = await supabase
 			.from('follows')
 			.insert({ follower_uid: user_uid, followed_uid: uid });
 		if (error) return new Response(null, { status: 500 });
 
-		return new Response(JSON.stringify({ message: 'Followed' }), { status: 200 });
+		return new Response(JSON.stringify({ following: true, message: 'Followed' }), { status: 200 });
 	}
 };
 
