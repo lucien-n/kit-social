@@ -11,7 +11,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 
 	const avatar_url = data?.[0].avatar_url;
 	if (!avatar_url)
-		return new Response(JSON.stringify({ message: "User doesn't have an avatar" }), {
+		return new Response(JSON.stringify({ data: { status: "User doesn't have an avatar" } }), {
 			status: 204
 		});
 

@@ -3,6 +3,9 @@
 	import Icon from '@iconify/svelte';
 	import Avatar from '$comp/Avatar.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
+	import type KClient from '$kclient/kclient';
+
+	export let kclient: KClient;
 
 	let public_profile: PublicProfile;
 
@@ -16,7 +19,7 @@
 			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
 		>
 			<div class="relative">
-				<Avatar bind:profile={public_profile} />
+				<Avatar {kclient} bind:profile={public_profile} />
 				<span
 					class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]"
 				/>

@@ -1,29 +1,30 @@
-import { getProfile } from '$api/users';
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type KClient from '$kclient/kclient';
+import type { PublicProfile } from '$types/public_profile.type';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
 type ProfileStore = {
 	subscribe: (
 		this: void,
-		run: Subscriber<SupaProfile | null>,
-		invalidate?: Invalidator<SupaProfile | null>
+		run: Subscriber<PublicProfile | null>,
+		invalidate?: Invalidator<PublicProfile | null>
 	) => () => void;
-	set: (value: SupaProfile | null) => void;
-	update: (updater: (value: SupaProfile | null) => SupaProfile | null) => void;
-	refresh: (suapabase: SupabaseClient, uid?: string) => void;
+	set: (value: PublicProfile | null) => void;
+	update: (updater: (value: PublicProfile | null) => PublicProfile | null) => void;
+	refresh: (kclient: KClient, uid?: string) => void;
 };
 
 function createProfileStore(): ProfileStore {
-	const { subscribe, set, update } = writable<SupaProfile | null>(null);
+	const { subscribe, set, update } = writable<PublicProfile | null>(null);
 
-	const refresh = async (supabase: SupabaseClient, uid?: string) => {
-		update((profile: SupaProfile | null) => {
+	const refresh = async (kclient: KClient, uid?: string) => {
+		update((profile: PublicProfile | null) => {
 			if (!profile && !uid) return null;
 
 			const func = async () => {
 				if (!uid) return;
 				try {
-					const new_profile = await getProfile(uid);
+					const new_profile = await kclient.getProfile(uid);
+					if (!new_profile) return;
 					set(new_profile);
 				} catch (e) {
 					console.warn(e);

@@ -26,7 +26,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch 
 	if (!res.ok)
 		return new Response(JSON.stringify({ message: 'Author not found' }), { status: 404 });
 
-	const author_data = await res.json();
+	const { data: author_data } = await res.json();
 
 	const author = author_data as PublicProfile;
 

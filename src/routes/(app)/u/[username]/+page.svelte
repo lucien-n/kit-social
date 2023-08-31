@@ -4,15 +4,16 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import FollowButton from '$comp/FollowButton.svelte';
 	import UploadAvatar from '$comp/UploadAvatar.svelte';
+	import type KClient from '$kclient/kclient';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
-	export let data: { supabase: SupabaseClient; error: string; username: string };
+	export let data: { kclient: KClient; error: string; username: string };
 
-	let { supabase, error, username } = data;
-	$: ({ supabase, username } = data);
+	let { kclient, error, username } = data;
+	$: ({ kclient, username } = data);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -58,10 +59,10 @@
 							>
 								<div class="flex items-center gap-4">
 									<div class="relative">
-										<Avatar {profile} width="w-24" />
+										<Avatar {kclient} {profile} width="w-24" />
 										{#if $profileStore?.uid == profile.uid}
 											<UploadAvatar
-												{supabase}
+												{kclient}
 												on:upload={() => {
 													profileForm.requestSubmit();
 												}}

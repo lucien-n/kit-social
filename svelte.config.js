@@ -17,7 +17,8 @@ const config = {
 			"$comp": 'src/lib/components',
 			"$types": 'src/lib/types',
 			"$stores": 'src/lib/stores',
-			"$api": 'src/lib/api'
+			"$api": 'src/lib/api',
+			"$kclient": 'src/lib/kclient',
 		}
 	}
 };

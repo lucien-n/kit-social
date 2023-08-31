@@ -5,7 +5,9 @@
 	import { profilesStore } from '$stores/profiles';
 	import Avatar from '$comp/Avatar.svelte';
 	import type { PublicPost } from '$types/public_post.type';
+	import type KClient from '$kclient/kclient';
 
+	export let kclient: KClient;
 	export let post: PublicPost;
 
 	onMount(async () => {
@@ -17,7 +19,7 @@
 	<section class="flex gap-2">
 		<div>
 			{#if post.author}
-				<Avatar profile={post.author} width="w-14" />
+				<Avatar {kclient} profile={post.author} width="w-14" />
 			{:else}
 				<div class="placeholder h-12 w-12 animate-pulse rounded-full" />
 			{/if}

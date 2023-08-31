@@ -1,3 +1,4 @@
+import type KClient from '$kclient/kclient';
 import type { Database } from '$types/database.types';
 import { SupabaseClient, Session } from '@supabase/supabase-js';
 
@@ -10,6 +11,7 @@ declare global {
 		interface Locals {
 			supabase: SupabaseClient<Database>;
 			getSession(): Promise<Session | null>;
+			kclient: KClient;
 		}
 		interface PageData {
 			session: Session | null;

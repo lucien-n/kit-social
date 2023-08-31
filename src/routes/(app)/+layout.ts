@@ -1,4 +1,5 @@
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
+import KClient from '$kclient/kclient';
 import { checkUid } from '$lib/utils';
 import { profileStore } from '$stores/profile';
 import type { PublicProfile } from '$types/public_profile.type';
@@ -15,11 +16,13 @@ export const load: Load = async ({ fetch, data, depends }) => {
 		serverSession: data?.session
 	});
 
+	const kclient = new KClient(fetch, supabase);
+
 	const {
 		data: { session }
 	} = await supabase.auth.getSession();
 
-	profileStore.refresh(supabase, session?.user.id);
+	profileStore.refresh(kclient, session?.user.id);
 
 	let followed_users: Promise<PublicProfile[] | null> = new Promise((resolve) => resolve);
 
@@ -29,7 +32,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 				if (res.ok) return res.json();
 				else throw 'Error while requesting followed users';
 			})
-			.then(async (data) => {
+			.then(async ({ data }) => {
 				const uids: string[] = [];
 
 				data.forEach((potential_uid: string) => {
@@ -60,6 +63,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 	return {
 		supabase,
 		session,
+		kclient,
 		streamed: {
 			followed_users
 		}

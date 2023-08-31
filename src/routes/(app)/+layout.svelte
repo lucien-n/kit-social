@@ -33,10 +33,12 @@
 	import SignInUp from '$comp/SignInUp.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
+	import type KClient from '$kclient/kclient';
 
 	export let data: {
 		supabase: SupabaseClient;
 		session: Session | null;
+		kclient: KClient;
 		streamed: {
 			followed_users: Promise<PublicProfile[] | null>;
 		};
@@ -45,11 +47,13 @@
 	let {
 		supabase,
 		session,
+		kclient,
 		streamed: { followed_users }
 	} = data;
 	$: ({
 		supabase,
 		session,
+		kclient,
 		streamed: { followed_users }
 	} = data);
 
@@ -80,11 +84,11 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
-				<FollowedList {followed_users} />
+				<FollowedList {kclient} {followed_users} />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
-					<ProfileCard />
+					<ProfileCard {kclient} />
 				{:else}
 					<SignInUp />
 				{/if}

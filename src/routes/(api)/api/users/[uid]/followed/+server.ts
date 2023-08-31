@@ -21,5 +21,5 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 
 	data.forEach(({ followed_uid }) => uids.push(followed_uid));
 
-	return new Response(JSON.stringify(uids), { status: 200 });
+	return new Response(JSON.stringify({ data: uids }), { status: 200 });
 };

@@ -5,8 +5,9 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { FormEventHandler } from 'svelte/elements';
 	import Avatar from '$comp/Avatar.svelte';
-	import type { PublicProfile } from '$types/public_profile.type';
+	import type KClient from '$kclient/kclient';
 
+	export let kclient: KClient;
 	export let form;
 
 	let loading = false;
@@ -34,7 +35,7 @@
 </script>
 
 <section class="card mx-auto flex w-full gap-2 p-3">
-	<Avatar profile={$profileStore} width="w-12" />
+	<Avatar {kclient} profile={$profileStore} width="w-12" />
 	<form method="post" class="relative flex h-full w-full flex-col" use:enhance={handleSubmit}>
 		<div class="pointer-events-none absolute p-1 text-xl opacity-70" class:hidden={hidePlaceholder}>
 			What's poppin {$profileStore?.name || ''}?
