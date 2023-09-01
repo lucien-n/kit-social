@@ -39,7 +39,7 @@
 	use:enhance={handleSubmit}
 	class="flex h-full w-full items-center justify-center"
 >
-	<article class="flex h-full w-full flex-col gap-3 p-5" id="settings">
+	<article class="flex h-full w-full flex-col gap-3" id="settings">
 		{#if error}
 			<p class="variant-error">
 				{error}

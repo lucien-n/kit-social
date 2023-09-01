@@ -26,5 +26,8 @@
 			Pending
 		</TabAnchor>
 	</TabGroup>
-	<slot />
+
+	<section class="h-full w-full p-5">
+		<slot />
+	</section>
 </section>

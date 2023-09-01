@@ -9,7 +9,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, sclient:
 	const { data, error } = await supabase
 		.from('pending_follows')
 		.select('followed_uid, follower_uid')
-		.match({ uid });
+		.match({ followed_uid: uid });
 
 	if (error)
 		return new Response(JSON.stringify({ error: 'Error while fetching pending follows' }), {
