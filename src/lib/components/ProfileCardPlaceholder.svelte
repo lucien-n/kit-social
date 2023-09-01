@@ -1,4 +1,4 @@
-<article class="flex h-fit justify-between px-3 py-1">
+<article class="flex h-fit justify-between px-2 py-1">
 	<div
 		class="flex h-full w-full gap-2 rounded-md bg-surface-600 bg-opacity-20 p-2 transition-all duration-100 ease-in-out"
 	>
