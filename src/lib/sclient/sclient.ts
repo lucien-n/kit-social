@@ -22,10 +22,10 @@ export default class SocialClient {
 	ftch: Ftch = async (url, method = 'GET') => {
 		const res = await this.fetch(url, { method });
 
-		if (!res.ok) throw new Error(`[${res.status}] <${method}> '${url}': ${res.statusText}`);
+		if (!res.ok) return { error: `[${res.status}] <${method}> '${url}': ${res.statusText}` };
 
-		const data = await res.json();
+		const { data } = await res.json();
 
-		return data;
+		return { data };
 	};
 }
