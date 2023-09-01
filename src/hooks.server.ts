@@ -1,5 +1,6 @@
 import { PRIVATE_SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
 import { PUBLIC_SUPABASE_URL } from '$env/static/public';
+import SocialClient from '$sclient/sclient';
 import { handleRatelimit } from '$lib/server/helper';
 import { ratelimit } from '$lib/server/redis';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
@@ -19,6 +20,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 		} = await locals.supabase.auth.getSession();
 		return session;
 	};
+
+	locals.sclient = new SocialClient(event.fetch, locals.supabase);
 
 	if (url.pathname.startsWith('/api/')) {
 		const client_address = getClientAddress();

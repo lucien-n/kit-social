@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '$types/database.types';
-import { KUsers as SUsers } from './kusers';
-import { KPosts as SPosts } from './kposts';
+import { KUsers as SUsers } from './susers';
+import { KPosts as SPosts } from './sposts';
 import type { Fetch, Ftch } from './types';
 
 export default class SocialClient {

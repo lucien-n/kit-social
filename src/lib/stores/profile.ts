@@ -1,4 +1,4 @@
-import type SocialClient from '$kclient/kclient';
+import type SocialClient from '$sclient/sclient';
 import type { PublicProfile } from '$types/public_profile.type';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
@@ -10,20 +10,20 @@ type ProfileStore = {
 	) => () => void;
 	set: (value: PublicProfile | null) => void;
 	update: (updater: (value: PublicProfile | null) => PublicProfile | null) => void;
-	refresh: (kclient: SocialClient, uid?: string) => void;
+	refresh: (sclient: SocialClient, uid?: string) => void;
 };
 
 function createProfileStore(): ProfileStore {
 	const { subscribe, set, update } = writable<PublicProfile | null>(null);
 
-	const refresh = async (kclient: SocialClient, uid?: string) => {
+	const refresh = async (sclient: SocialClient, uid?: string) => {
 		update((profile: PublicProfile | null) => {
 			if (!profile && !uid) return null;
 
 			const func = async () => {
 				if (!uid) return;
 				try {
-					const new_profile = await kclient.users.getProfile({ uid });
+					const new_profile = await sclient.users.getProfile({ uid });
 					if (!new_profile) return;
 					set(new_profile);
 				} catch (e) {

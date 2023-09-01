@@ -39,14 +39,12 @@
 	use:enhance={handleSubmit}
 	class="flex h-full w-full items-center justify-center"
 >
-	<article class="card flex h-full w-full flex-col gap-3 p-5" id="settings">
-		<h2 class="h2 text-center">Settings</h2>
+	<article class="flex h-full w-full flex-col gap-3 p-5" id="settings">
 		{#if error}
 			<p class="variant-error">
 				{error}
 			</p>
 		{/if}
-		<hr />
 		<div class="flex flex-col gap-3">
 			{#key settings}
 				{#if settings}

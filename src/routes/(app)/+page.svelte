@@ -2,18 +2,18 @@
 	import CreatePost from '$comp/CreatePost.svelte';
 	import Post from '$comp/Post.svelte';
 	import PostPlaceholder from '$comp/PostPlaceholder.svelte';
-	import type SocialClient from '$kclient/kclient.js';
+	import type SocialClient from '$sclient/sclient.js';
 	import type { PublicPost } from '$types/public_post.type.js';
 
-	export let data: { kclient: SocialClient; streamed: { posts: PublicPost[] } };
+	export let data: { sclient: SocialClient; streamed: { posts: PublicPost[] } };
 	export let form;
 
 	let {
-		kclient,
+		sclient,
 		streamed: { posts }
 	} = data;
 	$: ({
-		kclient,
+		sclient,
 		streamed: { posts }
 	} = data);
 </script>
@@ -26,7 +26,7 @@
 	{#if form?.error}
 		<p>{form.error}</p>
 	{/if}
-	<CreatePost {kclient} {form} />
+	<CreatePost {sclient} {form} />
 	<hr />
 	{#await posts}
 		{#each { length: 10 } as _}
@@ -36,7 +36,7 @@
 		{#if posts && posts.length > 0}
 			<section id="posts" class="flex flex-col gap-3">
 				{#each posts as post}
-					<Post {kclient} {post} />
+					<Post {sclient} {post} />
 				{/each}
 			</section>
 		{:else}

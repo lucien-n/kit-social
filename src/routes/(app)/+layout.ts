@@ -1,5 +1,5 @@
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
-import SocialClient from '$kclient/kclient';
+import SocialClient from '$sclient/sclient';
 import { profileStore } from '$stores/profile';
 import type { PublicProfile } from '$types/public_profile.type';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
@@ -15,24 +15,24 @@ export const load: Load = async ({ fetch, data, depends }) => {
 		serverSession: data?.session
 	});
 
-	const kclient = new SocialClient(fetch, supabase);
+	const sclient = new SocialClient(fetch, supabase);
 
 	const {
 		data: { session }
 	} = await supabase.auth.getSession();
 
-	profileStore.refresh(kclient, session?.user.id);
+	profileStore.refresh(sclient, session?.user.id);
 
 	let followed_users: Promise<PublicProfile[] | null> = new Promise((resolve) => resolve);
 
 	if (session) {
-		followed_users = kclient.users.getFollowedUsersUids(session.user.id).then(async (uids) => {
+		followed_users = sclient.users.getFollowedUsersUids(session.user.id).then(async (uids) => {
 			if (uids.length < 1) return [] as PublicProfile[];
 
 			const profiles: PublicProfile[] = [];
 
 			for (const uid of uids) {
-				const profile = await kclient.users.getProfile({ uid });
+				const profile = await sclient.users.getProfile({ uid });
 				if (profile) profiles.push(profile);
 			}
 
@@ -43,7 +43,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 	return {
 		supabase,
 		session,
-		kclient,
+		sclient,
 		streamed: {
 			followed_users
 		}

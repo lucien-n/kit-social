@@ -1,18 +1,18 @@
 <script lang="ts">
-	import type SocialClient from '$kclient/kclient';
+	import type SocialClient from '$sclient/sclient';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let width = 'w-14';
 	export let profile: PublicProfile | SupaProfile | null;
-	export let kclient: SocialClient;
+	export let sclient: SocialClient;
 
 	const avatar = async () => {
 		if (!profile) return;
 		// TODO: Find a better solution than checking startsWith('http')
 		if (profile.avatar_url && profile.avatar_url.startsWith('http')) return profile.avatar_url;
-		else return await kclient.users.getAvatar(profile.uid);
+		else return await sclient.users.getAvatar(profile.uid);
 	};
 </script>
 

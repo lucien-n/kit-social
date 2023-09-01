@@ -4,6 +4,7 @@ import type { Ftch } from './types';
 import { checkUid } from '$lib/utils';
 import { browser } from '$app/environment';
 import { profilesStore } from '$stores/profiles';
+import type { PendingFollow } from '$types/pending_follow';
 
 export class KUsers {
 	protected fetch: Ftch;
@@ -80,5 +81,17 @@ export class KUsers {
 		const uids = data as string[];
 
 		return uids;
+	};
+
+	getPendingFollows = async (uid: string): Promise<PendingFollow[] | null> => {
+		if (!checkUid(uid)) return null;
+
+		const url = this.url + `${uid}/pending`;
+		const { data, error } = await this.fetch(url, 'GET');
+		if (error) return [];
+
+		const pending_follows = data as PendingFollow[];
+
+		return pending_follows;
 	};
 }

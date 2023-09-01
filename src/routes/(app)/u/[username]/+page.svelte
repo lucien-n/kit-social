@@ -3,15 +3,15 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import FollowButton from '$comp/FollowButton.svelte';
 	import UploadAvatar from '$comp/UploadAvatar.svelte';
-	import type SocialClient from '$kclient/kclient';
+	import type SocialClient from '$sclient/sclient';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
-	export let data: { kclient: SocialClient; error: string; username: string };
+	export let data: { sclient: SocialClient; error: string; username: string };
 
-	let { kclient, error, username } = data;
-	$: ({ kclient, username } = data);
+	let { sclient, error, username } = data;
+	$: ({ sclient, username } = data);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -35,7 +35,7 @@
 		{#if error}
 			<h1 class="h1">{error}</h1>
 		{:else}
-			{#await kclient.users.getProfile({ username })}
+			{#await sclient.users.getProfile({ username })}
 				<span class="animate-spin">
 					<Icon icon="mdi:loading" width={100} />
 				</span>
@@ -57,10 +57,10 @@
 							>
 								<div class="flex items-center gap-4">
 									<div class="relative">
-										<Avatar {kclient} {profile} width="w-24" />
+										<Avatar {sclient} {profile} width="w-24" />
 										{#if $profileStore?.uid == profile.uid}
 											<UploadAvatar
-												supabase={kclient.supabase}
+												supabase={sclient.supabase}
 												on:upload={() => {
 													profileForm.requestSubmit();
 												}}
