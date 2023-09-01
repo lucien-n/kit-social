@@ -42,9 +42,10 @@
 		});
 
 		if (res.ok) {
-			followed = false;
+			followed = !followed;
 			try {
 				const data = await res.json();
+				console.log(data);
 				message = data.message;
 			} catch (_) {}
 		}
@@ -55,13 +56,13 @@
 				message
 			});
 
-		goto('?', { replaceState: true, invalidateAll: true });
-
 		if (followed) dispatch('follow');
 		else dispatch('unfollow');
 		dispatch('update');
 
 		loading = false;
+
+		goto('?', { replaceState: true, invalidateAll: true });
 	};
 
 	const getButtonText = () => {
