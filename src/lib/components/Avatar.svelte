@@ -43,7 +43,7 @@
 				class="flex {width} placeholder aspect-square h-fit animate-pulse items-center justify-center rounded-full bg-black bg-opacity-30"
 			/>
 			<span class="absolute left-0 top-0 {width} p-2">
-				<Icon icon="mdi:account" width="full" />
+				<Icon icon="mdi:account" style="width: 100%; height: 100%;" />
 			</span>
 		</div>
 	{/if}
