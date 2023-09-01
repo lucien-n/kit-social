@@ -17,7 +17,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 
 	const { data: url_data } = await supabase.storage
 		.from('avatars')
-		.createSignedUrl(avatar_url, 120);
+		.createSignedUrl(avatar_url, 300);
 
 	const signedUrl = url_data?.signedUrl;
 
