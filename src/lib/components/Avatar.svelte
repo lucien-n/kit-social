@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let width = 'w-14';
 	export let profile: PublicProfile | SupaProfile | null;
-	export let kclient: KClient;
+	export let kclient: SocialClient;
 
 	const avatar = async () => {
 		if (!profile) return;

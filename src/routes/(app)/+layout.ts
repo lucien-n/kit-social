@@ -1,5 +1,5 @@
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
-import KClient from '$kclient/kclient';
+import SocialClient from '$kclient/kclient';
 import { profileStore } from '$stores/profile';
 import type { PublicProfile } from '$types/public_profile.type';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
@@ -15,7 +15,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 		serverSession: data?.session
 	});
 
-	const kclient = new KClient(fetch, supabase);
+	const kclient = new SocialClient(fetch, supabase);
 
 	const {
 		data: { session }

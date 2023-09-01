@@ -9,6 +9,11 @@ const redis = new Redis({
 });
 
 export const ratelimit = {
+	api: new Ratelimit({
+		redis,
+		prefix: 'rl:api',
+		limiter: Ratelimit.slidingWindow(25, '5s')
+	}),
 	posts: {
 		feed: new Ratelimit({
 			redis,

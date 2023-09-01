@@ -3,12 +3,12 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import FollowButton from '$comp/FollowButton.svelte';
 	import UploadAvatar from '$comp/UploadAvatar.svelte';
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
-	export let data: { kclient: KClient; error: string; username: string };
+	export let data: { kclient: SocialClient; error: string; username: string };
 
 	let { kclient, error, username } = data;
 	$: ({ kclient, username } = data);

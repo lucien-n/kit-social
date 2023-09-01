@@ -33,12 +33,12 @@
 	import SignInUp from '$comp/SignInUp.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 
 	export let data: {
 		supabase: SupabaseClient;
 		session: Session | null;
-		kclient: KClient;
+		kclient: SocialClient;
 		streamed: {
 			followed_users: Promise<PublicProfile[] | null>;
 		};

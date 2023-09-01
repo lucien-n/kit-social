@@ -2,10 +2,10 @@
 	import CreatePost from '$comp/CreatePost.svelte';
 	import Post from '$comp/Post.svelte';
 	import PostPlaceholder from '$comp/PostPlaceholder.svelte';
-	import type KClient from '$kclient/kclient.js';
+	import type SocialClient from '$kclient/kclient.js';
 	import type { PublicPost } from '$types/public_post.type.js';
 
-	export let data: { kclient: KClient; streamed: { posts: PublicPost[] } };
+	export let data: { kclient: SocialClient; streamed: { posts: PublicPost[] } };
 	export let form;
 
 	let {

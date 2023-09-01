@@ -2,9 +2,9 @@
 	import { formatDate } from '$lib/utils';
 	import type { PublicProfile } from '$types/public_profile.type';
 	import Avatar from '$comp/Avatar.svelte';
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 
-	export let kclient: KClient;
+	export let kclient: SocialClient;
 	export let profile: PublicProfile;
 
 	let is_online = false;

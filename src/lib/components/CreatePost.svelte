@@ -5,9 +5,9 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { FormEventHandler } from 'svelte/elements';
 	import Avatar from '$comp/Avatar.svelte';
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 
-	export let kclient: KClient;
+	export let kclient: SocialClient;
 	export let form;
 
 	let loading = false;

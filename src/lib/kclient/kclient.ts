@@ -1,22 +1,22 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '$types/database.types';
-import { KUsers } from './kusers';
-import { KPosts } from './kposts';
+import { KUsers as SUsers } from './kusers';
+import { KPosts as SPosts } from './kposts';
 import type { Fetch, Ftch } from './types';
 
-export default class KClient {
+export default class SocialClient {
 	protected fetch: Fetch;
 
 	public supabase: SupabaseClient<Database>;
 
-	public users: KUsers;
-	public posts: KPosts;
+	public users: SUsers;
+	public posts: SPosts;
 
 	constructor(fetch: Fetch, supabase: SupabaseClient) {
 		this.fetch = fetch;
 		this.supabase = supabase;
-		this.users = new KUsers(this.ftch, supabase, '/api/users/');
-		this.posts = new KPosts(this.ftch, supabase, '/api/posts/');
+		this.users = new SUsers(this.ftch, supabase, '/api/users/');
+		this.posts = new SPosts(this.ftch, supabase, '/api/posts/');
 	}
 
 	ftch: Ftch = async (url, method = 'GET') => {

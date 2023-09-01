@@ -2,9 +2,9 @@
 	import type { PublicProfile } from '$types/public_profile.type';
 	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 
-	export let kclient: KClient;
+	export let kclient: SocialClient;
 	export let followed_users: Promise<PublicProfile[] | null>;
 </script>
 

@@ -5,9 +5,9 @@
 	import { profilesStore } from '$stores/profiles';
 	import Avatar from '$comp/Avatar.svelte';
 	import type { PublicPost } from '$types/public_post.type';
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 
-	export let kclient: KClient;
+	export let kclient: SocialClient;
 	export let post: PublicPost;
 
 	onMount(async () => {

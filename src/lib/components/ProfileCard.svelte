@@ -3,9 +3,9 @@
 	import Icon from '@iconify/svelte';
 	import Avatar from '$comp/Avatar.svelte';
 	import type { PublicProfile } from '$types/public_profile.type';
-	import type KClient from '$kclient/kclient';
+	import type SocialClient from '$kclient/kclient';
 
-	export let kclient: KClient;
+	export let kclient: SocialClient;
 
 	let public_profile: PublicProfile;
 

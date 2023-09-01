@@ -1,15 +1,8 @@
-import { handleRatelimit } from '$lib/server/helper';
-import { ratelimit } from '$lib/server/redis';
 import { checkUid } from '$lib/utils';
 import type { PublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({
-	params,
-	getClientAddress,
-	locals: { getSession, supabase },
-	fetch
-}) => {
+export const GET: RequestHandler = async ({ params, fetch, locals: { getSession, supabase } }) => {
 	const uid_or_username = params.uid as string;
 
 	let uid = '';
@@ -17,10 +10,6 @@ export const GET: RequestHandler = async ({
 
 	if (checkUid(uid_or_username)) uid = uid_or_username;
 	else username = uid_or_username;
-
-	const addr = getClientAddress();
-	const response = await handleRatelimit(addr, ratelimit.users.profile);
-	if (response) return response;
 
 	const { data, error } = await supabase
 		.from('profiles')
