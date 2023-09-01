@@ -1,5 +1,5 @@
 import { PRIVATE_SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
-import { PUBLIC_SUPABASE_URL } from '$env/static/public';
+import { PUBLIC_ENABLE_RATE_LIMIT, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import SocialClient from '$sclient/sclient';
 import { handleRatelimit } from '$lib/server/helper';
 import { ratelimit } from '$lib/server/redis';
@@ -24,9 +24,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 	locals.sclient = new SocialClient(event.fetch, locals.supabase);
 
 	if (url.pathname.startsWith('/api/')) {
-		const client_address = getClientAddress();
-		const response = await handleRatelimit(client_address, ratelimit.api);
-		if (response) return response;
+		event.setHeaders({ 'Cache-Control': 'public, max-age=300' });
+
+		// Rate limit
+		if (PUBLIC_ENABLE_RATE_LIMIT == 'true') {
+			const client_address = getClientAddress();
+			const response = await handleRatelimit(client_address, ratelimit.api);
+			if (response) return response;
+		}
 	}
 
 	return resolve(event, {

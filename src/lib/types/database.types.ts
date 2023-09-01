@@ -224,6 +224,13 @@ export interface Database {
         }
         Returns: boolean
       }
+      refuse_pending_follow: {
+        Args: {
+          followed: string
+          follower: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

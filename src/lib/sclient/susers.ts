@@ -94,4 +94,24 @@ export class KUsers {
 
 		return pending_follows;
 	};
+
+	refusePendingFollow = async (uid: string): Promise<boolean> => {
+		if (!checkUid(uid)) return false;
+
+		const url = this.url + `${uid}/pending/refuse`;
+		const { data, error } = await this.fetch(url, 'GET');
+		if (error) return false;
+
+		return data === true;
+	};
+
+	acceptPendingFollow = async (uid: string): Promise<boolean> => {
+		if (!checkUid(uid)) return false;
+
+		const url = this.url + `${uid}/pending/accept`;
+		const { data, error } = await this.fetch(url, 'GET');
+		if (error) return false;
+
+		return data === true;
+	};
 }
