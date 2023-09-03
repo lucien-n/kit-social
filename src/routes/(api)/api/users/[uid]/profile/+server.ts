@@ -22,7 +22,7 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 	const user_data = data?.[0];
 	if (!user_data) return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
 
-	const profile: PublicProfile = { ...user_data } as PublicProfile;
+	const profile: TPublicProfile = { ...user_data } as TPublicProfile;
 
 	const session = await getSession();
 
