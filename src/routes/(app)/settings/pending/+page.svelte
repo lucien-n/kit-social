@@ -20,7 +20,7 @@
 	} = data);
 
 	$: filtered = (pendings: TPendingFollow[]) => {
-		return pendings.filter((pending) => pending.state === 'pending');
+		return pendings.filter((pending) => pending.state == 'pending');
 	};
 </script>
 
@@ -37,7 +37,7 @@
 				<PendingFollow
 					{sclient}
 					{pending_follow}
-					on:success={({ detail }) => (pending_follow.state = detail)}
+					on:state={({ detail }) => (pending_follow.state = detail)}
 				/>
 			{/each}
 		{:else}

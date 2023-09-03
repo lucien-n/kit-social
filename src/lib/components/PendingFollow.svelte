@@ -25,7 +25,7 @@
 
 	const accept = async () => {
 		loading = true;
-		const success = await sclient.users.refusePendingFollow(pending_follow.follower.uid);
+		const success = await sclient.users.acceptPendingFollow(pending_follow.follower.uid);
 		if (success) dispatch('state', 'accepted');
 		else toast_store.trigger(toasts.error());
 		loading = false;
@@ -34,7 +34,7 @@
 
 <article
 	out:fly={{ x: 200, duration: 100 }}
-	class="hover-bg flex items-center justify-between gap-3 "
+	class="hover-bg flex items-center justify-between gap-3"
 >
 	<div class="flex gap-3">
 		<Avatar {sclient} profile={pending_follow.follower} />
