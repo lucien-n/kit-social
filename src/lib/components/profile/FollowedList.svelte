@@ -3,12 +3,13 @@
 	import ProfileCardPlaceholder from '$comp/profile/ProfileCardPlaceholder.svelte';
 	import Followed from '$comp/profile/Followed.svelte';
 	import type SocialClient from '$sclient/sclient';
+	import { fade } from 'svelte/transition';
 
 	export let sclient: SocialClient;
 	export let followed_users: Promise<TPublicProfile[]>;
 </script>
 
-<section>
+<section in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
 	{#await followed_users}
 		{#each { length: 5 } as _}
 			<ProfileCardPlaceholder />

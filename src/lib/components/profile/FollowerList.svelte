@@ -3,6 +3,7 @@
 	import type { TPublicProfile } from '$types/public_profile.type';
 	import Loading from '$comp/Loading.svelte';
 	import Follower from '$comp/profile/Follower.svelte';
+	import { fade } from 'svelte/transition';
 
 	export let sclient: SocialClient;
 	export let followers: Promise<TPublicProfile[]>;
@@ -12,7 +13,7 @@
 	};
 </script>
 
-<section>
+<section in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
 	{#await followers}
 		<Loading />
 	{:then profiles}

@@ -3,6 +3,7 @@
 	import type { TPendingFollow } from '$types/pending_follow';
 	import Icon from '@iconify/svelte';
 	import PendingFollow from './PendingFollow.svelte';
+	import { fade } from 'svelte/transition';
 
 	export let pending_follows: Promise<TPendingFollow[]>;
 	export let sclient: SocialClient;
@@ -12,7 +13,7 @@
 	};
 </script>
 
-<section class="h-full">
+<section in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
 	{#await pending_follows}
 		<div class="animate-spin">
 			<span>
