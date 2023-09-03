@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { TPublicProfile } from '$types/public_profile.type';
+	import type { TProfile } from '$types/profile.type';
 	import ProfileCardPlaceholder from '$comp/profile/ProfileCardPlaceholder.svelte';
 	import Followed from '$comp/profile/Followed.svelte';
 	import type SocialClient from '$sclient/sclient';
 	import { fade } from 'svelte/transition';
 
 	export let sclient: SocialClient;
-	export let followed_users: Promise<TPublicProfile[]>;
+	export let followed_users: Promise<TProfile[]>;
 </script>
 
 <section in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>

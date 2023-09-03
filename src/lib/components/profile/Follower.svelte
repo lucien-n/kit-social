@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
-	import type { TPublicProfile } from '$types/public_profile.type';
+	import type { TProfile } from '$types/profile.type';
 	import Avatar from '$comp/Avatar.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { getToastStore } from '@skeletonlabs/skeleton';
@@ -8,7 +8,7 @@
 	import { fly } from 'svelte/transition';
 
 	export let sclient: SocialClient;
-	export let profile: TPublicProfile;
+	export let profile: TProfile;
 
 	const dispatch = createEventDispatcher();
 	const toast_store = getToastStore();

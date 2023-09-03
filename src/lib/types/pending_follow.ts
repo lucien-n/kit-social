@@ -1,7 +1,7 @@
-import type { TPublicProfile } from './public_profile.type';
+import type { TProfile } from './profile.type';
 
 export type TPendingFollow = {
-	follower: TPublicProfile;
+	follower: TProfile;
 	followed_uid: string;
 	state: 'pending' | 'accepted' | 'refused';
 };

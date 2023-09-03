@@ -2,14 +2,14 @@
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
 	import Avatar from '$comp/Avatar.svelte';
-	import type { TPublicProfile } from '$types/public_profile.type';
+	import type { TProfile } from '$types/profile.type';
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;
 
-	let public_profile: TPublicProfile;
+	let public_profile: TProfile;
 
-	profileStore.subscribe((profile) => (public_profile = { ...profile } as TPublicProfile));
+	profileStore.subscribe((profile) => (public_profile = { ...profile } as TProfile));
 </script>
 
 {#if $profileStore}

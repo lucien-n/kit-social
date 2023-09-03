@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
-	import type { TPublicProfile } from '$types/public_profile.type';
+	import type { TProfile } from '$types/profile.type';
 	import Icon from '@iconify/svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 
 	export let width = 'w-14';
-	export let profile: TPublicProfile | SupaProfile | null;
+	export let profile: TProfile | SupaProfile | null;
 	export let sclient: SocialClient;
 
 	const avatar = async () => {

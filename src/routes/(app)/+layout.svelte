@@ -20,7 +20,7 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
-	import type { TPublicProfile } from '$types/public_profile.type';
+	import type { TProfile } from '$types/profile.type';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import type SocialClient from '$sclient/sclient';
 	import type { TPendingFollow } from '$types/pending_follow';
@@ -49,8 +49,8 @@
 		session: Session | null;
 		sclient: SocialClient;
 		streamed: {
-			followed_users: Promise<TPublicProfile[]>;
-			followers: Promise<TPublicProfile[]>;
+			followed_users: Promise<TProfile[]>;
+			followers: Promise<TProfile[]>;
 			pending_follows: Promise<TPendingFollow[]>;
 		};
 	};

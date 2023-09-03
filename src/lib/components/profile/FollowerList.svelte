@@ -1,14 +1,14 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
-	import type { TPublicProfile } from '$types/public_profile.type';
+	import type { TProfile } from '$types/profile.type';
 	import Loading from '$comp/Loading.svelte';
 	import Follower from '$comp/profile/Follower.svelte';
 	import { fade } from 'svelte/transition';
 
 	export let sclient: SocialClient;
-	export let followers: Promise<TPublicProfile[]>;
+	export let followers: Promise<TProfile[]>;
 
-	$: filtered = (profiles: TPublicProfile[]) => {
+	$: filtered = (profiles: TProfile[]) => {
 		return profiles.filter((profile) => profile.is_follower);
 	};
 </script>

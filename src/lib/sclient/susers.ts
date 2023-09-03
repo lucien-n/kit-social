@@ -1,5 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { TPublicProfile } from '$types/public_profile.type';
+import type { TProfile } from '$types/profile.type';
 import type { Ftch } from './types';
 import { checkUid } from '$lib/utilities/methods';
 import { browser } from '$app/environment';
@@ -23,7 +23,7 @@ export class KUsers {
 	}: {
 		uid?: string;
 		username?: string;
-	}): Promise<TPublicProfile | null> => {
+	}): Promise<TProfile | null> => {
 		if (!checkUid(uid) && !username) return null;
 
 		if (browser && profilesStore.contains(uid ? { uid } : { username }))
@@ -34,7 +34,7 @@ export class KUsers {
 		const { data, error } = await this.fetch(url, 'GET');
 		if (error) return null;
 
-		return data as TPublicProfile;
+		return data as TProfile;
 	};
 
 	getAvatar = async (uid: string): Promise<string | null> => {
@@ -95,14 +95,14 @@ export class KUsers {
 		return profiles;
 	};
 
-	getFollowers = async (uid: string): Promise<TPublicProfile[]> => {
+	getFollowers = async (uid: string): Promise<TProfile[]> => {
 		if (!checkUid(uid)) return [];
 
 		const uids = await this.getFollowersUids(uid);
 
 		if (uids.length < 1) return [];
 
-		const profiles: TPublicProfile[] = [];
+		const profiles: TProfile[] = [];
 
 		for (const uid of uids) {
 			const profile = await this.getProfile({ uid });
