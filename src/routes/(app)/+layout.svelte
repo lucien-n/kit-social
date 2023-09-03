@@ -38,6 +38,7 @@
 	import type SocialClient from '$sclient/sclient';
 	import type { TPendingFollow } from '$types/pending_follow';
 	import PendingList from '$comp/PendingList.svelte';
+	import FollowerList from '$comp/FollowerList.svelte';
 
 	export let data: {
 		supabase: SupabaseClient;
@@ -45,6 +46,7 @@
 		sclient: SocialClient;
 		streamed: {
 			followed_users: Promise<TPublicProfile[] | null>;
+			followers: Promise<TPublicProfile[]>;
 			pending_follows: Promise<TPendingFollow[]>;
 		};
 	};
@@ -53,13 +55,13 @@
 		supabase,
 		session,
 		sclient,
-		streamed: { followed_users, pending_follows }
+		streamed: { followed_users, followers, pending_follows }
 	} = data;
 	$: ({
 		supabase,
 		session,
 		sclient,
-		streamed: { followed_users, pending_follows }
+		streamed: { followed_users, followers, pending_follows }
 	} = data);
 
 	onMount(() => {
@@ -98,18 +100,20 @@
 					regionPanel="p-2"
 				>
 					<Tab bind:group={friendsTabSet} name="followed" value={0} regionTab="text-center">
-						<p class="text-lg">Followed</p>
+						<p class="text-base">Followed</p>
 					</Tab>
 					<Tab bind:group={friendsTabSet} name="followers" value={1} regionTab="text-center">
-						<p class="text-lg">Followers</p>
+						<p class="text-base">Followers</p>
 					</Tab>
-					<Tab bind:group={friendsTabSet} name="friend" value={1} regionTab="text-center">
-						<p class="text-lg">Pending</p>
+					<Tab bind:group={friendsTabSet} name="pending" value={2} regionTab="text-center">
+						<p class="text-base">Pending</p>
 					</Tab>
 					<svelte:fragment slot="panel">
 						{#if friendsTabSet == 0}
 							<FollowedList {sclient} {followed_users} />
-						{:else if friendsTabSet == 1}{:else}
+						{:else if friendsTabSet == 1}
+							<FollowerList {sclient} {followers} />
+						{:else}
 							<PendingList {sclient} {pending_follows} />
 						{/if}
 					</svelte:fragment>

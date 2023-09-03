@@ -26,6 +26,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 
 	let followed_users: Promise<TPublicProfile[] | null> = new Promise((resolve) => resolve);
 	let pending_follows: Promise<TPendingFollow[]> = new Promise((resolve) => resolve);
+	let followers: Promise<TPublicProfile[]> = new Promise((resolve) => resolve);
 
 	if (session) {
 		followed_users = sclient.users.getFollowedUsersUids(session.user.id).then(async (uids) => {
@@ -42,6 +43,8 @@ export const load: Load = async ({ fetch, data, depends }) => {
 		});
 
 		pending_follows = sclient.users.getPendingFollows(session.user.id);
+
+		followers = sclient.users.getFollowers(session.user.id);
 	}
 
 	return {
@@ -50,7 +53,8 @@ export const load: Load = async ({ fetch, data, depends }) => {
 		sclient,
 		streamed: {
 			followed_users,
-			pending_follows
+			pending_follows,
+			followers
 		}
 	};
 };

@@ -19,18 +19,6 @@
 			</svelte:fragment>
 			Account
 		</TabAnchor>
-		<TabAnchor href="/settings/pending">
-			<svelte:fragment slot="lead">
-				<Icon style="width: 100%; height: 100%;" icon="mdi:account-clock" />
-			</svelte:fragment>
-			Pending
-		</TabAnchor>
-		<TabAnchor href="/settings/followers">
-			<svelte:fragment slot="lead">
-				<Icon style="width: 100%; height: 100%;" icon="mdi:account" />
-			</svelte:fragment>
-			Followers
-		</TabAnchor>
 	</TabGroup>
 
 	<section class="h-full w-full p-5">
