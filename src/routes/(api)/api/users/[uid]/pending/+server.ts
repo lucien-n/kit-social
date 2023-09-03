@@ -28,7 +28,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, sclient:
 		const pending_follow: TPendingFollow = {
 			follower: follower_profile,
 			followed_uid: pending_follow_data.followed_uid,
-			accepted: false
+			state: 'pending'
 		};
 		pending_follows.push(pending_follow);
 	}

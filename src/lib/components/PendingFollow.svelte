@@ -4,25 +4,34 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	export let sclient: SocialClient;
 	export let pending_follow: TPendingFollow;
 
 	const dispatch = createEventDispatcher();
+	const toast_store = getToastStore();
+
+	const error_toast: ToastSettings = {
+		message: 'An error occured',
+		background: 'bg-error-500'
+	};
 
 	let loading = false;
 
 	const refuse = async () => {
 		loading = true;
 		const success = await sclient.users.refusePendingFollow(pending_follow.follower.uid);
-		if (success) dispatch('success', success);
+		if (success) dispatch('state', 'refused');
+		else toast_store.trigger(error_toast);
 		loading = false;
 	};
 
 	const accept = async () => {
 		loading = true;
 		const success = await sclient.users.refusePendingFollow(pending_follow.follower.uid);
-		if (success) dispatch('success', success);
+		if (success) dispatch('state', 'accepted');
+		else toast_store.trigger(error_toast);
 		loading = false;
 	};
 </script>
