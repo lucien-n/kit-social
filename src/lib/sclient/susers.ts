@@ -123,8 +123,8 @@ export class KUsers {
 		return data == true;
 	};
 
-	getPendingFollows = async (uid: string): Promise<TPendingFollow[] | null> => {
-		if (!checkUid(uid)) return null;
+	getPendingFollows = async (uid: string): Promise<TPendingFollow[]> => {
+		if (!checkUid(uid)) return [];
 
 		const url = this.url + `${uid}/pending`;
 		const { data, error } = await this.fetch(url, 'GET');

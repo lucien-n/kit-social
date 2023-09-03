@@ -6,6 +6,7 @@
 	import { fly } from 'svelte/transition';
 	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 	import { toasts } from '$lib/toasts';
+	import Icon from '@iconify/svelte';
 
 	export let sclient: SocialClient;
 	export let pending_follow: TPendingFollow;
@@ -40,25 +41,22 @@
 		<Avatar {sclient} profile={pending_follow.follower} />
 		<div>
 			<p class="text-lg font-semibold">{pending_follow.follower.name}</p>
-			<p>Wants to follow you</p>
+			<button
+				type="button"
+				class="variant-ghost-error btn aspect-square p-2 hover:cursor-pointer"
+				on:click={refuse}
+				disabled={loading}
+			>
+				<Icon icon="mdi:minus" /></button
+			>
+			<button
+				type="button"
+				class="variant-ghost-primary btn aspect-square p-2 hover:cursor-pointer"
+				on:click={accept}
+				disabled={loading}
+			>
+				<Icon icon="mdi:check" /></button
+			>
 		</div>
-	</div>
-	<div>
-		<button
-			type="button"
-			class="variant-ghost-error btn hover:cursor-pointer"
-			on:click={refuse}
-			disabled={loading}
-		>
-			Refuse</button
-		>
-		<button
-			type="button"
-			class="variant-ghost-primary btn hover:cursor-pointer"
-			on:click={accept}
-			disabled={loading}
-		>
-			Accept</button
-		>
 	</div>
 </article>

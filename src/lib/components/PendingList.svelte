@@ -1,23 +1,11 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import PendingFollow from '$comp/PendingFollow.svelte';
 	import type SocialClient from '$sclient/sclient';
 	import type { TPendingFollow } from '$types/pending_follow';
 	import Icon from '@iconify/svelte';
+	import PendingFollow from './PendingFollow.svelte';
 
-	export let data: {
-		sclient: SocialClient;
-		streamed: { pending_follows: Promise<TPendingFollow[]> };
-	};
-
-	let {
-		sclient,
-		streamed: { pending_follows }
-	} = data;
-	$: ({
-		sclient,
-		streamed: { pending_follows }
-	} = data);
+	export let pending_follows: Promise<TPendingFollow[]>;
+	export let sclient: SocialClient;
 
 	$: filtered = (pendings: TPendingFollow[]) => {
 		return pendings.filter((pending) => pending.state == 'pending');

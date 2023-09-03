@@ -7,7 +7,9 @@
 		Modal,
 		initializeStores,
 		LightSwitch,
-		Toast
+		Toast,
+		TabGroup,
+		Tab
 	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
@@ -34,6 +36,8 @@
 	import type { TPublicProfile } from '$types/public_profile.type';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import type SocialClient from '$sclient/sclient';
+	import type { TPendingFollow } from '$types/pending_follow';
+	import PendingList from '$comp/PendingList.svelte';
 
 	export let data: {
 		supabase: SupabaseClient;
@@ -41,6 +45,7 @@
 		sclient: SocialClient;
 		streamed: {
 			followed_users: Promise<TPublicProfile[] | null>;
+			pending_follows: Promise<TPendingFollow[]>;
 		};
 	};
 
@@ -48,13 +53,13 @@
 		supabase,
 		session,
 		sclient,
-		streamed: { followed_users }
+		streamed: { followed_users, pending_follows }
 	} = data;
 	$: ({
 		supabase,
 		session,
 		sclient,
-		streamed: { followed_users }
+		streamed: { followed_users, pending_follows }
 	} = data);
 
 	onMount(() => {
@@ -66,6 +71,8 @@
 
 		return () => data.subscription.unsubscribe();
 	});
+
+	let friendsTabSet: number = 0;
 </script>
 
 <Modal />
@@ -84,7 +91,29 @@
 				</a>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
-				<FollowedList {sclient} {followed_users} />
+				<TabGroup
+					justify="justify-center"
+					border="border-0"
+					rounded="rounded-none"
+					regionPanel="p-2"
+				>
+					<Tab bind:group={friendsTabSet} name="followed" value={0} regionTab="text-center">
+						<p class="text-lg">Followed</p>
+					</Tab>
+					<Tab bind:group={friendsTabSet} name="followers" value={1} regionTab="text-center">
+						<p class="text-lg">Followers</p>
+					</Tab>
+					<Tab bind:group={friendsTabSet} name="friend" value={1} regionTab="text-center">
+						<p class="text-lg">Pending</p>
+					</Tab>
+					<svelte:fragment slot="panel">
+						{#if friendsTabSet == 0}
+							<FollowedList {sclient} {followed_users} />
+						{:else if friendsTabSet == 1}{:else}
+							<PendingList {sclient} {pending_follows} />
+						{/if}
+					</svelte:fragment>
+				</TabGroup>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
