@@ -14,7 +14,7 @@
 			<ProfileCardPlaceholder />
 		{/each}
 	{:then profiles}
-		{#if profiles?.length > 1}
+		{#if profiles.length > 0}
 			{#each profiles as profile}
 				<Followed {sclient} {profile} />
 			{/each}

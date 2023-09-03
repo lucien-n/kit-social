@@ -16,7 +16,7 @@
 	{#await followers}
 		<Loading />
 	{:then profiles}
-		{#if profiles.length > 1}
+		{#if profiles.length > 0}
 			{#each filtered(profiles) as profile}
 				<Follower {sclient} {profile} on:remove={() => (profile.is_follower = false)} />
 			{/each}
