@@ -40,7 +40,7 @@
 		Tab
 	} from '@skeletonlabs/skeleton';
 	import { setTitle } from '$lib/utilities/main';
-	import { navigating } from '$app/stores';
+	import { navigating, page } from '$app/stores';
 	import { fade, fly, slide } from 'svelte/transition';
 	import ProgressBar from '$comp/ProgressBar.svelte';
 
@@ -144,7 +144,9 @@
 	</svelte:fragment>
 	<svelte:fragment slot="sidebarRight" />
 	<!-- Page Route Content -->
-	<div class="mx-auto h-full w-full lg:w-4/5 xl:w-3/5">
-		<slot />
-	</div>
+	{#key $page.url}
+		<div class="mx-auto h-full w-full lg:w-4/5 xl:w-3/5" transition:fade={{ duration: 200 }}>
+			<slot />
+		</div>
+	{/key}
 </AppShell>
