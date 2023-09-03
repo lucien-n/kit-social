@@ -15,11 +15,9 @@ export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 			status: 200
 		});
 
-	const { data: url_data } = await supabase.storage
-		.from('avatars')
-		.createSignedUrl(avatar_url, 300);
+	const { data: url_data } = supabase.storage.from('avatars').getPublicUrl(avatar_url);
 
-	const signedUrl = url_data?.signedUrl;
+	const public_url = url_data?.publicUrl;
 
-	return new Response(JSON.stringify({ data: { avatar_url: signedUrl } }), { status: 200 });
+	return new Response(JSON.stringify({ data: { avatar_url: public_url } }), { status: 200 });
 };
