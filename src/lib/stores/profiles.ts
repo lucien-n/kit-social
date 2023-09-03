@@ -1,4 +1,4 @@
-import { checkUid } from '$lib/utils';
+import { checkUid } from '$lib/utilities/methods';
 import type { TPublicProfile } from '$types/public_profile.type';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 

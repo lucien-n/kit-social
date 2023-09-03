@@ -14,10 +14,7 @@
 
 {#if $profileStore}
 	<section class="flex h-full justify-between gap-3 p-3">
-		<a
-			href="/u/{$profileStore.name}"
-			class="flex h-full w-full gap-2 hover-bg"
-		>
+		<a href="/u/{$profileStore.name}" class="hover-bg flex h-full w-full gap-2">
 			<div class="relative">
 				<Avatar {sclient} bind:profile={public_profile} />
 				<span

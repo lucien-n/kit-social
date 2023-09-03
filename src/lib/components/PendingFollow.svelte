@@ -4,8 +4,8 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import { toasts } from '$lib/toasts';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { toasts } from '$lib/utilities/toasts';
 	import Icon from '@iconify/svelte';
 
 	export let sclient: SocialClient;

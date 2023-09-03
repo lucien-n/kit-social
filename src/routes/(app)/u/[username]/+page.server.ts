@@ -1,4 +1,4 @@
-import { checkUid } from '$lib/utils';
+import { checkUid } from '$lib/utilities/methods';
 import type { Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {

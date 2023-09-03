@@ -1,4 +1,4 @@
-import { checkUid } from '$lib/utils';
+import { checkUid } from '$lib/utilities/methods';
 import type { TPublicPost } from '$types/public_post.type';
 import type { TPublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -28,7 +28,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch 
 
 	const { data: author_data } = await res.json();
 
-	const author = author_data as PublicProfile;
+	const author = author_data as TPublicProfile;
 
 	const post = {
 		uid: post_data.uid,

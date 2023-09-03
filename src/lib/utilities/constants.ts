@@ -1,1 +1,1 @@
-export const TITLE_PREFIX = "Social"
+export const TITLE_PREFIX = 'Social';

@@ -1,4 +1,4 @@
-import { checkUid } from '$lib/utils';
+import { checkUid } from '$lib/utilities/methods';
 import type { TPublicProfile } from '$types/public_profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 

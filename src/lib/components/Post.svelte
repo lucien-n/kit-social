@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDate } from '$lib/utils';
+	import { formatDate } from '$lib/utilities/methods';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { profilesStore } from '$stores/profiles';

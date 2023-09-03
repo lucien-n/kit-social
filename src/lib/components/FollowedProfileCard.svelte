@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDate } from '$lib/utils';
+	import { formatDate } from '$lib/utilities/methods';
 	import type { TPublicProfile } from '$types/public_profile.type';
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';

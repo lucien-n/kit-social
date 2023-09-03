@@ -4,7 +4,7 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { getToastStore } from '@skeletonlabs/skeleton';
-	import { toasts } from '$lib/toasts';
+	import { toasts } from '$lib/utilities/toasts';
 	import { fly } from 'svelte/transition';
 
 	export let sclient: SocialClient;

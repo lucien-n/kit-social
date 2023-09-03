@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { TPublicProfile } from '$types/public_profile.type';
 import type { Ftch } from './types';
-import { checkUid } from '$lib/utils';
+import { checkUid } from '$lib/utilities/methods';
 import { browser } from '$app/environment';
 import { profilesStore } from '$stores/profiles';
 import type { TPendingFollow } from '$types/pending_follow';
