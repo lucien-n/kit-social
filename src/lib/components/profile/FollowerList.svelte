@@ -2,7 +2,7 @@
 	import type SocialClient from '$sclient/sclient';
 	import type { TPublicProfile } from '$types/public_profile.type';
 	import Loading from '$comp/Loading.svelte';
-	import Follower from '$comp/Follower.svelte';
+	import Follower from '$comp/profile/Follower.svelte';
 
 	export let sclient: SocialClient;
 	export let followers: Promise<TPublicProfile[]>;

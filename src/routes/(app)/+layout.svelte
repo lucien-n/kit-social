@@ -19,16 +19,16 @@
 	// #==========[ END OF SKELETON SHANANIGANS ]==========#
 
 	import { onMount } from 'svelte';
-	import ProfileCard from '$comp/ProfileCard.svelte';
 	import Icon from '@iconify/svelte';
-	import FollowedList from '$comp/FollowedList.svelte';
-	import SignInUp from '$comp/SignInUp.svelte';
 	import type { TPublicProfile } from '$types/public_profile.type';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import type SocialClient from '$sclient/sclient';
 	import type { TPendingFollow } from '$types/pending_follow';
-	import PendingList from '$comp/PendingList.svelte';
-	import FollowerList from '$comp/FollowerList.svelte';
+	import SignInUp from '$comp/SignInUp.svelte';
+	import ProfileCard from '$comp/profile/ProfileCard.svelte';
+	import PendingList from '$comp/profile/PendingList.svelte';
+	import FollowedList from '$comp/profile/FollowedList.svelte';
+	import FollowerList from '$comp/profile/FollowerList.svelte';
 	import { titleStore } from '$stores/title';
 	import {
 		AppShell,

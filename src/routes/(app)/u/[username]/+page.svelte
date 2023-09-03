@@ -1,12 +1,12 @@
 <script lang="ts">
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import Avatar from '$comp/Avatar.svelte';
-	import FollowButton from '$comp/FollowButton.svelte';
-	import UploadAvatar from '$comp/UploadAvatar.svelte';
+	import Icon from '@iconify/svelte';
 	import type SocialClient from '$sclient/sclient';
 	import { profileStore } from '$stores/profile';
-	import Icon from '@iconify/svelte';
-	import type { SubmitFunction } from '@sveltejs/kit';
+	import FollowButton from '$comp/FollowButton.svelte';
+	import Avatar from '$comp/Avatar.svelte';
+	import UploadAvatar from '$comp/UploadAvatar.svelte';
 
 	export let data: { sclient: SocialClient; error: string; username: string };
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { TPublicProfile } from '$types/public_profile.type';
-	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
-	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
+	import ProfileCardPlaceholder from '$comp/profile/ProfileCardPlaceholder.svelte';
+	import Followed from '$comp/profile/Followed.svelte';
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;
@@ -16,7 +16,7 @@
 	{:then profiles}
 		{#if profiles}
 			{#each profiles as profile}
-				<FollowedProfileCard {sclient} {profile} />
+				<Followed {sclient} {profile} />
 			{/each}
 		{/if}
 	{:catch e}
