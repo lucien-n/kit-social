@@ -61,7 +61,7 @@
 										alt=""
 										class="absolute aspect-auto w-full opacity-20 blur-[128px]"
 									/>
-									<div class="flex w-full items-center justify-between">
+									<div class="z-10 flex w-full items-center justify-between">
 										<div class="flex items-center gap-4">
 											<div class="relative">
 												<Avatar {sclient} {profile} width="w-24" />
@@ -75,10 +75,12 @@
 												{/if}
 											</div>
 											<div>
-												<h2 class="h2">{profile.name}</h2>
+												<p class=" text-4xl font-semibold">{profile.name}</p>
 											</div>
 										</div>
-										<FollowButton {profile} on:update={update} />
+										<div>
+											<FollowButton {profile} on:update={update} />
+										</div>
 									</div>
 								</section>
 								<section class="flex h-3/4 bg-surface-900 p-3">
