@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { uploadAvatar } from '$lib/storage';
+	import { uploadAvatar } from '$lib/utilities/storage';
 	import Icon from '@iconify/svelte';
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import { createEventDispatcher } from 'svelte';
