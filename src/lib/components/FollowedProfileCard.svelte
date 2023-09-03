@@ -11,7 +11,7 @@
 </script>
 
 {#if profile.uid}
-	<a href="/u/{profile.name}" class="flex h-fit justify-between gap-3 p-3">
+	<a href="/u/{profile.name}" class="flex h-fit justify-between gap-3">
 		<article class="hover-bg flex h-full w-full gap-2">
 			<div class="relative">
 				<Avatar {sclient} {profile} />

@@ -57,6 +57,7 @@
 		sclient,
 		streamed: { followed_users, followers, pending_follows }
 	} = data;
+
 	$: ({
 		supabase,
 		session,
