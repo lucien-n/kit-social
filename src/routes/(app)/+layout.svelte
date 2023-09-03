@@ -1,16 +1,6 @@
 <script lang="ts">
 	// #==========[ START OF SKELETON SHANANIGANS ]==========#
 	import '../../app.postcss';
-	import {
-		AppShell,
-		AppRail,
-		Modal,
-		initializeStores,
-		LightSwitch,
-		Toast,
-		TabGroup,
-		Tab
-	} from '@skeletonlabs/skeleton';
 
 	// Highlight JS
 	import hljs from 'highlight.js';
@@ -21,7 +11,6 @@
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
@@ -29,6 +18,7 @@
 
 	// #==========[ END OF SKELETON SHANANIGANS ]==========#
 
+	import { onMount } from 'svelte';
 	import ProfileCard from '$comp/ProfileCard.svelte';
 	import Icon from '@iconify/svelte';
 	import FollowedList from '$comp/FollowedList.svelte';
@@ -39,6 +29,16 @@
 	import type { TPendingFollow } from '$types/pending_follow';
 	import PendingList from '$comp/PendingList.svelte';
 	import FollowerList from '$comp/FollowerList.svelte';
+	import { titleStore } from '$stores/title';
+	import {
+		AppShell,
+		AppRail,
+		Modal,
+		initializeStores,
+		Toast,
+		TabGroup,
+		Tab
+	} from '@skeletonlabs/skeleton';
 
 	export let data: {
 		supabase: SupabaseClient;
@@ -77,6 +77,10 @@
 
 	let friendsTabSet: number = 0;
 </script>
+
+<svelte:head>
+	<title>{$titleStore}</title>
+</svelte:head>
 
 <Modal />
 <Toast />

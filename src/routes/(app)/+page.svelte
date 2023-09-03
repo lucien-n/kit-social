@@ -18,10 +18,6 @@
 	} = data);
 </script>
 
-<svelte:head>
-	<title>Social - Home</title>
-</svelte:head>
-
 <div class="flex w-full flex-col gap-3">
 	{#if form?.error}
 		<p>{form.error}</p>
