@@ -46,7 +46,7 @@
 		session: Session | null;
 		sclient: SocialClient;
 		streamed: {
-			followed_users: Promise<TPublicProfile[] | null>;
+			followed_users: Promise<TPublicProfile[]>;
 			followers: Promise<TPublicProfile[]>;
 			pending_follows: Promise<TPendingFollow[]>;
 		};

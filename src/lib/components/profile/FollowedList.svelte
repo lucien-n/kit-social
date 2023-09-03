@@ -5,7 +5,7 @@
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;
-	export let followed_users: Promise<TPublicProfile[] | null>;
+	export let followed_users: Promise<TPublicProfile[]>;
 </script>
 
 <section>

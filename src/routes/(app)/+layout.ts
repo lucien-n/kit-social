@@ -24,7 +24,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 
 	profileStore.refresh(sclient, session?.user.id);
 
-	let followed_users: Promise<TPublicProfile[] | null> = new Promise((resolve) => resolve);
+	let followed_users: Promise<TPublicProfile[]> = new Promise((resolve) => resolve);
 	let pending_follows: Promise<TPendingFollow[]> = new Promise((resolve) => resolve);
 	let followers: Promise<TPublicProfile[]> = new Promise((resolve) => resolve);
 
