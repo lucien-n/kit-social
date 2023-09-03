@@ -37,8 +37,8 @@
 		{#if uploading}
 			<Icon icon="mdi:loading" width={50} />
 		{:else}
-			<label for="single">
-				<Icon icon="mdi:upload" width={50} />
+			<label for="single" class="h-full w-full p-3 hover:cursor-pointer">
+				<Icon icon="mdi:upload" style="width: 100%; height: 100%;" />
 			</label>
 			<input
 				style="visibility: hidden; position:absolute;"
