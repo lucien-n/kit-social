@@ -40,6 +40,9 @@
 		Tab
 	} from '@skeletonlabs/skeleton';
 	import { setTitle } from '$lib/utilities/main';
+	import { navigating } from '$app/stores';
+	import { fade, fly, slide } from 'svelte/transition';
+	import ProgressBar from '$comp/ProgressBar.svelte';
 
 	export let data: {
 		supabase: SupabaseClient;
@@ -89,6 +92,7 @@
 
 <Modal />
 <Toast />
+<ProgressBar />
 
 <!-- App Shell -->
 <AppShell>
