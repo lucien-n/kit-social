@@ -83,6 +83,36 @@ export class KUsers {
 		return uids;
 	};
 
+	getFollowersUids = async (uid: string): Promise<string[]> => {
+		if (!checkUid(uid)) return [];
+
+		const url = this.url + `${uid}/followers`;
+		const { data, error } = await this.fetch(url, 'GET');
+		if (error) return [];
+
+		const profiles = data as string[];
+
+		return profiles;
+	};
+
+	getFollowers = async (uid: string): Promise<TPublicProfile[]> => {
+		if (!checkUid(uid)) return [];
+
+		const uids = await this.getFollowersUids(uid);
+
+		if (uids.length < 1) return [];
+
+		const profiles: TPublicProfile[] = [];
+
+		for (const uid of uids) {
+			const profile = await this.getProfile({ uid });
+			if (!profile) continue;
+			profiles.push(profile);
+		}
+
+		return profiles;
+	};
+
 	getPendingFollows = async (uid: string): Promise<TPendingFollow[] | null> => {
 		if (!checkUid(uid)) return null;
 
