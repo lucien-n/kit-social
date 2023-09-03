@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { profileStore } from '$stores/profile';
-	import type { PublicProfile } from '$types/public_profile.type';
+	import type { TPublicProfile } from '$types/public_profile.type';
 	import Icon from '@iconify/svelte';
 	import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
 
-	export let profile: PublicProfile;
+	export let profile: TPublicProfile;
 
 	const modalStore = getModalStore();
 	const toastStore = getToastStore();

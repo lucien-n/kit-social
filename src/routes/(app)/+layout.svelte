@@ -31,7 +31,7 @@
 	import Icon from '@iconify/svelte';
 	import FollowedList from '$comp/FollowedList.svelte';
 	import SignInUp from '$comp/SignInUp.svelte';
-	import type { PublicProfile } from '$types/public_profile.type';
+	import type { TPublicProfile } from '$types/public_profile.type';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import type SocialClient from '$sclient/sclient';
 
@@ -40,7 +40,7 @@
 		session: Session | null;
 		sclient: SocialClient;
 		streamed: {
-			followed_users: Promise<PublicProfile[] | null>;
+			followed_users: Promise<TPublicProfile[] | null>;
 		};
 	};
 

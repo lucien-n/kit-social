@@ -1,8 +1,8 @@
 import { checkUid } from '$lib/utils';
-import type { PublicProfile } from '$types/public_profile.type';
+import type { TPublicProfile } from '$types/public_profile.type';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
-type PublicProfileSet = Map<string, PublicProfile>;
+type PublicProfileSet = Map<string, TPublicProfile>;
 
 type ProfilesStore = {
 	subscribe: (
@@ -12,9 +12,9 @@ type ProfilesStore = {
 	) => () => void;
 	set: (value: PublicProfileSet) => void;
 	update: (updater: (value: PublicProfileSet) => PublicProfileSet) => void;
-	add: (profile: PublicProfile) => void;
+	add: (profile: TPublicProfile) => void;
 	contains: ({ uid, username }: { uid?: string; username?: string }) => boolean;
-	get: ({ uid, username }: { uid?: string; username?: string }) => PublicProfile | null;
+	get: ({ uid, username }: { uid?: string; username?: string }) => TPublicProfile | null;
 };
 
 function createProfilesStore(): ProfilesStore {
@@ -31,7 +31,7 @@ function createProfilesStore(): ProfilesStore {
 		return result;
 	};
 
-	const add = (profile: PublicProfile) => {
+	const add = (profile: TPublicProfile) => {
 		update((profiles: PublicProfileSet) => {
 			if (checkUid(profile.uid)) profiles.set(profile.uid, profile);
 
@@ -39,7 +39,7 @@ function createProfilesStore(): ProfilesStore {
 		});
 	};
 
-	const get = ({ uid, username }: { uid?: string; username?: string }): PublicProfile | null => {
+	const get = ({ uid, username }: { uid?: string; username?: string }): TPublicProfile | null => {
 		if (!contains({ uid, username })) return null;
 		let profile = null;
 

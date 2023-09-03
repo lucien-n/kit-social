@@ -1,10 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { PublicProfile } from '$types/public_profile.type';
+import type { TPublicProfile } from '$types/public_profile.type';
 import type { Ftch } from './types';
 import { checkUid } from '$lib/utils';
 import { browser } from '$app/environment';
 import { profilesStore } from '$stores/profiles';
-import type { PendingFollow } from '$types/pending_follow';
+import type { TPendingFollow } from '$types/pending_follow';
 
 export class KUsers {
 	protected fetch: Ftch;
@@ -23,7 +23,7 @@ export class KUsers {
 	}: {
 		uid?: string;
 		username?: string;
-	}): Promise<PublicProfile | null> => {
+	}): Promise<TPublicProfile | null> => {
 		if (!checkUid(uid) && !username) return null;
 
 		if (browser && profilesStore.contains(uid ? { uid } : { username }))
@@ -34,7 +34,7 @@ export class KUsers {
 		const { data, error } = await this.fetch(url, 'GET');
 		if (error) return null;
 
-		return data as PublicProfile;
+		return data as TPublicProfile;
 	};
 
 	getAvatar = async (uid: string): Promise<string | null> => {
@@ -83,14 +83,14 @@ export class KUsers {
 		return uids;
 	};
 
-	getPendingFollows = async (uid: string): Promise<PendingFollow[] | null> => {
+	getPendingFollows = async (uid: string): Promise<TPendingFollow[] | null> => {
 		if (!checkUid(uid)) return null;
 
 		const url = this.url + `${uid}/pending`;
 		const { data, error } = await this.fetch(url, 'GET');
 		if (error) return [];
 
-		const pending_follows = data as PendingFollow[];
+		const pending_follows = data as TPendingFollow[];
 
 		return pending_follows;
 	};

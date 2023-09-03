@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils';
-	import type { PublicProfile } from '$types/public_profile.type';
+	import type { TPublicProfile } from '$types/public_profile.type';
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;
-	export let profile: PublicProfile;
+	export let profile: TPublicProfile;
 
 	let is_online = false;
 </script>

@@ -1,8 +1,8 @@
-import type { PublicProfile } from './public_profile.type';
+import type { TPublicProfile } from './public_profile.type';
 
-export type PublicPost = {
+export type TPublicPost = {
 	uid: string;
 	content: string;
 	created_at: string;
-	author: PublicProfile;
+	author: TPublicProfile;
 };

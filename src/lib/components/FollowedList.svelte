@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { PublicProfile } from '$types/public_profile.type';
+	import type { TPublicProfile } from '$types/public_profile.type';
 	import ProfileCardPlaceholder from '$comp/ProfileCardPlaceholder.svelte';
 	import FollowedProfileCard from '$comp/FollowedProfileCard.svelte';
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;
-	export let followed_users: Promise<PublicProfile[] | null>;
+	export let followed_users: Promise<TPublicProfile[] | null>;
 </script>
 
 <section>

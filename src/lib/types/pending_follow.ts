@@ -1,7 +1,7 @@
-import type { PublicProfile } from './public_profile.type';
+import type { TPublicProfile } from './public_profile.type';
 
-export type PendingFollow = {
-	follower: PublicProfile;
+export type TPendingFollow = {
+	follower: TPublicProfile;
 	followed_uid: string;
 	accepted: false;
 };

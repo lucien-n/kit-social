@@ -178,12 +178,13 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      accept_pending_follow: {
+      act_pending_follow: {
         Args: {
-          follower: string
           followed: string
+          follower: string
+          accept: boolean
         }
-        Returns: undefined
+        Returns: boolean
       }
       delete_avatar: {
         Args: {
@@ -223,13 +224,6 @@ export interface Database {
           user_uid: string
         }
         Returns: boolean
-      }
-      refuse_pending_follow: {
-        Args: {
-          followed: string
-          follower: string
-        }
-        Returns: undefined
       }
     }
     Enums: {

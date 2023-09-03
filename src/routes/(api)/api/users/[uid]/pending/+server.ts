@@ -1,5 +1,5 @@
 import { checkUid } from '$lib/server/helper';
-import type { PendingFollow } from '$types/pending_follow';
+import type { TPendingFollow } from '$types/pending_follow';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, locals: { supabase, sclient: sclient } }) => {
@@ -17,7 +17,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, sclient:
 		});
 	if (!data) return new Response(null, { status: 204 });
 
-	const pending_follows: PendingFollow[] = [];
+	const pending_follows: TPendingFollow[] = [];
 
 	for (const pending_follow_data of data) {
 		const follower_profile = await sclient.users.getProfile({
@@ -25,7 +25,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, sclient:
 		});
 		if (!follower_profile) continue;
 
-		const pending_follow: PendingFollow = {
+		const pending_follow: TPendingFollow = {
 			follower: follower_profile,
 			followed_uid: pending_follow_data.followed_uid,
 			accepted: false
