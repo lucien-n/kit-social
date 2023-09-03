@@ -39,6 +39,7 @@
 		TabGroup,
 		Tab
 	} from '@skeletonlabs/skeleton';
+	import { setTitle } from '$lib/utilities/main';
 
 	export let data: {
 		supabase: SupabaseClient;
@@ -73,6 +74,10 @@
 		});
 
 		return () => data.subscription.unsubscribe();
+	});
+
+	onMount(() => {
+		setTitle('');
 	});
 
 	let friendsTabSet: number = 0;
