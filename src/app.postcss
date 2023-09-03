@@ -7,3 +7,10 @@ html,
 body {
 	@apply h-full overflow-hidden;
 }
+
+@layer utilities {
+	.hover-bg {
+		@apply rounded-md bg-opacity-70 p-2 hover:bg-surface-600;
+		@apply transition-all duration-150 ease-in-out;
+	}
+}

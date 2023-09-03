@@ -38,7 +38,7 @@
 
 <article
 	out:fly={{ x: 200, duration: 100 }}
-	class="flex items-center justify-between gap-3 rounded-md bg-opacity-70 p-3 hover:bg-surface-700"
+	class="hover-bg flex items-center justify-between gap-3"
 >
 	<div class="flex gap-3">
 		<Avatar {sclient} profile={pending_follow.follower} />

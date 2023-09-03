@@ -12,9 +12,7 @@
 
 {#if profile.uid}
 	<a href="/u/{profile.name}" class="flex h-fit justify-between gap-3 p-3">
-		<article
-			class="flex h-full w-full gap-2 rounded-md p-2 transition-all duration-100 ease-in-out hover:bg-surface-600"
-		>
+		<article class="hover-bg flex h-full w-full gap-2">
 			<div class="relative">
 				<Avatar {sclient} {profile} />
 				{#if is_online}
