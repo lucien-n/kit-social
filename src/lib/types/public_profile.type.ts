@@ -7,5 +7,6 @@ export type TPublicProfile = {
 	last_seen?: string;
 	is_private?: boolean;
 	is_followed?: boolean;
+	is_follower?: boolean;
 	is_pending?: boolean;
 };

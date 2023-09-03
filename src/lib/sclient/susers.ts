@@ -113,6 +113,16 @@ export class KUsers {
 		return profiles;
 	};
 
+	removeFollower = async (uid: string): Promise<boolean> => {
+		if (!checkUid(uid)) return false;
+
+		const url = this.url + `${uid}/followers`;
+		const { data, error } = await this.fetch(url, 'DELETE');
+		if (error) return false;
+
+		return data == true;
+	};
+
 	getPendingFollows = async (uid: string): Promise<TPendingFollow[] | null> => {
 		if (!checkUid(uid)) return null;
 
