@@ -20,7 +20,7 @@
 			</span>
 		</div>
 	{:then pendings}
-		{#if pendings}
+		{#if pendings.length > 0}
 			{#each filtered(pendings) as pending_follow}
 				<PendingFollow
 					{sclient}
@@ -29,7 +29,7 @@
 				/>
 			{/each}
 		{:else}
-			<h2 class="h2 text-center">No Pending Follow</h2>
+			<p class="text-center text-lg">No Pending Follow</p>
 		{/if}
 	{/await}
 </section>

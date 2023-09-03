@@ -14,10 +14,12 @@
 			<ProfileCardPlaceholder />
 		{/each}
 	{:then profiles}
-		{#if profiles}
+		{#if profiles?.length > 1}
 			{#each profiles as profile}
 				<Followed {sclient} {profile} />
 			{/each}
+		{:else}
+			<p class="text-center text-lg">No Followings</p>
 		{/if}
 	{:catch e}
 		<p>{e}</p>
