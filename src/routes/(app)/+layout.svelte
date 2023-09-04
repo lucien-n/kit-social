@@ -146,7 +146,7 @@
 	<svelte:fragment slot="sidebarRight" />
 	<!-- Page Route Content -->
 	{#key $page.url}
-		<div class="flex" transition:fade={{ duration: 200 }}>
+		<div class="flex h-full w-full" transition:fade={{ duration: 200 }}>
 			<div class="fixed h-full w-full blur-lg">
 				<picture>
 					<img src={twSplashImage} alt="tw splash" />
