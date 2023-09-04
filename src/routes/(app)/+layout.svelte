@@ -152,7 +152,7 @@
 					<img src={twSplashImage} alt="tw splash" />
 				</picture>
 			</div>
-			<div class="mx-auto h-full w-full backdrop-blur-xl lg:w-4/5 xl:w-3/5">
+			<div class="mx-auto h-full w-full backdrop-blur-0 lg:w-4/5 xl:w-3/5">
 				<slot />
 			</div>
 		</div>
