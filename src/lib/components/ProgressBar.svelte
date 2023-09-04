@@ -7,6 +7,6 @@
 	<div
 		transition:slide={{ duration: 200 }}
 		id="loading-bar"
-		class="absolute h-2 w-full bg-success-500 shadow-sm shadow-success-500"
+		class="absolute z-50 h-2 w-full bg-success-500 shadow-sm shadow-success-500"
 	/>
 {/if}
