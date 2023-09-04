@@ -40,9 +40,10 @@
 		Tab
 	} from '@skeletonlabs/skeleton';
 	import { setTitle } from '$lib/utilities/main';
-	import { navigating, page } from '$app/stores';
-	import { fade, fly, slide } from 'svelte/transition';
+	import { page } from '$app/stores';
+	import { fade } from 'svelte/transition';
 	import ProgressBar from '$comp/ProgressBar.svelte';
+	import twSplashImage from '$lib/images/tw-splash.png';
 
 	export let data: {
 		supabase: SupabaseClient;
@@ -145,12 +146,12 @@
 	<svelte:fragment slot="sidebarRight" />
 	<!-- Page Route Content -->
 	{#key $page.url}
-		<div class="flex">
-			<div
-				class="variant-gradient-success-error fixed h-full w-full bg-gradient-to-br"
-				transition:fade={{ duration: 200 }}
-			/>
-			<div class="fixed h-full w-full bg-black bg-opacity-80 backdrop-blur-3xl" />
+		<div class="flex" transition:fade={{ duration: 200 }}>
+			<div class="fixed h-full w-full blur-lg">
+				<picture>
+					<img src={twSplashImage} alt="tw splash" />
+				</picture>
+			</div>
 			<div class="mx-auto h-full w-full backdrop-blur-xl lg:w-4/5 xl:w-3/5">
 				<slot />
 			</div>
