@@ -145,8 +145,15 @@
 	<svelte:fragment slot="sidebarRight" />
 	<!-- Page Route Content -->
 	{#key $page.url}
-		<div class="mx-auto h-full w-full lg:w-4/5 xl:w-3/5" transition:fade={{ duration: 200 }}>
-			<slot />
+		<div class="flex">
+			<div
+				class="variant-gradient-success-error fixed h-full w-full bg-gradient-to-br"
+				transition:fade={{ duration: 200 }}
+			/>
+			<div class="fixed h-full w-full bg-black bg-opacity-80 backdrop-blur-3xl" />
+			<div class="mx-auto h-full w-full backdrop-blur-xl lg:w-4/5 xl:w-3/5">
+				<slot />
+			</div>
 		</div>
 	{/key}
 </AppShell>
