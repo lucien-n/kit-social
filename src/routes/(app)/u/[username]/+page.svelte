@@ -7,6 +7,7 @@
 	import FollowButton from '$comp/FollowButton.svelte';
 	import Avatar from '$comp/Avatar.svelte';
 	import UploadAvatar from '$comp/UploadAvatar.svelte';
+	import { formatDate } from '$lib/utilities/methods';
 
 	export let data: { sclient: SocialClient; error: string; username: string };
 
@@ -75,7 +76,8 @@
 												{/if}
 											</div>
 											<div>
-												<p class=" text-4xl font-semibold">{profile.name}</p>
+												<p class="text-4xl font-semibold">{profile.name}</p>
+												<p class="text-lg italic opacity-70">{formatDate(profile.created_at)}</p>
 											</div>
 										</div>
 										<div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDate } from '$lib/utilities/methods';
+	import { formatDatePrecise } from '$lib/utilities/methods';
 	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	import { profilesStore } from '$stores/profiles';
@@ -43,7 +43,7 @@
 					{/if}
 					·
 					<a href="/u/{post.author.name}/p/{post.uid}" class="hover:underline">
-						{formatDate(new Date(post.created_at))}
+						{formatDatePrecise(new Date(post.created_at))}
 					</a>
 				</p>
 			</div>

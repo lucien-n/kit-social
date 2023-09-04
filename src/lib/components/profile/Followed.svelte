@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDate } from '$lib/utilities/methods';
+	import { formatDatePrecise } from '$lib/utilities/methods';
 	import type { TProfile } from '$types/profile.type';
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';
@@ -26,7 +26,7 @@
 					{profile.name}
 				</p>
 				<p class="italic opacity-70">
-					{is_online ? 'Online' : `Last seen: ${formatDate(profile.last_seen)}`}
+					{is_online ? 'Online' : `Last seen: ${formatDatePrecise(profile.last_seen)}`}
 				</p>
 			</div>
 		</article>
