@@ -23,7 +23,6 @@
 		<p>{form.error}</p>
 	{/if}
 	<CreatePost {sclient} {form} />
-	<hr />
 	{#await posts}
 		{#each { length: 10 } as _}
 			<PostPlaceholder />
