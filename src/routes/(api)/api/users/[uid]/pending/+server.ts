@@ -1,11 +1,7 @@
-import { checkUid } from '$lib/server/helper';
 import type { TPendingFollow } from '$types/pending_follow';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, locals: { supabase, sclient: sclient } }) => {
-	const { uid, response: uid_resp } = checkUid(params.uid);
-	if (uid_resp) return uid_resp;
-
+export const GET: RequestHandler = async ({ locals: { supabase, sclient, uid } }) => {
 	const { data, error } = await supabase
 		.from('pending_follows')
 		.select('followed_uid, follower_uid')

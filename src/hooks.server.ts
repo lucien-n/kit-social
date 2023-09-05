@@ -1,7 +1,7 @@
 import { PRIVATE_SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
 import { PUBLIC_ENABLE_RATE_LIMIT, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import SocialClient from '$sclient/sclient';
-import { handleRatelimit } from '$lib/server/helper';
+import { checkUid, handleRatelimit } from '$lib/server/helper';
 import { ratelimit } from '$lib/server/redis';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import type { Handle, RequestEvent } from '@sveltejs/kit';
@@ -40,6 +40,15 @@ export const handle: Handle = async ({ event, resolve }) => {
 			const response = await handleRatelimit(client_address, ratelimit.api);
 			if (response) return response;
 		}
+	}
+
+	if (url.pathname.startsWith('/api/users') && !url.pathname.endsWith('/profile')) {
+		const { uid, response } = checkUid(event.params.uid);
+		if (response)
+			return new Response(JSON.stringify({ error: 'Please provide a valid uid' }), {
+				status: 422
+			});
+		event.locals.uid = uid;
 	}
 
 	return resolve(event, {

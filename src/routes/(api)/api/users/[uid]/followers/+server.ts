@@ -1,10 +1,8 @@
-import { checkUid } from '$lib/server/helper';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, locals: { supabase, getSession } }) => {
-	const { uid: followed_uid, response: uid_resp } = checkUid(params.uid);
-	if (uid_resp) return uid_resp;
-
+export const GET: RequestHandler = async ({
+	locals: { supabase, getSession, uid: followed_uid }
+}) => {
 	const session = await getSession();
 	if (!session) return new Response(null, { status: 401 });
 
@@ -28,10 +26,9 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, getSessi
 	return new Response(JSON.stringify({ data: uids }), { status: 200 });
 };
 
-export const DELETE: RequestHandler = async ({ params, locals: { getSession, supabase } }) => {
-	const { uid: follower_uid, response: uid_resp } = checkUid(params.uid);
-	if (uid_resp) return uid_resp;
-
+export const DELETE: RequestHandler = async ({
+	locals: { getSession, supabase, uid: follower_uid }
+}) => {
 	const session = await getSession();
 	if (!session) return new Response(null, { status: 401 });
 

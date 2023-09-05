@@ -14,6 +14,7 @@ declare global {
 			supabase: SupabaseClient<Database>;
 			getSession(): Promise<Session | null>;
 			sclient: SocialClient;
+			uid: string;
 		}
 		interface PageData {
 			session: Session | null;
