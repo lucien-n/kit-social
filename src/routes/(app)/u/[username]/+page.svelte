@@ -81,7 +81,7 @@
 											</div>
 										</div>
 										<div>
-											<FollowButton {profile} on:update={update} />
+											<FollowButton {sclient} {profile} on:update={update} />
 										</div>
 									</div>
 								</section>

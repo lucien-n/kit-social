@@ -5,7 +5,7 @@
   - [ ] confirm when private doesn't show up
   - [ ] refresh layout.svelte followed list
 - [ ] Convert followers and followed to friends
-- [ ] Rework FollowButton.svelte
+- [x] Rework FollowButton.svelte
 - [ ] Cleanup supabase RLS
 - [ ] Cleanup supabase functions
 - [ ] Restructure components folder
