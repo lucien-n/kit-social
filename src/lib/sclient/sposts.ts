@@ -13,7 +13,7 @@ export class KPosts {
 	}
 
 	getFeed = async (): Promise<TPost[]> => {
-		const url = this.url + `feed`;
+		const url = this.url + 'feed';
 
 		const { data, error } = await this.fetch(url, 'GET');
 		if (error) return [];

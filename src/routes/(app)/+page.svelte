@@ -22,21 +22,21 @@
 		<p>{form.error}</p>
 	{/if}
 	<CreatePost {sclient} {form} />
-	{#await posts}
-		{#each { length: 10 } as _}
-			<PostPlaceholder />
-		{/each}
-	{:then posts}
-		{#if posts && posts.length > 0}
-			<section id="posts" class="flex flex-col gap-3">
+	<section id="posts" class="flex flex-col gap-3">
+		{#await posts}
+			{#each { length: 10 } as _}
+				<PostPlaceholder />
+			{/each}
+		{:then posts}
+			{#if posts && posts.length > 0}
 				{#each posts as post}
 					<Post {sclient} {post} />
 				{/each}
-			</section>
-		{:else}
-			<h1 class="h1 w-full text-center">No post found</h1>
-		{/if}
-	{:catch}
-		<h1 class="h1">An error occured</h1>
-	{/await}
+			{:else}
+				<h1 class="h1 w-full text-center">No post found</h1>
+			{/if}
+		{:catch}
+			<h1 class="h1">An error occured</h1>
+		{/await}
+	</section>
 </div>

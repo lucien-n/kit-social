@@ -1,7 +1,7 @@
 import { checkUid } from '$lib/utilities/methods';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch }) => {
+export const GET: RequestHandler = async ({ params, locals: { supabase } }) => {
 	const post_uid = params.post_uid as string;
 
 	if (!checkUid(post_uid))
@@ -18,21 +18,11 @@ export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch 
 	if (!post_data)
 		return new Response(JSON.stringify({ message: 'Post not found' }), { status: 404 });
 
-	const author_uid = post_data.author_uid;
-
-	const res = await fetch(`/api/users/${author_uid}/profile`);
-	if (!res.ok)
-		return new Response(JSON.stringify({ message: 'Author not found' }), { status: 404 });
-
-	const { data: author_data } = await res.json();
-
-	const author = author_data as TProfile;
-
 	const post = {
 		uid: post_data.uid,
 		content: post_data.content,
 		created_at: post_data.created_at,
-		author
+		author_uid: post_data.author_uid
 	} as TPost;
 
 	return new Response(JSON.stringify(post), { status: 200 });

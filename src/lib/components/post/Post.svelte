@@ -1,37 +1,20 @@
 <script lang="ts">
 	import { formatDatePrecise } from '$lib/utilities/methods';
-	import { fade } from 'svelte/transition';
-	import { onMount } from 'svelte';
-	import { profilesStore } from '$stores/profiles';
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;
 	export let post: TPost;
-
-	onMount(async () => {
-		profilesStore.add(post.author);
-	});
 </script>
 
 <article class="card flex w-full flex-col p-2">
 	<section class="flex gap-2">
 		<div>
-			{#if post.author}
-				<Avatar {sclient} profile={post.author} width="w-14" />
-			{:else}
-				<div class="placeholder h-12 w-12 animate-pulse rounded-full" />
-			{/if}
+			<Avatar {sclient} profile={post.author} width="w-14" />
 		</div>
 		<div class="text-lg">
 			<div class="flex gap-2">
-				{#if post.author}
-					<p class="font-bold">
-						{post.author.name}
-					</p>
-				{:else}
-					<span class="placeholder w-20 animate-pulse rounded" />
-				{/if}
+				{post.author.name}
 				<p class="opacity-70">
 					{#if post.author}
 						<a href="/u/{post.author.name}">

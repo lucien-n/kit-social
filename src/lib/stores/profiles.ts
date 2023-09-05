@@ -40,10 +40,10 @@ function createProfilesStore(): ProfilesStore {
 
 	const get = ({ uid, username }: { uid?: string; username?: string }): TProfile | null => {
 		if (!contains({ uid, username })) return null;
-		let profile = null;
+		let profile: TProfile | null = {} as TProfile;
 
 		subscribe((profiles: ProfileSet) => {
-			if (uid) profile = profiles.get(uid);
+			if (uid) profile = profiles.get(uid) || null;
 			if (username) profile = Object.values(profiles).find((profile) => profile.name == username);
 		});
 

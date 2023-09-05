@@ -2,7 +2,7 @@ import type SocialClient from '$sclient/sclient';
 import type { Database } from '$types/database.types';
 import type { PendingFollow } from '$types/pending_follow';
 import type { Profile } from '$types/profile.type';
-import type { Post } from '$types/public_post.type';
+import type { Post } from '$types/post.type';
 import { SupabaseClient, Session } from '@supabase/supabase-js';
 
 declare global {

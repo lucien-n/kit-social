@@ -32,7 +32,11 @@ export class KUsers {
 		const { data, error } = await this.fetch(url, 'GET');
 		if (error) return null;
 
-		return data as TProfile;
+		const profile = data as TProfile;
+
+		if (browser) profilesStore.add(profile);
+
+		return profile;
 	};
 
 	getAvatar = async (uid: string): Promise<string | null> => {
