@@ -23,8 +23,8 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 	const user_data = data?.[0];
 	if (!user_data) return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
 
-	const {data: is_private} =( await supabase.rpc('is_private', {user_uid: uid}) )
-	console.log(`Fetched ${user_data.name} profile`)
+	const { data: is_private } = await supabase.rpc('is_private', { user_uid: uid });
+	console.log(`Fetched ${user_data.name} profile`);
 
 	const profile: TProfile = {
 		uid: user_data.uid,

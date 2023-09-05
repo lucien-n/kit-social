@@ -157,30 +157,30 @@ export class KUsers {
 		return data === true;
 	};
 
-	follow = async (uid: string): Promise<{status: string, error?: string}> => {
-		if (!checkUid(uid)) return {status: "Invalid Params"}
+	follow = async (uid: string): Promise<{ status: string; error?: string }> => {
+		if (!checkUid(uid)) return { status: 'Invalid Params' };
 
-		const url = this.url + `${uid}/follow`
-		const {data, error} = await this.fetch(url, "GET")
-		console.log(error)
-		if (error) return {status: "Error", error}
+		const url = this.url + `${uid}/follow`;
+		const { data, error } = await this.fetch(url, 'GET');
+		console.log(error);
+		if (error) return { status: 'Error', error };
 
-		const status = (data as {status: string}).status as string
-		console.log(status)
+		const status = (data as { status: string }).status as string;
+		console.log(status);
 
-		return {status }
-	}
+		return { status };
+	};
 
-	unfollow = async (uid: string): Promise<{status: string, error?: string}> => {
-		if (!checkUid(uid)) return {status: "Invalid Params"}
+	unfollow = async (uid: string): Promise<{ status: string; error?: string }> => {
+		if (!checkUid(uid)) return { status: 'Invalid Params' };
 
-		const url = this.url + `${uid}/follow`
-		const {data, error} = await this.fetch(url, "DELETE")
-		if (error) return {status: "Error", error}
+		const url = this.url + `${uid}/follow`;
+		const { data, error } = await this.fetch(url, 'DELETE');
+		if (error) return { status: 'Error', error };
 
-		const status = (data as {status: string}).status as string
-		console.log(status)
+		const status = (data as { status: string }).status as string;
+		console.log(status);
 
-		return {status}
-	}
+		return { status };
+	};
 }

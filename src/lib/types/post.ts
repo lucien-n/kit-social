@@ -3,5 +3,5 @@ export type Post = {
 	content: string;
 	created_at: string;
 	author_uid: string;
-	author?: TProfile
+	author?: TProfile;
 };
