@@ -156,4 +156,24 @@ export class KUsers {
 
 		return data === true;
 	};
+
+	follow = async (uid: string): Promise<{success: boolean, error?: string}> => {
+		if (!checkUid(uid)) return {success: false}
+
+		const url = this.url + `${uid}/follow`
+		const {data, error} = await this.fetch(url, "GET")
+		if (error) return {success: false, error}
+
+		return {success: data === true}
+	}
+
+	unfollow = async (uid: string): Promise<{success: boolean, error?: string}> => {
+		if (!checkUid(uid)) return {success: false}
+
+		const url = this.url + `${uid}/follow`
+		const {data, error} = await this.fetch(url, "DELETE")
+		if (error) return {success: false, error}
+
+		return {success: data === true}
+	}
 }

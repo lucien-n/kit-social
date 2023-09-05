@@ -1,13 +1,21 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { modals } from '$lib/utilities/modals';
+	import { toasts } from '$lib/utilities/toasts';
+	import type SocialClient from '$sclient/sclient';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
-	import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
+	import {  getToastStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
 
+	export let sclient: SocialClient
 	export let profile: TProfile;
 
-	const modalStore = getModalStore();
+	const unfollowPrivateModal: ModalSettings = {
+           type: 'confirm',
+           body: '<strong>This profile is private.</strong><br/> If you unfollow them, you will need to ask to follow them again.',
+	}
+
 	const toastStore = getToastStore();
 
 	const dispatch = createEventDispatcher();
@@ -20,39 +28,23 @@
 		loading = true;
 
 		if (followed && profile.is_private) {
-			const confirm = await new Promise<boolean>((resolve) => {
-				modalStore.trigger({
-					type: 'confirm',
-					body: '<strong>This profile is private.</strong><br/> If you unfollow them, you will need to ask to follow them again.',
-					response: (r: boolean) => resolve(r)
-				});
-			});
-
+			const confirm = await modals.confirm(unfollowPrivateModal);
 			if (!confirm) {
 				loading = false;
 				return;
 			}
 		}
 
-		let message = '';
+		const {success, error} = await (followed 
+			? sclient.users.unfollow(profile.uid) 
+			: sclient.users.follow(profile.uid))
 
-		const res = await fetch(`/api/users/${profile.uid}/follow`, {
-			method: followed ? 'DELETE' : 'GET'
-		});
-
-		if (res.ok) {
-			followed = !followed;
-			try {
-				const data = await res.json();
-				message = data.message;
-			} catch (_) {}
+		if (success) {
+			followed = !followed
 		}
 
-		if (message)
-			toastStore.trigger({
-				autohide: true,
-				message
-			});
+		if (error)
+			toastStore.trigger(toasts.error(error));
 
 		if (followed) dispatch('follow');
 		else dispatch('unfollow');
