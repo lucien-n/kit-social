@@ -48,31 +48,31 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 	}
 
 	const session = await getSession();
+	let is_self = false;
 	if (session) {
+		is_self = session.user.id == user_data.uid;
+		profile.is_self = is_self;
+	}
+
+	if (!is_self && session) {
 		const { data: is_followed } = await supabase.rpc('is_following', {
 			followed: user_data.uid,
 			follower: session.user.id
 		});
+		profile.is_followed = is_followed || false;
 
-		const is_self = session.user.id == user_data.uid;
-		profile.is_self = is_self;
-		if (is_followed || is_self || !is_private) {
-			profile.is_followed = is_followed || false;
+		const { data: is_follower } = await supabase.rpc('is_following', {
+			follower: user_data.uid,
+			followed: session.user.id
+		});
+		profile.is_follower = is_follower || false;
 
-			const { data: is_follower } = await supabase.rpc('is_following', {
-				follower: user_data.uid,
-				followed: session.user.id
+		if (!is_followed) {
+			const { data: is_pending } = await supabase.rpc('is_follow_pending', {
+				followed: user_data.uid,
+				follower: session.user.id
 			});
-
-			profile.is_follower = is_follower || false;
-
-			if (!is_followed) {
-				const { data: is_pending } = await supabase.rpc('is_follow_pending', {
-					followed: user_data.uid,
-					follower: session.user.id
-				});
-				profile.is_pending = is_pending || false;
-			}
+			profile.is_pending = is_pending || false;
 		}
 	}
 
