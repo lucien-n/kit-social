@@ -7,4 +7,3 @@
 - [x] Rework FollowButton.svelte
 - [ ] Cleanup supabase RLS
 - [ ] Cleanup supabase functions
-- [ ] Restructure components folder
