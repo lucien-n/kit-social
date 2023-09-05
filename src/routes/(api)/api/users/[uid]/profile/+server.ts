@@ -23,14 +23,14 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 	const user_data = data?.[0];
 	if (!user_data) return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
 
-	const is_private = user_data.profiles_settings?.[0]?.is_private || false;
+	const {data: is_private} =( await supabase.rpc('is_private', {user_uid: uid}) )
 
 	const profile: TProfile = {
 		uid: user_data.uid,
 		name: user_data.name,
 		avatar_url: '',
 		restricted: user_data.restricted,
-		is_private
+		is_private: is_private || false
 	};
 
 	if (!is_private) {

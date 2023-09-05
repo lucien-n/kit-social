@@ -157,23 +157,30 @@ export class KUsers {
 		return data === true;
 	};
 
-	follow = async (uid: string): Promise<{success: boolean, error?: string}> => {
-		if (!checkUid(uid)) return {success: false}
+	follow = async (uid: string): Promise<{status: string, error?: string}> => {
+		if (!checkUid(uid)) return {status: "Invalid Params"}
 
 		const url = this.url + `${uid}/follow`
 		const {data, error} = await this.fetch(url, "GET")
-		if (error) return {success: false, error}
+		console.log(error)
+		if (error) return {status: "Error", error}
 
-		return {success: data === true}
+		const status = (data as {status: string}).status as string
+		console.log(status)
+
+		return {status }
 	}
 
-	unfollow = async (uid: string): Promise<{success: boolean, error?: string}> => {
-		if (!checkUid(uid)) return {success: false}
+	unfollow = async (uid: string): Promise<{status: string, error?: string}> => {
+		if (!checkUid(uid)) return {status: "Invalid Params"}
 
 		const url = this.url + `${uid}/follow`
 		const {data, error} = await this.fetch(url, "DELETE")
-		if (error) return {success: false, error}
+		if (error) return {status: "Error", error}
 
-		return {success: data === true}
+		const status = (data as {status: string}).status as string
+		console.log(status)
+
+		return {status}
 	}
 }

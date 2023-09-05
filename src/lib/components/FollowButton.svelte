@@ -27,20 +27,25 @@
 		if ($profileStore?.uid == profile.uid) return;
 		loading = true;
 
+		console.log("a", followed && profile.is_private, followed, profile.is_private)
 		if (followed && profile.is_private) {
+			console.log("b")
 			const confirm = await modals.confirm(unfollowPrivateModal);
+			console.log("c")
 			if (!confirm) {
+			console.log("d")
 				loading = false;
 				return;
 			}
 		}
 
-		const {success, error} = await (followed 
+		const {status, error} = await (followed 
 			? sclient.users.unfollow(profile.uid) 
 			: sclient.users.follow(profile.uid))
 
-		if (success) {
+		if (status) {
 			followed = !followed
+			toastStore.trigger(toasts.info(status));
 		}
 
 		if (error)
