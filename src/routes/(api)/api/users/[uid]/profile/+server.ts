@@ -23,15 +23,15 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 	const user_data = data?.[0];
 	if (!user_data) return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
 
-	const { data: is_private } = await supabase.rpc('is_private', { user_uid: uid });
-	console.log(`Fetched ${user_data.name} profile`);
+	let { data: is_private } = await supabase.rpc('is_private', { user_uid: user_data.uid });
+	is_private = !!is_private;
 
 	const profile: TProfile = {
 		uid: user_data.uid,
 		name: user_data.name,
 		avatar_url: '',
 		restricted: user_data.restricted,
-		is_private: is_private || false
+		is_private: is_private
 	};
 
 	if (!is_private) {
@@ -54,24 +54,23 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 			follower: session.user.id
 		});
 
-		if (!is_followed && is_private)
-			return new Response(JSON.stringify({ data: profile }), { status: 200 });
+		if (is_followed || !is_private) {
+			profile.is_followed = is_followed || false;
 
-		profile.is_followed = is_followed || false;
-
-		const { data: is_follower } = await supabase.rpc('is_following', {
-			follower: user_data.uid,
-			followed: session.user.id
-		});
-
-		profile.is_follower = is_follower || false;
-
-		if (!is_followed) {
-			const { data: is_pending } = await supabase.rpc('is_follow_pending', {
-				followed: user_data.uid,
-				follower: session.user.id
+			const { data: is_follower } = await supabase.rpc('is_following', {
+				follower: user_data.uid,
+				followed: session.user.id
 			});
-			profile.is_pending = is_pending || false;
+
+			profile.is_follower = is_follower || false;
+
+			if (!is_followed) {
+				const { data: is_pending } = await supabase.rpc('is_follow_pending', {
+					followed: user_data.uid,
+					follower: session.user.id
+				});
+				profile.is_pending = is_pending || false;
+			}
 		}
 	}
 
