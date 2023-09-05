@@ -96,7 +96,7 @@ export const vercelDark: CustomThemeConfig = {
 		'--color-surface-500': '26 26 26', // #1A1A1A
 		'--color-surface-600': '20 20 20', // #141414
 		'--color-surface-700': '15 15 15', // #0F0F0F
-		'--color-surface-800': '5 5 5', // #050505
+		'--color-surface-800': '10 10 10', // #0A0A0A
 		'--color-surface-900': '0 0 0' // #000000
 	}
 };
