@@ -1,27 +1,27 @@
 import { checkUid } from '$lib/utilities/methods';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
-type PublicProfileSet = Map<string, TProfile>;
+type ProfileSet = Map<string, TProfile>;
 
 type ProfilesStore = {
 	subscribe: (
 		this: void,
-		run: Subscriber<PublicProfileSet>,
-		invalidate?: Invalidator<PublicProfileSet>
+		run: Subscriber<ProfileSet>,
+		invalidate?: Invalidator<ProfileSet>
 	) => () => void;
-	set: (value: PublicProfileSet) => void;
-	update: (updater: (value: PublicProfileSet) => PublicProfileSet) => void;
+	set: (value: ProfileSet) => void;
+	update: (updater: (value: ProfileSet) => ProfileSet) => void;
 	add: (profile: TProfile) => void;
 	contains: ({ uid, username }: { uid?: string; username?: string }) => boolean;
 	get: ({ uid, username }: { uid?: string; username?: string }) => TProfile | null;
 };
 
 function createProfilesStore(): ProfilesStore {
-	const { subscribe, set, update } = writable<PublicProfileSet>(new Map());
+	const { subscribe, set, update } = writable<ProfileSet>(new Map());
 
 	const contains = ({ uid, username }: { uid?: string; username?: string }) => {
 		let result = false;
-		subscribe((profiles: PublicProfileSet) => {
+		subscribe((profiles: ProfileSet) => {
 			if (checkUid(uid)) result = profiles.has(uid as string);
 			if (username)
 				result = Object.values(profiles).filter((profile) => profile.name == username).length > 0;
@@ -31,7 +31,7 @@ function createProfilesStore(): ProfilesStore {
 	};
 
 	const add = (profile: TProfile) => {
-		update((profiles: PublicProfileSet) => {
+		update((profiles: ProfileSet) => {
 			if (checkUid(profile.uid)) profiles.set(profile.uid, profile);
 
 			return profiles;
@@ -42,7 +42,7 @@ function createProfilesStore(): ProfilesStore {
 		if (!contains({ uid, username })) return null;
 		let profile = null;
 
-		subscribe((profiles: PublicProfileSet) => {
+		subscribe((profiles: ProfileSet) => {
 			if (uid) profile = profiles.get(uid);
 			if (username) profile = Object.values(profiles).find((profile) => profile.name == username);
 		});
