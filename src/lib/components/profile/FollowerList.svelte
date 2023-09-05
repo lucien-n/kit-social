@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
-	import type { TProfile } from '$types/profile.type';
 	import Loading from '$comp/Loading.svelte';
 	import Follower from '$comp/profile/Follower.svelte';
 	import { fade } from 'svelte/transition';

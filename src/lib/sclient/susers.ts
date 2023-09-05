@@ -1,10 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { TProfile } from '$types/profile.type';
 import type { Ftch } from './types';
 import { checkUid } from '$lib/utilities/methods';
 import { browser } from '$app/environment';
 import { profilesStore } from '$stores/profiles';
-import type { TPendingFollow } from '$types/pending_follow';
 
 export class KUsers {
 	protected fetch: Ftch;

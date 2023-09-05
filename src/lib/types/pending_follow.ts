@@ -1,7 +1,7 @@
-import type { TProfile } from './profile.type';
+import type { Profile } from '$types/profile.type';
 
-export type TPendingFollow = {
-	follower: TProfile;
+export type PendingFollow = {
+	follower: Profile;
 	followed_uid: string;
 	state: 'pending' | 'accepted' | 'refused';
 };

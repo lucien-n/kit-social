@@ -1,5 +1,4 @@
 import type SocialClient from '$sclient/sclient';
-import type { TProfile } from '$types/profile.type';
 import { writable, type Subscriber, type Invalidator } from 'svelte/store';
 
 type ProfileStore = {

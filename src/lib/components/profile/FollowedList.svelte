@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { TProfile } from '$types/profile.type';
 	import ProfileCardPlaceholder from '$comp/profile/ProfileCardPlaceholder.svelte';
 	import Followed from '$comp/profile/Followed.svelte';
 	import type SocialClient from '$sclient/sclient';

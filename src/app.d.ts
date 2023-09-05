@@ -1,5 +1,8 @@
 import type SocialClient from '$sclient/sclient';
 import type { Database } from '$types/database.types';
+import type { PendingFollow } from '$types/pending_follow';
+import type { Profile } from '$types/profile.type';
+import type { Post } from '$types/public_post.type';
 import { SupabaseClient, Session } from '@supabase/supabase-js';
 
 declare global {
@@ -8,6 +11,10 @@ declare global {
 	type SupaProfileSettings = Database['public']['Tables']['profiles_settings']['Row'];
 	type SupaPendingFollow = Database['public']['Tables']['pending_follows']['Row'];
 	type SupaFollow = Database['public']['Tables']['follows']['Row'];
+
+	type TProfile = Profile;
+	type TPost = Post;
+	type TPendingFollow = PendingFollow;
 
 	declare namespace App {
 		interface Locals {

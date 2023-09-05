@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { profileStore } from '$stores/profile';
-	import type { TProfile } from '$types/profile.type';
 	import Icon from '@iconify/svelte';
 	import { getModalStore, getToastStore } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';

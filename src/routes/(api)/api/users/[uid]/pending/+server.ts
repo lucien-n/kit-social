@@ -1,4 +1,3 @@
-import type { TPendingFollow } from '$types/pending_follow';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ locals: { supabase, sclient, uid } }) => {

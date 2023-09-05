@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
-	import type { TPendingFollow } from '$types/pending_follow';
 	import Avatar from '$comp/Avatar.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';

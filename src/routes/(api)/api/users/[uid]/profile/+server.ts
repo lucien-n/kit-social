@@ -1,5 +1,4 @@
 import { checkUid } from '$lib/utilities/methods';
-import type { TProfile } from '$types/profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, fetch, locals: { getSession, supabase } }) => {

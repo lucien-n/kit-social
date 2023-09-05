@@ -1,8 +1,6 @@
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import SocialClient from '$sclient/sclient';
 import { profileStore } from '$stores/profile';
-import type { TPendingFollow } from '$types/pending_follow';
-import type { TProfile } from '$types/profile.type';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
 import type { Load } from '@sveltejs/kit';
 

@@ -3,9 +3,8 @@
 	import Post from '$comp/post/Post.svelte';
 	import PostPlaceholder from '$comp/post/PostPlaceholder.svelte';
 	import type SocialClient from '$sclient/sclient.js';
-	import type { TPublicPost } from '$types/public_post.type';
 
-	export let data: { sclient: SocialClient; streamed: { posts: TPublicPost[] } };
+	export let data: { sclient: SocialClient; streamed: { posts: TPost[] } };
 	export let form;
 
 	let {

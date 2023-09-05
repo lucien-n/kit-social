@@ -1,4 +1,3 @@
-import type { TPublicPost } from '$types/public_post.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
@@ -12,14 +11,14 @@ export const GET: RequestHandler = async ({ fetch, locals: { supabase } }) => {
 
 	data.forEach(({ uid }) => uids.push(uid));
 
-	const posts: TPublicPost[] = [];
+	const posts: TPost[] = [];
 
 	for (const uid of uids) {
 		const res = await fetch(`/api/posts/${uid}`);
 		if (!res.ok) continue;
 
 		const data = await res.json();
-		const post = data as TPublicPost;
+		const post = data as TPost;
 
 		posts.push(post);
 	}

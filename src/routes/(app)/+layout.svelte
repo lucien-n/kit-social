@@ -20,10 +20,8 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
-	import type { TProfile } from '$types/profile.type';
 	import type { Session, SupabaseClient } from '@supabase/supabase-js';
 	import type SocialClient from '$sclient/sclient';
-	import type { TPendingFollow } from '$types/pending_follow';
 	import SignInUp from '$comp/SignInUp.svelte';
 	import ProfileCard from '$comp/profile/ProfileCard.svelte';
 	import PendingList from '$comp/profile/PendingList.svelte';

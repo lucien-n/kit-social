@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { formatDatePrecise } from '$lib/utilities/methods';
-	import type { TProfile } from '$types/profile.type';
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';
 

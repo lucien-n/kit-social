@@ -1,4 +1,4 @@
-export type TProfile = {
+export type Profile = {
 	uid: string;
 	name: string;
 	avatar_url: string;

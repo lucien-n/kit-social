@@ -2,7 +2,6 @@
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
 	import Avatar from '$comp/Avatar.svelte';
-	import type { TProfile } from '$types/profile.type';
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;

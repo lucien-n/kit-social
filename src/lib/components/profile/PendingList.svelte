@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
-	import type { TPendingFollow } from '$types/pending_follow';
 	import Icon from '@iconify/svelte';
 	import PendingFollow from './PendingFollow.svelte';
 	import { fade } from 'svelte/transition';

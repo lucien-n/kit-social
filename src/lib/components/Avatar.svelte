@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
-	import type { TProfile } from '$types/profile.type';
 	import Icon from '@iconify/svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 

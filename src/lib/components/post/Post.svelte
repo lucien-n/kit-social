@@ -4,11 +4,10 @@
 	import { onMount } from 'svelte';
 	import { profilesStore } from '$stores/profiles';
 	import Avatar from '$comp/Avatar.svelte';
-	import type { TPublicPost } from '$types/public_post.type';
 	import type SocialClient from '$sclient/sclient';
 
 	export let sclient: SocialClient;
-	export let post: TPublicPost;
+	export let post: TPost;
 
 	onMount(async () => {
 		profilesStore.add(post.author);

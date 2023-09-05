@@ -1,6 +1,4 @@
 import { checkUid } from '$lib/utilities/methods';
-import type { TPublicPost } from '$types/public_post.type';
-import type { TProfile } from '$types/profile.type';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch }) => {
@@ -35,7 +33,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase }, fetch 
 		content: post_data.content,
 		created_at: post_data.created_at,
 		author
-	} as TPublicPost;
+	} as TPost;
 
 	return new Response(JSON.stringify(post), { status: 200 });
 };
