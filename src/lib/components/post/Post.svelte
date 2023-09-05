@@ -15,7 +15,7 @@
 	});
 </script>
 
-<article class="card flex w-full flex-col p-2" in:fade={{ duration: 200 }}>
+<article class="card flex w-full flex-col p-2">
 	<section class="flex gap-2">
 		<div>
 			{#if post.author}
