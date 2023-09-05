@@ -9,4 +9,5 @@ export type Profile = {
 	is_followed?: boolean;
 	is_follower?: boolean;
 	is_pending?: boolean;
+	is_self?: boolean;
 };

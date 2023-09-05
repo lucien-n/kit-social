@@ -54,7 +54,9 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 			follower: session.user.id
 		});
 
-		if (is_followed || !is_private) {
+		const is_self = session.user.id == user_data.uid;
+		profile.is_self = is_self;
+		if (is_followed || is_self || !is_private) {
 			profile.is_followed = is_followed || false;
 
 			const { data: is_follower } = await supabase.rpc('is_following', {

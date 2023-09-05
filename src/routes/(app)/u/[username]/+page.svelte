@@ -9,10 +9,21 @@
 	import UploadAvatar from '$comp/UploadAvatar.svelte';
 	import { formatDate } from '$lib/utilities/methods';
 
-	export let data: { sclient: SocialClient; error: string; streamed:{profile: Promise<TProfile>} };
+	export let data: {
+		sclient: SocialClient;
+		error: string;
+		streamed: { profile: Promise<TProfile> };
+	};
 
-	let { sclient, error, streamed:{profile} } = data;
-	$: ({ sclient, streamed:{profile} } = data);
+	let {
+		sclient,
+		error,
+		streamed: { profile }
+	} = data;
+	$: ({
+		sclient,
+		streamed: { profile }
+	} = data);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -86,7 +97,7 @@
 									</div>
 								</section>
 								<section class="flex h-3/4 bg-surface-900 p-3">
-									{#if !profile.is_followed && profile.is_private}
+									{#if !profile.is_followed && profile.is_private && !profile.is_self}
 										<hgroup class="mx-auto self-center text-center">
 											<h2 class="h2">This profile is private</h2>
 											<p class="text-lg">Follow them to access their profile</p>
