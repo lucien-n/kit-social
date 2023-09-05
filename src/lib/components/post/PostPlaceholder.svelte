@@ -1,8 +1,5 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
-
 	const w = Math.floor(Math.random() * 5);
-	console.log(w);
 </script>
 
 <div class="card flex w-full gap-2 p-2">
