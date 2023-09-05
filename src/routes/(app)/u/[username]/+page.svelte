@@ -9,10 +9,10 @@
 	import UploadAvatar from '$comp/UploadAvatar.svelte';
 	import { formatDate } from '$lib/utilities/methods';
 
-	export let data: { sclient: SocialClient; error: string; username: string };
+	export let data: { sclient: SocialClient; error: string; streamed:{profile: Promise<TProfile>} };
 
-	let { sclient, error, username } = data;
-	$: ({ sclient, username } = data);
+	let { sclient, error, streamed:{profile} } = data;
+	$: ({ sclient, streamed:{profile} } = data);
 
 	let profileForm: HTMLFormElement;
 	let loading = false;
@@ -36,7 +36,7 @@
 		{#if error}
 			<h1 class="h1">{error}</h1>
 		{:else}
-			{#await sclient.users.getProfile({ username })}
+			{#await profile}
 				<span class="animate-spin">
 					<Icon icon="mdi:loading" width={100} />
 				</span>

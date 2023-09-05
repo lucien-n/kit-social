@@ -28,13 +28,6 @@ function createProfileStore(): ProfileStore {
 				} catch (e) {
 					console.warn(e);
 				}
-				// const { data, error } = await supabase.from('profiles').select('*').match({ uid });
-
-				// if (error) return;
-
-				// const new_profile = data?.[0];
-
-				// if (new_profile) set(new_profile);
 			};
 			func();
 
