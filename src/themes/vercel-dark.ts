@@ -88,15 +88,15 @@ export const vercelDark: CustomThemeConfig = {
 		'--color-error-800': '138 0 0', // #8a0000
 		'--color-error-900': '113 0 0', // #710000
 		// surface | #2e2e2e
-		'--color-surface-50': '217 217 217', // #d9d9d9
-		'--color-surface-100': '204 204 204', // #cccccc
-		'--color-surface-200': '191 191 191', // #bfbfbf
-		'--color-surface-300': '153 153 153', // #999999
-		'--color-surface-400': '77 77 77', // #4d4d4d
-		'--color-surface-500': '46 46 46', // #2e2e2e
-		'--color-surface-600': '18 18 18', // #1a1a1a
-		'--color-surface-700': '0 0 0', // #121212
-		'--color-surface-800': '0 0 0', // #000000
-		'--color-surface-900': '0 0 0' // #000000
+		'--color-surface-50': '217 217 217', // #E8E8E8
+		'--color-surface-100': '204 204 204', // #D1D1D1
+		'--color-surface-200': '191 191 191', // #A3A3A3
+		'--color-surface-300': '153 153 153', // #757575
+		'--color-surface-400': '77 77 77', // #474747
+		'--color-surface-500': '46 46 46', // #1A1A1A
+		'--color-surface-600': '18 18 18', // #141414
+		'--color-surface-700': '0 0 0', // #0F0F0F
+		'--color-surface-800': '0 0 0', // #050505
+		'--color-surface-900': '0 0 0' // #050505
 	}
 };
