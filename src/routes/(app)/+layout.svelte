@@ -96,7 +96,7 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="sidebarLeft">
-		<AppRail width="w-72" regionTrail="p-2" regionDefault="overflow-hidden">
+		<AppRail width="w-72" regionTrail="p-2" regionLead="flex" regionDefault="overflow-hidden">
 			<svelte:fragment slot="lead">
 				<a href="/" class="flex items-center gap-2 p-3">
 					<span class="flex self-end">
@@ -104,6 +104,11 @@
 					</span>
 					<h3 class="h3">Social</h3>
 				</a>
+				<a
+					href="#content"
+					class="fixed -top-40 flex self-center text-lg font-semibold focus:static focus:top-0"
+					>Skip to content</a
+				>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
 				<TabGroup
@@ -144,7 +149,7 @@
 	<svelte:fragment slot="sidebarRight" />
 	<!-- Page Route Content -->
 	{#key $page.url}
-		<div class="flex h-full w-full" transition:fade={{ duration: 200 }}>
+		<div id="content" class="flex h-full w-full" transition:fade={{ duration: 200 }}>
 			<div class="fixed h-full w-full blur-lg">
 				<picture>
 					<img src={twSplashImage} alt="tw splash" />
