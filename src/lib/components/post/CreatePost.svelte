@@ -3,11 +3,11 @@
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
-	import type { FormEventHandler } from 'svelte/elements';
+	import type { FormEventHandler, KeyboardEventHandler } from 'svelte/elements';
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';
 	import { POST_CHARACTER_LIMIT } from '$lib/utilities/constants';
-	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
 	export let sclient: SocialClient;
 	export let form;
@@ -40,13 +40,21 @@
 		current_character_count = content.length;
 		input.style.height = `${input.scrollHeight}px`;
 	};
+
+	const handleKeypress: KeyboardEventHandler<Window> = ({ key }) => {
+		if (key !== 'n') return;
+		input.focus();
+	};
 </script>
+
+<svelte:window on:keypress={handleKeypress} />
 
 <section class="card mx-auto flex w-full gap-2 p-3">
 	<Avatar {sclient} profile={$profileStore} width="w-12" />
 	<form method="post" class="relative flex h-full w-full flex-col" use:enhance={handleSubmit}>
 		<div class="pointer-events-none absolute p-1 text-xl opacity-70" class:hidden={hidePlaceholder}>
 			What's poppin {$profileStore?.name || ''}?
+			<span class="kbd variant-ghost-primary">N</span>
 		</div>
 		<textarea
 			class="h-24 w-full resize-none border-0 border-none bg-transparent p-1 text-xl outline-none outline-0 focus:outline-none focus:outline-0"
