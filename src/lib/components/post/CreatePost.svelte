@@ -7,6 +7,7 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';
 	import { POST_CHARACTER_LIMIT } from '$lib/utilities/constants';
+	import { settingsStore } from '$stores/settings';
 
 	export let sclient: SocialClient;
 	export let form;
@@ -41,7 +42,7 @@
 	};
 
 	const handleKeypress: KeyboardEventHandler<Window> = ({ key }) => {
-		if (key !== 'n') return;
+		if (key !== 'n' || !settingsStore.isEnabled('shortcuts')) return;
 		input.focus();
 	};
 </script>
