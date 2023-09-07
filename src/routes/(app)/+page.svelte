@@ -4,20 +4,22 @@
 	import PostPlaceholder from '$comp/post/PostPlaceholder.svelte';
 	import type { PageData, PageServerData } from './$types';
 
-	export let data: PageData & PageServerData;
+	export let data: PageServerData & PageData;
 
 	let {
 		sclient,
-		streamed: { posts }
+		streamed: { posts },
+		form
 	} = data;
 	$: ({
 		sclient,
-		streamed: { posts }
+		streamed: { posts },
+		form
 	} = data);
 </script>
 
 <div class="flex w-full flex-col gap-3">
-	<CreatePost {sclient} form_data={data.form} />
+	<CreatePost {sclient} form_data={form} />
 	<section id="posts" class="flex flex-col gap-3">
 		{#await posts}
 			{#each { length: 10 } as _}
