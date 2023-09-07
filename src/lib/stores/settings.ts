@@ -16,8 +16,8 @@ type SettingStore = {
 	isEnabled: (setting: string) => boolean;
 };
 
-const createSettingsStore = (): SettingStore => {
-	const { subscribe, set, update } = writable<SettingsMap>(new Map());
+const createSettingsStore = (settings: SettingsMap): SettingStore => {
+	const { subscribe, set, update } = writable<SettingsMap>(settings);
 
 	const create = (setting: string, default_value: boolean) =>
 		update((settings) => settings.set(setting, default_value));
@@ -55,4 +55,7 @@ const createSettingsStore = (): SettingStore => {
 	};
 };
 
-export const settingsStore = createSettingsStore();
+const settings = new Map();
+settings.set('shortcuts', true);
+
+export const settingsStore = createSettingsStore(settings);
