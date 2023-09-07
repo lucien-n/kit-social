@@ -4,8 +4,11 @@
 	import PostPlaceholder from '$comp/post/PostPlaceholder.svelte';
 	import type SocialClient from '$sclient/sclient.js';
 
-	export let data: { sclient: SocialClient; streamed: { posts: TPost[] } };
-	export let form;
+	export let data: {
+		sclient: SocialClient;
+		streamed: { posts: TPost[] };
+		form: any;
+	};
 
 	let {
 		sclient,
@@ -18,10 +21,7 @@
 </script>
 
 <div class="flex w-full flex-col gap-3">
-	{#if form?.error}
-		<p>{form.error}</p>
-	{/if}
-	<CreatePost {sclient} {form} />
+	<CreatePost {sclient} form_data={data.form} />
 	<section id="posts" class="flex flex-col gap-3">
 		{#await posts}
 			{#each { length: 10 } as _}

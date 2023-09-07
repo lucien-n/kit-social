@@ -1,31 +1,38 @@
 import { fail, type Actions } from '@sveltejs/kit';
+import { z } from 'zod';
+import { setError, superValidate } from 'sveltekit-superforms/server';
+import type { PageServerLoad } from './$types';
+
+const schema = z.object({
+	content: z.string().min(1).max(400)
+});
+
+export const load: PageServerLoad = async () => {
+	const form = await superValidate(schema);
+
+	return { form };
+};
 
 export const actions: Actions = {
 	async default({ request, locals: { supabase, getSession } }) {
-		type FormResponse = {
-			message: string;
-			error: string;
-			values: {
-				content: string;
-			};
-		};
-		const formData = await request.formData();
+		const form = await superValidate(request, schema);
 
-		const content = formData.get('content')?.toString();
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 
-		if (!content) {
-			return fail(400, {
-				error: 'Please enter a content',
-				values: { content }
-			} as FormResponse);
+		const content = form.data.content;
+
+		if (!(content.length > 10)) {
+			return setError(form, 'content', 'Please enter a content');
 		}
 
 		const currentUser = await getSession();
 		if (!currentUser) {
 			return fail(401, {
 				error: 'You must be logged in',
-				values: { content }
-			} as FormResponse);
+				form
+			});
 		}
 
 		const { error } = await supabase.from('posts').insert({
@@ -36,10 +43,10 @@ export const actions: Actions = {
 		if (error) {
 			return fail(500, {
 				error: 'Server error. Try again later.',
-				values: {
-					content
-				}
-			} as FormResponse);
+				form
+			});
 		}
+
+		return { form };
 	}
 };
