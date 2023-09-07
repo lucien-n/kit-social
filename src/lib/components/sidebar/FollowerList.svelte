@@ -4,8 +4,12 @@
 	import { fade } from 'svelte/transition';
 	import { profileStore } from '$stores/profile';
 	import ProfileCard from '$comp/profile/ProfileCard.svelte';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { toasts } from '$lib/utilities/toasts';
 
 	export let sclient: SocialClient;
+
+	const toast_store = getToastStore();
 
 	let get_profiles: Promise<TProfile[]> | [] = [];
 
@@ -18,7 +22,11 @@
 		return profiles.filter((profile) => profile.is_follower);
 	};
 
-	const handleRemove = (uid: string) => {};
+	const handleRemove = async (profile: TProfile) => {
+		const success = await sclient.users.removeFollower(profile.uid);
+		if (!success)
+			toast_store.trigger(toasts.error(`Error while removing ${profile.name} from your followers`));
+	};
 </script>
 
 <section in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
@@ -31,7 +39,7 @@
 					<button
 						type="button"
 						class="variant-ghost-warning btn-sm rounded-token"
-						on:click={() => handleRemove(profile.uid)}
+						on:click={() => handleRemove(profile)}
 					>
 						Remove</button
 					>
