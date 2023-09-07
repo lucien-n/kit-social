@@ -41,8 +41,9 @@
 		input.style.height = `${input.scrollHeight}px`;
 	};
 
-	const handleKeypress: KeyboardEventHandler<Window> = ({ key }) => {
-		if (key !== 'n' || !settingsStore.isEnabled('shortcuts')) return;
+	const handleKeypress: KeyboardEventHandler<Window> = (event) => {
+		if (event.key !== 'n' || !settingsStore.isEnabled('shortcuts')) return;
+		event.preventDefault();
 		input.focus();
 	};
 </script>
