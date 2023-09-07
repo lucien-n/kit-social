@@ -5,16 +5,16 @@
 	import type SocialClient from '$sclient/sclient';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
-	import {  getToastStore, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
 
-	export let sclient: SocialClient
+	export let sclient: SocialClient;
 	export let profile: TProfile;
 
 	const unfollowPrivateModal: ModalSettings = {
-           type: 'confirm',
-           body: '<strong>This profile is private.</strong><br/> If you unfollow them, you will need to ask to follow them again.',
-	}
+		type: 'confirm',
+		body: '<strong>This profile is private.</strong><br/> If you unfollow them, you will need to ask to follow them again.'
+	};
 
 	const toastStore = getToastStore();
 
@@ -27,29 +27,28 @@
 		if ($profileStore?.uid == profile.uid) return;
 		loading = true;
 
-		console.log("a", followed && profile.is_private, followed, profile.is_private)
+		console.log('a', followed && profile.is_private, followed, profile.is_private);
 		if (followed && profile.is_private) {
-			console.log("b")
+			console.log('b');
 			const confirm = await modals.confirm(unfollowPrivateModal);
-			console.log("c")
+			console.log('c');
 			if (!confirm) {
-			console.log("d")
+				console.log('d');
 				loading = false;
 				return;
 			}
 		}
 
-		const {status, error} = await (followed 
-			? sclient.users.unfollow(profile.uid) 
-			: sclient.users.follow(profile.uid))
+		const { status, error } = await (followed
+			? sclient.users.unfollow(profile.uid)
+			: sclient.users.follow(profile.uid));
 
 		if (status) {
-			followed = !followed
+			followed = !followed;
 			toastStore.trigger(toasts.info(status));
 		}
 
-		if (error)
-			toastStore.trigger(toasts.error(error));
+		if (error) toastStore.trigger(toasts.error(error));
 
 		if (followed) dispatch('follow');
 		else dispatch('unfollow');
@@ -75,7 +74,7 @@
 		class="variant-ghost-primary btn flex gap-1"
 		disabled={loading || profile.is_pending}
 		on:click={toggleFollow}
-		name={getButtonText()}
+		name="follow-state"
 	>
 		{#if loading}
 			<span class="animate-spin">
