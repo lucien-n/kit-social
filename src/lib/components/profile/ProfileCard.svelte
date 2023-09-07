@@ -12,15 +12,15 @@
 	};
 </script>
 
-<a href="/u/{profile.name}" class="hover-bg flex h-full w-full gap-2">
-	<div class="relative">
+<article class="hover-bg flex h-full w-full gap-2">
+	<a href="/u/{profile.name}" class="relative">
 		<Avatar {sclient} {profile} />
 		<span class="variant-filled-success badge-icon absolute -bottom-0 -right-0 z-10 scale-[90%]" />
-	</div>
+	</a>
 	<div>
-		<p class="ml-1 text-lg font-semibold">
+		<a href="/u/{profile.name}" class="ml-1 text-lg font-semibold">
 			{profile.name}
-		</p>
+		</a>
 		<slot {P} />
 	</div>
-</a>
+</article>
