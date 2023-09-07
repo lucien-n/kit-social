@@ -8,6 +8,7 @@
 	import type SocialClient from '$sclient/sclient';
 	import { POST_CHARACTER_LIMIT } from '$lib/utilities/constants';
 	import { settingsStore } from '$stores/settings';
+	import SubmitButton from '$comp/form/SubmitButton.svelte';
 
 	export let sclient: SocialClient;
 	export let form;
@@ -68,23 +69,17 @@
 			<p class="flex gap-1 self-end tracking-wide opacity-70">
 				<span>{current_character_count}</span><span>/</span> <span>{POST_CHARACTER_LIMIT}</span>
 			</p>
-			<button
-				type="submit"
-				disabled={loading}
-				class="variant-ghost-secondary btn flex items-center gap-1"
+			<SubmitButton
+				bind:loading
 				name="create-post"
+				loading_text="Sending"
+				default_text="Send"
+				variant="variant-ghost-secondary"
 			>
-				{#if loading}
-					<span class="animate-spin">
-						<Icon icon="mdi:loading" />
-					</span>
-				{:else}
-					<span>
-						<Icon icon="mdi:send" width={20} />
-					</span>
-				{/if}
-				<p>{loading ? 'Sending' : 'Send'}</p></button
-			>
+				<svelte:fragment slot="defaultIcon">
+					<Icon icon="mdi:send" width={20} />
+				</svelte:fragment>
+			</SubmitButton>
 		</div>
 	</form>
 </section>
