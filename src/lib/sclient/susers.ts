@@ -85,6 +85,23 @@ export class KUsers {
 		return uids;
 	};
 
+	getFollowedUsers = async (uid: string): Promise<TProfile[]> => {
+		if (!checkUid(uid)) return [];
+
+		const uids = await this.getFollowersUids(uid);
+
+		if (uids.length < 1) return [];
+
+		const profiles: TProfile[] = [];
+
+		for (const uid of uids) {
+			const profile = await this.getProfile({ uid });
+			if (profile) profiles.push(profile);
+		}
+
+		return profiles;
+	};
+
 	getFollowersUids = async (uid: string): Promise<string[]> => {
 		if (!checkUid(uid)) return [];
 

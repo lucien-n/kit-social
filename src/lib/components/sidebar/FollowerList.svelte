@@ -1,11 +1,19 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
 	import Loading from '$comp/Loading.svelte';
-	import Follower from '$comp/profile/Follower.svelte';
+	import Follower from '$comp/sidebar/Follower.svelte';
 	import { fade } from 'svelte/transition';
+	import { profileStore } from '$stores/profile';
+	import { onMount } from 'svelte';
 
 	export let sclient: SocialClient;
-	export let followers: Promise<TProfile[]>;
+
+	let get_profiles: Promise<TProfile[]> | [] = [];
+
+	profileStore.subscribe((profile) => {
+		if (!profile) return;
+		get_profiles = sclient.users.getFollowers(profile.uid);
+	});
 
 	$: filtered = (profiles: TProfile[]) => {
 		return profiles.filter((profile) => profile.is_follower);
@@ -13,7 +21,7 @@
 </script>
 
 <section in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
-	{#await followers}
+	{#await get_profiles}
 		<Loading />
 	{:then profiles}
 		{#if filtered(profiles).length > 0}

@@ -22,37 +22,9 @@ export const load: Load = async ({ fetch, data, depends }) => {
 
 	profileStore.refresh(sclient, session?.user.id);
 
-	let followed_users: Promise<TProfile[]> = new Promise((resolve) => resolve);
-	let pending_follows: Promise<TPendingFollow[]> = new Promise((resolve) => resolve);
-	let followers: Promise<TProfile[]> = new Promise((resolve) => resolve);
-
-	if (session) {
-		followed_users = sclient.users.getFollowedUsersUids(session.user.id).then(async (uids) => {
-			if (uids.length < 1) return [] as TProfile[];
-
-			const profiles: TProfile[] = [];
-
-			for (const uid of uids) {
-				const profile = await sclient.users.getProfile({ uid });
-				if (profile) profiles.push(profile);
-			}
-
-			return profiles;
-		});
-
-		pending_follows = sclient.users.getPendingFollows(session.user.id);
-
-		followers = sclient.users.getFollowers(session.user.id);
-	}
-
 	return {
 		supabase,
 		session,
-		sclient,
-		streamed: {
-			followed_users,
-			pending_follows,
-			followers
-		}
+		sclient
 	};
 };

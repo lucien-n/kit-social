@@ -22,41 +22,21 @@
 	import Icon from '@iconify/svelte';
 	import SignInUp from '$comp/SignInUp.svelte';
 	import ProfileCard from '$comp/profile/ProfileCard.svelte';
-	import PendingList from '$comp/profile/PendingList.svelte';
-	import FollowedList from '$comp/profile/FollowedList.svelte';
-	import FollowerList from '$comp/profile/FollowerList.svelte';
 	import { titleStore } from '$stores/title';
-	import {
-		AppShell,
-		AppRail,
-		Modal,
-		initializeStores,
-		Toast,
-		TabGroup,
-		Tab
-	} from '@skeletonlabs/skeleton';
+	import { AppShell, AppRail, Modal, initializeStores, Toast } from '@skeletonlabs/skeleton';
 	import { setTitle } from '$lib/utilities/main';
 	import { page } from '$app/stores';
 	import { fade } from 'svelte/transition';
 	import ProgressBar from '$comp/ProgressBar.svelte';
 	import twSplashImage from '$lib/images/tw-splash.png';
 	import type { LayoutData } from './$types';
+	import Sidebar from '$comp/sidebar/Sidebar.svelte';
 
 	export let data: LayoutData;
 
-	let {
-		supabase,
-		session,
-		sclient,
-		streamed: { followed_users, followers, pending_follows }
-	} = data;
+	let { supabase, session, sclient } = data;
 
-	$: ({
-		supabase,
-		session,
-		sclient,
-		streamed: { followed_users, followers, pending_follows }
-	} = data);
+	$: ({ supabase, session, sclient } = data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange(async (event, _session) => {
@@ -71,8 +51,6 @@
 	onMount(() => {
 		setTitle('');
 	});
-
-	let friendsTabSet: number = 0;
 </script>
 
 <svelte:head>
@@ -101,31 +79,7 @@
 				>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
-				<TabGroup
-					justify="justify-center"
-					border="border-0"
-					rounded="rounded-none"
-					regionPanel="p-2"
-				>
-					<Tab bind:group={friendsTabSet} name="followed" value={0} regionTab="text-center">
-						<p class="text-base">Followed</p>
-					</Tab>
-					<Tab bind:group={friendsTabSet} name="followers" value={1} regionTab="text-center">
-						<p class="text-base">Followers</p>
-					</Tab>
-					<Tab bind:group={friendsTabSet} name="pending" value={2} regionTab="text-center">
-						<p class="text-base">Pending</p>
-					</Tab>
-					<svelte:fragment slot="panel">
-						{#if friendsTabSet == 0}
-							<FollowedList {sclient} {followed_users} />
-						{:else if friendsTabSet == 1}
-							<FollowerList {sclient} {followers} />
-						{:else}
-							<PendingList {sclient} {pending_follows} />
-						{/if}
-					</svelte:fragment>
-				</TabGroup>
+				<Sidebar {sclient} />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}

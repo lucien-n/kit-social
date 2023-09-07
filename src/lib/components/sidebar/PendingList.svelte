@@ -1,11 +1,19 @@
 <script lang="ts">
 	import type SocialClient from '$sclient/sclient';
 	import Icon from '@iconify/svelte';
-	import PendingFollow from './PendingFollow.svelte';
+	import PendingFollow from '$comp/sidebar/PendingFollow.svelte';
 	import { fade } from 'svelte/transition';
+	import { profileStore } from '$stores/profile';
+	import Loading from '$comp/Loading.svelte';
 
-	export let pending_follows: Promise<TPendingFollow[]>;
 	export let sclient: SocialClient;
+
+	let get_pendings: Promise<TPendingFollow[]> | [] = [];
+
+	profileStore.subscribe((profile) => {
+		if (!profile) return;
+		get_pendings = sclient.users.getPendingFollows(profile.uid);
+	});
 
 	$: filtered = (pendings: TPendingFollow[]) => {
 		return pendings.filter((pending) => pending.state == 'pending');
@@ -13,12 +21,8 @@
 </script>
 
 <section in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}>
-	{#await pending_follows}
-		<div class="animate-spin">
-			<span>
-				<Icon icon="mdi:loading" style="width: 100%; height: 100%;" />
-			</span>
-		</div>
+	{#await get_pendings}
+		<Loading />
 	{:then pendings}
 		{#if pendings.length > 0}
 			{#each filtered(pendings) as pending_follow}
