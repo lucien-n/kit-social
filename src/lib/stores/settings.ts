@@ -15,7 +15,7 @@ type SettingStore = {
 	isEnabled: (setting: string) => boolean;
 };
 
-const createShortcutStore = (): SettingStore => {
+const createSettingsStore = (): SettingStore => {
 	const { subscribe, set, update } = writable<SettingsMap>(new Map());
 
 	const enable = (setting: string) =>
@@ -50,4 +50,4 @@ const createShortcutStore = (): SettingStore => {
 	};
 };
 
-export const shortcutStore = createShortcutStore();
+export const settingsStore = createSettingsStore();
