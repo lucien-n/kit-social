@@ -10,6 +10,7 @@ type SettingStore = {
 	) => () => void;
 	set: (value: SettingsMap) => void;
 	update: (updater: (value: SettingsMap) => SettingsMap) => void;
+	create: (setting: string, default_value: boolean) => void;
 	enable: (setting: string) => void;
 	disable: (setting: string) => void;
 	isEnabled: (setting: string) => boolean;
@@ -17,6 +18,9 @@ type SettingStore = {
 
 const createSettingsStore = (): SettingStore => {
 	const { subscribe, set, update } = writable<SettingsMap>(new Map());
+
+	const create = (setting: string, default_value: boolean) =>
+		update((settings) => settings.set(setting, default_value));
 
 	const enable = (setting: string) =>
 		update((settings) => {
@@ -44,6 +48,7 @@ const createSettingsStore = (): SettingStore => {
 		subscribe,
 		set,
 		update,
+		create,
 		enable,
 		disable,
 		isEnabled
