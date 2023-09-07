@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { modals } from '$lib/utilities/modals';
 	import { toasts } from '$lib/utilities/toasts';
 	import type SocialClient from '$sclient/sclient';
 	import { profileStore } from '$stores/profile';
 	import Icon from '@iconify/svelte';
-	import { getToastStore, type ModalSettings } from '@skeletonlabs/skeleton';
+	import { getModalStore, getToastStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import { createEventDispatcher } from 'svelte';
 
 	export let sclient: SocialClient;
@@ -16,7 +16,8 @@
 		body: '<strong>This profile is private.</strong><br/> If you unfollow them, you will need to ask to follow them again.'
 	};
 
-	const toastStore = getToastStore();
+	const toast_store = getToastStore();
+	const modal_store = getModalStore();
 
 	const dispatch = createEventDispatcher();
 
@@ -27,13 +28,12 @@
 		if ($profileStore?.uid == profile.uid) return;
 		loading = true;
 
-		console.log('a', followed && profile.is_private, followed, profile.is_private);
 		if (followed && profile.is_private) {
-			console.log('b');
-			const confirm = await modals.confirm(unfollowPrivateModal);
-			console.log('c');
+			const confirm = await new Promise<boolean>((resolve) => {
+				if (!browser) return;
+				modal_store.trigger({ ...unfollowPrivateModal, response: (r: boolean) => resolve(r) });
+			});
 			if (!confirm) {
-				console.log('d');
 				loading = false;
 				return;
 			}
@@ -45,10 +45,10 @@
 
 		if (status) {
 			followed = !followed;
-			toastStore.trigger(toasts.info(status));
+			toast_store.trigger(toasts.info(status));
 		}
 
-		if (error) toastStore.trigger(toasts.error(error));
+		if (error) toast_store.trigger(toasts.error(error));
 
 		if (followed) dispatch('follow');
 		else dispatch('unfollow');
