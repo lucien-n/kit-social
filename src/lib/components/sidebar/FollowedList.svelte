@@ -2,8 +2,9 @@
 	import ProfileCardPlaceholder from '$comp/profile/ProfileCardPlaceholder.svelte';
 	import type SocialClient from '$sclient/sclient';
 	import { fade } from 'svelte/transition';
-	import Followed from '$comp/sidebar/Followed.svelte';
 	import { profileStore } from '$stores/profile';
+	import ProfileCard from '$comp/profile/ProfileCard.svelte';
+	import { formatDatePrecise } from '$lib/utilities/methods';
 
 	export let sclient: SocialClient;
 
@@ -23,7 +24,11 @@
 	{:then profiles}
 		{#if profiles.length > 0}
 			{#each profiles as profile}
-				<Followed {sclient} {profile} />
+				<ProfileCard {sclient} {profile} let:P>
+					<p class="italic opacity-70">
+						{P.is_online ? 'Online' : `Last seen: ${formatDatePrecise(profile.last_seen)}`}
+					</p>
+				</ProfileCard>
 			{/each}
 		{:else}
 			<p class="text-center text-lg">No Followings</p>

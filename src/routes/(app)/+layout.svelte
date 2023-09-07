@@ -31,6 +31,7 @@
 	import twSplashImage from '$lib/images/tw-splash.png';
 	import type { LayoutData } from './$types';
 	import Sidebar from '$comp/sidebar/Sidebar.svelte';
+	import { profileStore } from '$stores/profile';
 
 	export let data: LayoutData;
 
@@ -83,7 +84,16 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				{#if session}
-					<ProfileCard {sclient} />
+					{#if $profileStore}
+						<section class="flex h-full justify-between gap-3">
+							<ProfileCard {sclient} profile={$profileStore} />
+							<div class="flex h-full items-center justify-center gap-2">
+								<a href="/settings/account" class="btn border-0 p-1" aria-label="settings">
+									<Icon icon="mdi:settings" width={24} />
+								</a>
+							</div>
+						</section>
+					{/if}
 				{:else}
 					<SignInUp />
 				{/if}
