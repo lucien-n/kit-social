@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import type { PageData } from './$types';
 
-	export let data: { error: string; post_uid: string };
+	export let data: PageData;
 
 	let { error, post_uid } = data;
 

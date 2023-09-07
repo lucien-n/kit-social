@@ -2,13 +2,9 @@
 	import CreatePost from '$comp/post/CreatePost.svelte';
 	import Post from '$comp/post/Post.svelte';
 	import PostPlaceholder from '$comp/post/PostPlaceholder.svelte';
-	import type SocialClient from '$sclient/sclient.js';
+	import type { PageData, PageServerData } from './$types';
 
-	export let data: {
-		sclient: SocialClient;
-		streamed: { posts: TPost[] };
-		form: any;
-	};
+	export let data: PageData & PageServerData;
 
 	let {
 		sclient,

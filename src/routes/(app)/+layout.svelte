@@ -20,8 +20,6 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
-	import type { Session, SupabaseClient } from '@supabase/supabase-js';
-	import type SocialClient from '$sclient/sclient';
 	import SignInUp from '$comp/SignInUp.svelte';
 	import ProfileCard from '$comp/profile/ProfileCard.svelte';
 	import PendingList from '$comp/profile/PendingList.svelte';
@@ -42,17 +40,9 @@
 	import { fade } from 'svelte/transition';
 	import ProgressBar from '$comp/ProgressBar.svelte';
 	import twSplashImage from '$lib/images/tw-splash.png';
+	import type { LayoutData } from './$types';
 
-	export let data: {
-		supabase: SupabaseClient;
-		session: Session | null;
-		sclient: SocialClient;
-		streamed: {
-			followed_users: Promise<TProfile[]>;
-			followers: Promise<TProfile[]>;
-			pending_follows: Promise<TPendingFollow[]>;
-		};
-	};
+	export let data: LayoutData;
 
 	let {
 		supabase,

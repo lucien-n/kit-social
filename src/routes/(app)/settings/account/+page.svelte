@@ -4,8 +4,9 @@
 	import Icon from '@iconify/svelte';
 	import { SlideToggle } from '@skeletonlabs/skeleton';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import type { PageData } from './$types';
 
-	export let data: { error: string; profile: SupaProfile; settings: SupaProfileSettings };
+	export let data: PageData;
 
 	let { error, profile, settings } = data;
 	$: ({ error, profile, settings } = data);

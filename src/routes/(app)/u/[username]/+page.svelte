@@ -2,18 +2,14 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
 	import Icon from '@iconify/svelte';
-	import type SocialClient from '$sclient/sclient';
 	import { profileStore } from '$stores/profile';
 	import FollowButton from '$comp/FollowButton.svelte';
 	import Avatar from '$comp/Avatar.svelte';
 	import UploadAvatar from '$comp/UploadAvatar.svelte';
 	import { formatDate } from '$lib/utilities/methods';
+	import type { PageData, PageParentData } from './$types';
 
-	export let data: {
-		sclient: SocialClient;
-		error: string;
-		streamed: { profile: Promise<TProfile> };
-	};
+	export let data: PageData & PageParentData;
 
 	let {
 		sclient,
