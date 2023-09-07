@@ -8,11 +8,15 @@ export const GET: RequestHandler = async ({
 
 	const followed_uid = session.user.id;
 
-	const { data: success, error } = await supabase.rpc('act_pending_follow', {
+	const res = await supabase.rpc('act_pending_follow', {
 		follower: follower_uid,
 		followed: followed_uid,
 		accept: true
 	});
+
+	console.log(res);
+
+	const { data: success, error } = res;
 
 	if (error) new Response(JSON.stringify({ data: false, error }), { status: 500 });
 
