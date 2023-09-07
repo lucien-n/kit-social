@@ -7,7 +7,6 @@
 	import Avatar from '$comp/Avatar.svelte';
 	import type SocialClient from '$sclient/sclient';
 	import { POST_CHARACTER_LIMIT } from '$lib/utilities/constants';
-	import { browser } from '$app/environment';
 
 	export let sclient: SocialClient;
 	export let form;
