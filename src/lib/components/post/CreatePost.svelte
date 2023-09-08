@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Avatar from '$comp/Avatar.svelte';
+	import Shortcut from '$comp/Shortcut.svelte';
 	import SubmitButton from '$comp/form/SubmitButton.svelte';
 	import { POST_CHARACTER_LIMIT } from '$lib/utilities/constants';
 	import type SocialClient from '$sclient/sclient';
@@ -55,14 +56,18 @@
 	});
 </script>
 
-<svelte:window on:keypress={handleKeypress} />
-
 <section class="card mx-auto flex w-full gap-2 p-3">
 	<Avatar {sclient} profile={$profileStore} width="w-12" />
 	<form method="post" use:enhance class="relative flex h-full w-full flex-col">
 		<div class="pointer-events-none absolute p-1 text-xl opacity-70" class:hidden={hidePlaceholder}>
 			What's poppin {$profileStore?.name || ''}?
-			<span class="kbd variant-ghost-primary">N</span>
+			<Shortcut
+				shortcut={{ key: 'n' }}
+				on:shortcut={(event) => {
+					event.preventDefault();
+					input.focus();
+				}}
+			/>
 		</div>
 		<textarea
 			class="h-24 w-full resize-none border-0 border-none bg-transparent p-1 text-xl outline-none outline-0 focus:outline-none focus:outline-0"

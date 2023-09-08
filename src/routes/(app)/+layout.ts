@@ -23,6 +23,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 
 	profileStore.refresh(sclient, session?.user.id);
 
+	depends('app:settings');
 	if (session) {
 		const settings = await sclient.users.getSettings(session.user.id);
 		if (settings)

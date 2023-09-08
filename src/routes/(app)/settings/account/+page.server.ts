@@ -58,13 +58,15 @@ export const actions: Actions = {
 		const is_private: boolean = form_data.get('is_private') == 'on';
 		const hide_likes: boolean = form_data.get('hide_likes') == 'on';
 		const hide_followed: boolean = form_data.get('hide_followed') == 'on';
+		const shortcuts: boolean = form_data.get('shortcuts') == 'on';
 
 		const { error } = await supabase
 			.from('profiles_settings')
 			.update({
 				is_private,
 				hide_likes,
-				hide_followed
+				hide_followed,
+				shortcuts
 			})
 			.match({ uid });
 

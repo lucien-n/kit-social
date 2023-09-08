@@ -56,6 +56,6 @@ const createSettingsStore = (settings: SettingsMap): SettingStore => {
 };
 
 const settings = new Map();
-settings.set('shortcuts', true);
+settings.set('shortcuts', false);
 
 export const settingsStore = createSettingsStore(settings);

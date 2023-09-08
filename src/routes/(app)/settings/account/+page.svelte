@@ -5,18 +5,21 @@
 	import { SlideToggle } from '@skeletonlabs/skeleton';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import type { PageData } from './$types';
+	import { invalidate } from '$app/navigation';
 
 	export let data: PageData;
 
-	let { error, profile, settings } = data;
-	$: ({ error, profile, settings } = data);
+	let { error, settings } = data;
+	$: ({ error, settings } = data);
 
 	let loading = false;
 
 	const handleSubmit: SubmitFunction = () => {
 		loading = true;
-		return async () => {
+		return async ({ result }) => {
 			loading = false;
+
+			if (result.type === 'success') invalidate('app:settings');
 		};
 	};
 
@@ -34,8 +37,8 @@
 			description: 'Hide your followed list from people who follow you'
 		},
 		shortcuts: {
-			label: "Shortcuts",
-			description: "Shortcuts allow you to navigate quicker via keyboard"
+			label: 'Shortcuts',
+			description: 'Shortcuts allow you to navigate quicker using the keyboard'
 		}
 	};
 </script>
