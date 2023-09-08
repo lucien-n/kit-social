@@ -5,6 +5,7 @@ import type { Profile } from '$types/profile.type';
 import type { Post } from '$types/post.type';
 import { SupabaseClient, Session } from '@supabase/supabase-js';
 import type { Shortcut } from '$types/shortcut.type';
+import type { Setting } from '$types/settings.type';
 
 declare global {
 	type SupaProfile = Database['public']['Tables']['profiles']['Row'];
@@ -17,6 +18,7 @@ declare global {
 	type TPost = Post;
 	type TPendingFollow = PendingFollow;
 	type TShortcut = Shortcut;
+	type TSetting = Setting;
 
 	declare namespace App {
 		interface Locals {

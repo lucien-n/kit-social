@@ -2,48 +2,15 @@ import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { fail } from 'assert';
 
-export const load: PageServerLoad = async ({ parent, locals: { supabase } }) => {
+export const load: PageServerLoad = async ({ parent, locals: { sclient } }) => {
 	const { session } = await parent();
 
 	const uid = session.user.id;
 
-	const { data: profile_data, error: profile_error } = await supabase
-		.from('profiles')
-		.select('*')
-		.match({ uid });
-
-	if (profile_error)
-		return {
-			error: 'Could not fetch profile data'
-		};
-
-	if (!profile_data?.[0])
-		return {
-			error: 'Error with profile data'
-		};
-
-	const supa_profile = profile_data?.[0] as SupaProfile;
-
-	const { data: settings_data, error: settings_error } = await supabase
-		.from('profiles_settings')
-		.select()
-		.match({ uid });
-
-	if (settings_error)
-		return {
-			error: 'Could not fetch settings data'
-		};
-
-	if (!settings_data?.[0])
-		return {
-			error: 'Error with settings data'
-		};
-
-	const supa_settings = settings_data?.[0] as SupaProfileSettings;
+	const settings = sclient.users.getSettings(uid);
 
 	return {
-		profile: supa_profile,
-		settings: supa_settings
+		streamed: { settings }
 	};
 };
 

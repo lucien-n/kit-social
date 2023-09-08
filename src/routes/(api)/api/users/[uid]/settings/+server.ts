@@ -15,7 +15,15 @@ export const GET: RequestHandler = async ({ locals: { supabase, getSession, uid 
 
 	if (error) new Response(null, { status: 500 });
 
-	const settings = data?.[0] as SupaProfileSettings;
+	const settings_data = data?.[0];
+
+	const settings: TSetting[] = [];
+
+	if (settings_data)
+		for (const [name, value] of Object.entries(settings_data)) {
+			if (name === 'uid') continue;
+			settings.push({ name, value } as TSetting);
+		}
 
 	return new Response(JSON.stringify({ data: settings }), { status: 200 });
 };

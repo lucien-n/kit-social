@@ -61,14 +61,16 @@ export class KUsers {
 		return data as boolean;
 	};
 
-	getSettings = async (uid: string | undefined): Promise<SupaProfileSettings | null> => {
-		if (!checkUid(uid)) return null;
+	getSettings = async (uid: string | undefined): Promise<TSetting[]> => {
+		if (!checkUid(uid)) return [];
 
 		const url = this.url + `${uid}/settings`;
 		const { data, error } = await this.fetch(url, 'GET');
-		if (error) return null;
+		if (error) return [];
 
-		const settings = data as SupaProfileSettings;
+		const settings = data as TSetting[];
+
+		console.log(settings);
 
 		return settings;
 	};
