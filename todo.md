@@ -10,4 +10,5 @@
 - [ ] fix form being undefined on page.svelte but defined on page.server.ts
 - [ ] Cleanup supabase RLS
 - [ ] Cleanup supabase functions
-- [ ] Fix supabase act_pending_follow returning success even tho it did nothing (probably because of is_follow_pending)
+- [x] Fix supabase act_pending_follow returning success even tho it did nothing (probably because of is_follow_pending)
+  > Wasn't supabase's fault - I passed the wrong uid
