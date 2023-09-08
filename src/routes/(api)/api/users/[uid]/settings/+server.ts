@@ -3,18 +3,15 @@ import type { RequestHandler } from '@sveltejs/kit';
 export const GET: RequestHandler = async ({ locals: { supabase, getSession, uid } }) => {
 	const session = await getSession();
 
-	if (!session?.user)
+	if (!session)
 		return new Response(JSON.stringify({ error: 'You must be logged in' }), { status: 401 });
 
-	if (session.user.id === uid)
+	if (session.user.id !== uid)
 		return new Response(JSON.stringify({ error: "You cannot access this user's settings" }), {
 			status: 401
 		});
 
-	const { data, error } = await supabase
-		.from('profiles_settings')
-		.select('is_private')
-		.match({ uid });
+	const { data, error } = await supabase.from('profiles_settings').select('*').match({ uid });
 
 	if (error) new Response(null, { status: 500 });
 

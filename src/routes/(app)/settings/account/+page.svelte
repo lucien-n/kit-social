@@ -32,6 +32,10 @@
 		hide_followed: {
 			label: 'Hide followed',
 			description: 'Hide your followed list from people who follow you'
+		},
+		shortcuts: {
+			label: "Shortcuts",
+			description: "Shortcuts allow you to navigate quicker via keyboard"
 		}
 	};
 </script>
