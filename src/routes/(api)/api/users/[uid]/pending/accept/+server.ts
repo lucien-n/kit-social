@@ -14,8 +14,6 @@ export const GET: RequestHandler = async ({
 		accept: true
 	});
 
-	console.log(res);
-
 	const { data: success, error } = res;
 
 	if (error) new Response(JSON.stringify({ data: false, error }), { status: 500 });

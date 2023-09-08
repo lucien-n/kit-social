@@ -70,8 +70,6 @@ export class KUsers {
 
 		const settings = data as TSetting[];
 
-		console.log(settings);
-
 		return settings;
 	};
 
@@ -181,11 +179,9 @@ export class KUsers {
 
 		const url = this.url + `${uid}/follow`;
 		const { data, error } = await this.fetch(url, 'GET');
-		console.log(error);
 		if (error) return { status: 'Error', error };
 
 		const status = (data as { status: string }).status as string;
-		console.log(status);
 
 		return { status };
 	};
@@ -198,7 +194,6 @@ export class KUsers {
 		if (error) return { status: 'Error', error };
 
 		const status = (data as { status: string }).status as string;
-		console.log(status);
 
 		return { status };
 	};
