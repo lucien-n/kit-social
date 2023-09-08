@@ -26,11 +26,7 @@ export const load: Load = async ({ fetch, data, depends }) => {
 	depends('app:settings');
 	if (session) {
 		const settings = await sclient.users.getSettings(session.user.id);
-		if (settings)
-			for (const [name, value] of Object.entries(settings)) {
-				if (name === 'uid') continue;
-				settingsStore.create(name, !!value);
-			}
+		settings.forEach(({ name, value }) => settingsStore.create(name, !!value));
 	}
 
 	return {
