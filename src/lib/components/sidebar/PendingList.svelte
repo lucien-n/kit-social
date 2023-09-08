@@ -24,13 +24,13 @@
 	};
 
 	const refuse = async (pending_follow: TPendingFollow) => {
-		const success = await sclient.users.refusePendingFollow(pending_follow.followed_uid);
+		const success = await sclient.users.refusePendingFollow(pending_follow.follower.uid);
 		if (success) pending_follow.state = 'refused';
 		else toast_store.trigger(toasts.error());
 	};
 
 	const accept = async (pending_follow: TPendingFollow) => {
-		const success = await sclient.users.acceptPendingFollow(pending_follow.followed_uid);
+		const success = await sclient.users.acceptPendingFollow(pending_follow.follower.uid);
 		if (success) pending_follow.state = 'accepted';
 		else toast_store.trigger(toasts.error());
 	};
