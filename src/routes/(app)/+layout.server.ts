@@ -5,7 +5,7 @@ export const load: LayoutServerLoad = async ({ locals: { getSession, supabase } 
 
 	if (session) {
 		const uid = session.user.id;
-		await supabase.from('profiles').update({ last_seen: new Date().toUTCString() }).eq('uid', uid);
+		supabase.from('profiles').update({ last_seen: new Date().toUTCString() }).eq('uid', uid);
 	}
 
 	return {
