@@ -1,6 +1,6 @@
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ parent }) => {
+export const load: PageLoad = async ({ parent, data }) => {
 	const { sclient } = await parent();
 
 	const posts = sclient.posts.getFeed().then(async (posts: TPost[]) => {
@@ -14,9 +14,12 @@ export const load: PageLoad = async ({ parent }) => {
 		return posts;
 	});
 
+	const { form } = data;
+
 	return {
 		streamed: {
 			posts
-		}
+		},
+		form
 	};
 };
