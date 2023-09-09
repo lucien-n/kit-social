@@ -59,7 +59,7 @@
 			{:then settings}
 				{#key settings}
 					{#if settings}
-						{#each settings as { name, value }}
+						{#each settings as { name, enabled: value }}
 							{#if Object.keys(settings_text).includes(name)}
 								<section class="flex items-center gap-2">
 									<SlideToggle {name} checked={value === true} />

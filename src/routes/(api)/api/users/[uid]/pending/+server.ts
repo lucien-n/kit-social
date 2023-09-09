@@ -6,10 +6,8 @@ export const GET: RequestHandler = async ({ locals: { supabase, sclient, uid } }
 		.select('followed_uid, follower_uid')
 		.match({ followed_uid: uid });
 
-	if (error)
-		return new Response(JSON.stringify({ error: 'Error while fetching pending follows' }), {
-			status: 500
-		});
+	if (error) return new Response(null, { status: 500 });
+
 	if (!data) return new Response(null, { status: 204 });
 
 	const pending_follows: TPendingFollow[] = [];

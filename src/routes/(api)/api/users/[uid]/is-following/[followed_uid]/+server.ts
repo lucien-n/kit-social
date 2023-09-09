@@ -10,7 +10,7 @@ export const GET: RequestHandler = async ({ params, locals: { supabase, uid: fol
 		followed: followed_uid
 	});
 
-	if (error) new Response(JSON.stringify({ error: 'Error checking following' }), { status: 500 });
+	if (error) new Response(null, { status: 500 });
 
 	return new Response(JSON.stringify({ data }), { status: 200 });
 };

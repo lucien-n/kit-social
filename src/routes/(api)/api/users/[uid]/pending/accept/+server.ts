@@ -1,10 +1,11 @@
+import { checkSession } from '$lib/server/helper';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({
 	locals: { supabase, getSession, uid: follower_uid }
 }) => {
-	const session = await getSession();
-	if (!session) return new Response(null, { status: 401 });
+	const { session, response } = await checkSession(getSession);
+	if (response) return response;
 
 	const followed_uid = session.user.id;
 

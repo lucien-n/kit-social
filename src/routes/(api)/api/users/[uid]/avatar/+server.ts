@@ -7,7 +7,7 @@ export const GET: RequestHandler = async ({ locals: { supabase, uid } }) => {
 	const avatar_url = data?.[0].avatar_url;
 
 	if (!avatar_url)
-		return new Response(JSON.stringify({ error: "User doesn't have an avatar" }), { status: 200 });
+		return new Response(null, { status: 204 });
 
 	const { data: url_data } = supabase.storage.from('avatars').getPublicUrl(avatar_url);
 

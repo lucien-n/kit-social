@@ -17,8 +17,7 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 		)
 		.match(uid ? { uid } : { name: username });
 
-	if (error)
-		return new Response(JSON.stringify({ error: 'Error while fetching profile' }), { status: 500 });
+	if (error) return new Response(null, { status: 500 });
 
 	const user_data = data?.[0];
 	if (!user_data) return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
@@ -38,6 +37,7 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 		profile.last_seen = user_data.last_seen;
 		profile.created_at = user_data.created_at;
 	}
+
 	const res = await fetch(`/api/users/${user_data.uid}/avatar`);
 	if (res.ok && res.body) {
 		const { data, error } = await res.json();

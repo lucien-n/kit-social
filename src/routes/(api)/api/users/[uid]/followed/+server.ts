@@ -11,7 +11,7 @@ export const GET: RequestHandler = async ({ locals: { supabase, uid } }) => {
 		return new Response(JSON.stringify({ error: 'Error while fetching followed users' }), {
 			status: 500
 		});
-	if (!data) return new Response(JSON.stringify({ data: {} }), { status: 204 });
+	if (!data) return new Response(null, { status: 204 });
 
 	const uids: string[] = [];
 
