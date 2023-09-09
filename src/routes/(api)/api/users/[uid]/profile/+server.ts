@@ -38,17 +38,18 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 		profile.last_seen = user_data.last_seen;
 		profile.created_at = user_data.created_at;
 	}
-
 	const res = await fetch(`/api/users/${user_data.uid}/avatar`);
 	if (res.ok && res.body) {
-		const {
-			data: { avatar_url }
-		} = await res.json();
-		profile.avatar_url = avatar_url;
+		const { data, error } = await res.json();
+		if (!error) {
+			profile.avatar_url = data;
+		}
 	}
 
 	const session = await getSession();
+
 	let is_self = false;
+
 	if (session) {
 		is_self = session.user.id == user_data.uid;
 		profile.is_self = is_self;
@@ -75,6 +76,5 @@ export const GET: RequestHandler = async ({ params, fetch, locals: { getSession,
 			profile.is_pending = is_pending || false;
 		}
 	}
-
 	return new Response(JSON.stringify({ data: profile }), { status: 200 });
 };
