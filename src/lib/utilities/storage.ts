@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import imageCompression from 'browser-image-compression';
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { srcToWebP } from 'webp-converter-browser';
 
 export const uploadAvatar = async (supabase: SupabaseClient, files: FileList): Promise<string> => {
 	const file = files[0];
@@ -12,12 +13,15 @@ export const uploadAvatar = async (supabase: SupabaseClient, files: FileList): P
 		useWebWorker: true
 	});
 
-	const fileExt = file.name.split('.').pop();
-	const filePath = `${uuid()}.${fileExt}`;
+	const wepb_blob = await srcToWebP(URL.createObjectURL(compressed_image), {});
 
-	const { error } = await supabase.storage.from('avatars').upload(filePath, compressed_image);
+	const file_path = `${uuid()}.wepb`;
+	const wepb_file = new File([wepb_blob], file_path, { type: 'image/webp' });
+
+	const { error } = await supabase.storage.from('avatars').upload(file_path, wepb_file);
+	console.log(error);
 
 	if (error) throw error;
 
-	return filePath;
+	return file_path;
 };
