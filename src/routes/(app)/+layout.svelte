@@ -11,7 +11,7 @@
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-	import { invalidate } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	initializeStores();
@@ -31,6 +31,8 @@
 	import type { LayoutData } from './$types';
 	import Sidebar from '$comp/sidebar/Sidebar.svelte';
 	import { profileStore } from '$stores/profile';
+	import type { KeyboardEventHandler } from 'svelte/elements';
+	import Shortcut from '$comp/Shortcut.svelte';
 
 	export let data: LayoutData;
 
@@ -71,6 +73,7 @@
 						<Icon icon="mdi-light:home" width={32} />
 					</span>
 					<h3 class="h3">Social</h3>
+					<Shortcut shortcut={{ key: 'h' }} on:shortcut={() => goto('/')} />
 				</a>
 				<a
 					href="#content"
