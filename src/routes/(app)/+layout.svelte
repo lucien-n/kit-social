@@ -28,7 +28,6 @@
 	import { page } from '$app/stores';
 	import { fade } from 'svelte/transition';
 	import ProgressBar from '$comp/ProgressBar.svelte';
-	import twSplashImage from '$lib/images/tw-splash.png';
 	import type { LayoutData } from './$types';
 	import Sidebar from '$comp/sidebar/Sidebar.svelte';
 	import { profileStore } from '$stores/profile';
@@ -106,7 +105,13 @@
 		<div id="content" class="flex h-full w-full" transition:fade={{ duration: 200 }}>
 			<div class="fixed h-full w-full blur-lg">
 				<picture>
-					<img src={twSplashImage} alt="tw splash" width="1927" height="1051" />
+					<img
+						src="/tw-splash.webp"
+						alt="tw splash"
+						width="482"
+						height="263"
+						class="h-full w-full"
+					/>
 				</picture>
 			</div>
 			<div class="mx-auto h-full w-full backdrop-blur-0 lg:w-4/5 xl:w-3/5">
