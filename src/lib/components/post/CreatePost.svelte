@@ -22,6 +22,8 @@
 
 	let current_character_count = 0;
 
+	let is_focused = false;
+
 	const handleSubmit = () => {
 		loading = true;
 		return async () => {
@@ -71,6 +73,14 @@
 			bind:this={input}
 			bind:value={$form.content}
 			on:input={handleInput}
+			on:focusin={() => {
+				is_focused = true;
+				settingsStore.disable('shortcuts');
+			}}
+			on:focusout={() => {
+				is_focused = false;
+				settingsStore.enable('shortcuts');
+			}}
 			{...$constraints.content}
 		/>
 		<div class="flex items-center justify-between">
@@ -94,6 +104,8 @@
 					loading_text="Sending"
 					default_text="Send"
 					variant="variant-ghost-secondary"
+					bind:shortcut_enabled={is_focused}
+					shortcut_force_enabled
 				>
 					<svelte:fragment slot="defaultIcon">
 						<Icon icon="mdi:send" width={20} />

@@ -2,11 +2,13 @@
 	import Shortcut from '$comp/Shortcut.svelte';
 	import { settingsStore } from '$stores/settings';
 	import Icon from '@iconify/svelte';
-	import type { KeyboardEventHandler } from 'svelte/elements';
 
 	export let default_text: string;
 	export let loading_text: string;
 	export let loading = false;
+
+	export let shortcut_enabled: boolean = true;
+	export let shortcut_force_enabled: boolean = true;
 
 	export let name: string;
 
@@ -36,5 +38,10 @@
 	{/if}
 
 	<p>{loading ? loading_text : default_text}</p>
-	<Shortcut shortcut={{ key: 'enter', ctrlRequired: true }} on:shortcut={() => button.click()} />
+	<Shortcut
+		bind:enabled={shortcut_enabled}
+		force={shortcut_force_enabled}
+		shortcut={{ key: 'enter', ctrlRequired: true }}
+		on:shortcut={() => button.click()}
+	/>
 </button>

@@ -26,6 +26,9 @@ const createSettingsStore = (settings: SettingsMap): SettingStore => {
 		update((settings) => {
 			const state = settings.get(setting);
 			if (state) settings.set(setting, true);
+
+			console.log('Enabled:', setting);
+
 			return settings;
 		});
 
@@ -33,6 +36,9 @@ const createSettingsStore = (settings: SettingsMap): SettingStore => {
 		update((settings) => {
 			const state = settings.get(setting);
 			if (state) settings.set(setting, false);
+
+			console.log('Disabled:', setting);
+
 			return settings;
 		});
 

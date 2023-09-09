@@ -5,6 +5,10 @@
 	import Kbd from './Kbd.svelte';
 
 	export let shortcut: TShortcut;
+	export let enabled: boolean = true;
+	export let force: boolean = false;
+
+	$: is_enabled = (settingsStore.isEnabled('shortcuts') && enabled) || force;
 
 	const dispatch = createEventDispatcher();
 
@@ -19,10 +23,8 @@
 		return keys;
 	};
 
-	$: shortcuts_enabled = settingsStore.isEnabled('shortcuts');
-
 	const handleKeypress: KeyboardEventHandler<Window> = (event) => {
-		if (!shortcuts_enabled) return;
+		if (!is_enabled) return;
 
 		if (event.key.toLowerCase() !== shortcut.key.toLowerCase()) return;
 		if (shortcut.ctrlRequired && !event.ctrlKey) return;
@@ -35,7 +37,7 @@
 
 <svelte:window on:keypress={handleKeypress} />
 
-{#if shortcuts_enabled}
+{#if is_enabled}
 	<span class="flex items-center gap-1">
 		{#each getShortcutKeys() as key, index}
 			<Kbd>{key}</Kbd>
