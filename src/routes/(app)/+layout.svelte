@@ -106,7 +106,7 @@
 		<div id="content" class="flex h-full w-full" transition:fade={{ duration: 200 }}>
 			<div class="fixed h-full w-full blur-lg">
 				<picture>
-					<img src={twSplashImage} alt="tw splash" />
+					<img src={twSplashImage} alt="tw splash" width="1927" height="1051" />
 				</picture>
 			</div>
 			<div class="mx-auto h-full w-full backdrop-blur-0 lg:w-4/5 xl:w-3/5">

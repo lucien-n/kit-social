@@ -68,6 +68,8 @@
 										src={profile.avatar_url}
 										alt=""
 										class="absolute aspect-auto w-full opacity-20 blur-[128px]"
+										width="96"
+										height="96"
 									/>
 									<div class="z-10 flex w-full items-center justify-between">
 										<div class="flex items-center gap-4">
