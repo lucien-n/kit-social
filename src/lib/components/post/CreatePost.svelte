@@ -37,12 +37,6 @@
 		input.style.height = `${input.scrollHeight}px`;
 	};
 
-	const handleKeypress: KeyboardEventHandler<Window> = (event) => {
-		if (event.key !== 'n' || !settingsStore.isEnabled('shortcuts')) return;
-		event.preventDefault();
-		input.focus();
-	};
-
 	const { form, errors, constraints, enhance } = superForm(form_data, {
 		applyAction: false,
 		invalidateAll: false,
