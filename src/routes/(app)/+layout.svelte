@@ -32,7 +32,6 @@
 	import Sidebar from '$comp/sidebar/Sidebar.svelte';
 	import { profileStore } from '$stores/profile';
 	import Shortcut from '$comp/Shortcut.svelte';
-	import { setupRealtime } from '$lib/realtime';
 
 	export let data: LayoutData;
 
@@ -50,9 +49,8 @@
 		return () => data.subscription.unsubscribe();
 	});
 
-	onMount(() => {
+	onMount(async () => {
 		setTitle('');
-		setupRealtime(supabase);
 	});
 </script>
 

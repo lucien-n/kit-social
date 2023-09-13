@@ -10,7 +10,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"genTypes": "npx supabase gen types typescript --project-id vxcorqaruejvamsdhwmm > src/lib/types/database.types.ts"
+		"genTypes": "npx supabase gen types typescript --project-id vxcorqaruejvamsdhwmm > src/lib/types/database.types.ts",
+		"deployFunctions": "npx supabase functions deploy --project-ref vxcorqaruejvamsdhwmm"
 	},
 	"devDependencies": {
 		"@iconify/svelte": "^3.1.4",
