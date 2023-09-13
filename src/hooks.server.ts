@@ -12,7 +12,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	locals.supabase = createSupabaseServerClient({
 		supabaseUrl: PUBLIC_SUPABASE_URL,
 		supabaseKey: PRIVATE_SUPABASE_SERVICE_ROLE_KEY,
-		event
+		event,
 	});
 
 	locals.getSession = async () => {

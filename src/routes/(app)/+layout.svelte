@@ -31,8 +31,8 @@
 	import type { LayoutData } from './$types';
 	import Sidebar from '$comp/sidebar/Sidebar.svelte';
 	import { profileStore } from '$stores/profile';
-	import type { KeyboardEventHandler } from 'svelte/elements';
 	import Shortcut from '$comp/Shortcut.svelte';
+	import { setupRealtime } from '$lib/realtime';
 
 	export let data: LayoutData;
 
@@ -52,6 +52,7 @@
 
 	onMount(() => {
 		setTitle('');
+		setupRealtime(supabase);
 	});
 </script>
 

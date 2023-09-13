@@ -12,7 +12,14 @@ export const load: Load = async ({ fetch, data, depends }) => {
 		supabaseUrl: PUBLIC_SUPABASE_URL,
 		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
 		event: { fetch },
-		serverSession: data?.session
+		serverSession: data?.session,
+		options: {
+			realtime: {
+				params: {
+					eventsPerSecond: 5
+				}
+			}
+		}
 	});
 
 	const sclient = new SocialClient(fetch, supabase);
